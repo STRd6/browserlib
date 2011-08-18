@@ -1,24 +1,4 @@
-var App;
-App = {
-  "directories": {
-    "animations": "animations",
-    "data": "data",
-    "entities": "entities",
-    "images": "images",
-    "lib": "lib",
-    "sounds": "sounds",
-    "source": "src",
-    "test": "test",
-    "tilemaps": "tilemaps"
-  },
-  "width": 480,
-  "height": 320,
-  "library": false,
-  "main": "main",
-  "wrapMain": true,
-  "hotSwap": true,
-  "name": "browserlib"
-};;
+;
 ;
 document.oncontextmenu = function() {
   return false;
@@ -874,5 +854,4 @@ window.requestAnimationFrame || (window.requestAnimationFrame = window.webkitReq
     }
   };
 })();;
-App.entities = {};;
-;$(function(){ undefined });
+;
