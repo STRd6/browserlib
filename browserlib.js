@@ -11,17 +11,18 @@ $(document).bind("keydown", function(event) {
 var Joysticks;
 var __slice = Array.prototype.slice;
 Joysticks = (function() {
-  var AXIS_MAX, Controller, DEAD_ZONE, TRIP_HIGH, TRIP_LOW, buttonMapping, controllers, displayInstallPrompt, joysticks, plugin, previousJoysticks, type;
+  var AXIS_MAX, Controller, DEAD_ZONE, MAX_BUFFER, TRIP_HIGH, TRIP_LOW, axisMappingDefault, axisMappingOSX, buttonMappingDefault, buttonMappingOSX, controllers, displayInstallPrompt, joysticks, plugin, previousJoysticks, type;
   type = "application/x-boomstickjavascriptjoysticksupport";
   plugin = null;
-  AXIS_MAX = 32767;
+  MAX_BUFFER = 2000;
+  AXIS_MAX = 32767 - MAX_BUFFER;
   DEAD_ZONE = AXIS_MAX * 0.2;
   TRIP_HIGH = AXIS_MAX * 0.75;
   TRIP_LOW = AXIS_MAX * 0.5;
   previousJoysticks = [];
   joysticks = [];
   controllers = [];
-  buttonMapping = {
+  buttonMappingDefault = {
     "A": 1,
     "B": 2,
     "C": 4,
@@ -42,6 +43,39 @@ Joysticks = (function() {
     "TL": 512,
     "TR": 1024,
     "ANY": 0xFFFFFF
+  };
+  buttonMappingOSX = {
+    "A": 2048,
+    "B": 4096,
+    "C": 8192,
+    "D": 16384,
+    "X": 8192,
+    "Y": 16384,
+    "R": 512,
+    "L": 256,
+    "SELECT": 32,
+    "BACK": 32,
+    "START": 16,
+    "HOME": 1024,
+    "LT": 64,
+    "TR": 128,
+    "ANY": 0xFFFFFF0
+  };
+  axisMappingDefault = {
+    0: 0,
+    1: 1,
+    2: 2,
+    3: 3,
+    4: 4,
+    5: 5
+  };
+  axisMappingOSX = {
+    0: 2,
+    1: 3,
+    2: 4,
+    3: 5,
+    4: 0,
+    5: 1
   };
   displayInstallPrompt = function(text, url) {
     return $("<a />", {
@@ -64,8 +98,18 @@ Joysticks = (function() {
       text: text
     }).appendTo("body");
   };
-  Controller = function(i) {
-    var axisTrips, currentState, previousState, self;
+  Controller = function(i, remapOSX) {
+    var axisMapping, axisTrips, buttonMapping, currentState, previousState, self;
+    if (remapOSX === void 0) {
+      remapOSX = navigator.platform.match(/^Mac/);
+    }
+    if (remapOSX) {
+      buttonMapping = buttonMappingOSX;
+      axisMapping = axisMappingOSX;
+    } else {
+      buttonMapping = buttonMappingDefault;
+      axisMapping = axisMappingDefault;
+    }
     currentState = function() {
       return joysticks[i];
     };
@@ -91,17 +135,27 @@ Joysticks = (function() {
         return (self.buttons() & buttonId) && !(previousState().buttons & buttonId);
       },
       position: function(stick) {
-        var state;
+        var magnitude, p, ratio, state;
         if (stick == null) {
           stick = 0;
         }
         if (state = currentState()) {
-          return Joysticks.position(state, stick);
+          p = Point(self.axis(2 * stick), self.axis(2 * stick + 1));
+          magnitude = p.magnitude();
+          if (magnitude > AXIS_MAX) {
+            return p.norm();
+          } else if (magnitude < DEAD_ZONE) {
+            return Point(0, 0);
+          } else {
+            ratio = magnitude / AXIS_MAX;
+            return p.scale(ratio / AXIS_MAX);
+          }
         } else {
           return Point(0, 0);
         }
       },
       axis: function(n) {
+        n = axisMapping[n];
         return self.axes()[n] || 0;
       },
       axes: function() {
@@ -162,22 +216,6 @@ Joysticks = (function() {
         if (!plugin.status) {
           return displayInstallPrompt("Your browser does not yet handle joysticks, please click here to install the Boomstick plugin!", "https://github.com/STRd6/Boomstick/wiki");
         }
-      }
-    },
-    position: function(joystick, stick) {
-      var magnitude, p, ratio;
-      if (stick == null) {
-        stick = 0;
-      }
-      p = Point(joystick.axes[2 * stick], joystick.axes[2 * stick + 1]);
-      magnitude = p.magnitude();
-      if (magnitude > AXIS_MAX) {
-        return p.norm();
-      } else if (magnitude < DEAD_ZONE) {
-        return Point(0, 0);
-      } else {
-        ratio = magnitude / AXIS_MAX;
-        return p.scale(ratio / AXIS_MAX);
       }
     },
     status: function() {
