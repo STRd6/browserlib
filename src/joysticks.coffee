@@ -43,6 +43,35 @@ Joysticks = ( ->
 
     "ANY": 0xFFFFFF
 
+  buttonMappingOSX =
+    "A": 2048
+    "B": 4096
+
+    "C": 8192
+    "D": 16384
+    "X": 8192
+    "Y": 16384
+
+    "R": 512
+
+    "L": 256
+
+    "SELECT": 32
+    "BACK": 32
+
+    "START": 16
+
+    "HOME": 1024
+
+    "LT": 64
+    "TR": 128
+
+    "ANY": 0xFFFFFF0
+
+
+  fixOSX = (data) ->
+    data
+
   displayInstallPrompt = (text, url) ->
     $ "<a />",
       css:
