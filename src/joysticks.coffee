@@ -68,10 +68,6 @@ Joysticks = ( ->
 
     "ANY": 0xFFFFFF0
 
-
-  fixOSX = (data) ->
-    data
-
   displayInstallPrompt = (text, url) ->
     $ "<a />",
       css:
