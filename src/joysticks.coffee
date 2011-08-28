@@ -70,7 +70,7 @@ Joysticks = ( ->
 
   axisMappingDefault =
     0: 0
-    1: 0
+    1: 1
     2: 2
     3: 3
     4: 4
@@ -136,7 +136,7 @@ Joysticks = ( ->
 
       position: (stick=0) ->
         if state = currentState()
-          p = Point(self.axis(axisMap[2*stick]), self.axis(axisMap[2*stick+1]))
+          p = Point(self.axis(axisMapping[2*stick]), self.axis(axisMapping[2*stick+1]))
 
           magnitude = p.magnitude()
 
@@ -153,7 +153,7 @@ Joysticks = ( ->
           Point(0, 0)
 
       axis: (n) ->
-        n = axisMap[n]
+        n = axisMapping[n]
 
         self.axes()[n] || 0
 
