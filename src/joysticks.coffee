@@ -12,7 +12,7 @@ Joysticks = ( ->
 
   controllers = []
 
-  buttonMapping =
+  buttonMappingDefault =
     "A": 1
     "B": 2
 
@@ -68,6 +68,22 @@ Joysticks = ( ->
 
     "ANY": 0xFFFFFF0
 
+  axisMappingDefault =
+    0: 0
+    1: 0
+    2: 2
+    3: 3
+    4: 4
+    5: 5
+
+  axisMappingOSX =
+    0: 4
+    1: 5
+    2: 0
+    3: 1
+    4: 2
+    5: 3
+
   displayInstallPrompt = (text, url) ->
     $ "<a />",
       css:
@@ -88,7 +104,14 @@ Joysticks = ( ->
       text: text
     .appendTo("body")
 
-  Controller = (i) ->
+  Controller = (i, remapOSX) ->
+    if remapOSX
+      buttonMapping = buttonMappingOSX
+      axisMapping = axisMappingOSX
+    else
+      buttonMapping = buttonMappingDefault
+      axisMapping = axisMappingDefault
+
     currentState = ->
       joysticks[i]
 
@@ -113,11 +136,25 @@ Joysticks = ( ->
 
       position: (stick=0) ->
         if state = currentState()
-          Joysticks.position(state, stick)
+          p = Point(self.axis(axisMap[2*stick]), self.axis(axisMap[2*stick+1]))
+
+          magnitude = p.magnitude()
+
+          if magnitude > AXIS_MAX
+            p.norm()
+          else if magnitude < DEAD_ZONE
+            Point(0, 0)
+          else
+            ratio = magnitude / AXIS_MAX
+
+            p.scale(ratio / AXIS_MAX)
+
         else
           Point(0, 0)
 
       axis: (n) ->
+        n = axisMap[n]
+
         self.axes()[n] || 0
 
       axes: ->
@@ -169,20 +206,6 @@ Joysticks = ( ->
 
       unless plugin.status
         displayInstallPrompt("Your browser does not yet handle joysticks, please click here to install the Boomstick plugin!", "https://github.com/STRd6/Boomstick/wiki")
-
-  position: (joystick, stick=0) ->
-    p = Point(joystick.axes[2*stick], joystick.axes[2*stick+1])
-
-    magnitude = p.magnitude()
-
-    if magnitude > AXIS_MAX
-      p.norm()
-    else if magnitude < DEAD_ZONE
-      Point(0, 0)
-    else
-      ratio = magnitude / AXIS_MAX
-
-      p.scale(ratio / AXIS_MAX)
 
   status: ->
     plugin?.status
