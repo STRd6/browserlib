@@ -467,6 +467,20 @@ $(function() {
     return _results;
   };
 });;
+var Music;
+Music = (function() {
+  var track;
+  track = $("<audio />", {
+    loop: "loop"
+  }).appendTo('body').get(0);
+  track.volume = 1;
+  return {
+    play: function(name) {
+      track.src = "" + BASE_URL + "/sounds/" + name + ".mp3";
+      return track.play();
+    }
+  };
+})();;
 var __slice = Array.prototype.slice;
 (function($) {
   return $.fn.powerCanvas = function(options) {
