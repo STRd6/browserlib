@@ -14,6 +14,9 @@ Binny V A, http://www.openjs.com/scripts/events/keyboard_shortcuts/
   isTextAcceptingInput = (element) ->
     /textarea|select/i.test(element.nodeName) || element.type == "text" || element.type == "password"
 
+  isFunctionKey = (event) ->
+    (event.type != "keypress") && (112 <= event.which <= 123)
+
   jQuery.hotkeys =
     version: "0.8"
 
@@ -35,7 +38,7 @@ Binny V A, http://www.openjs.com/scripts/events/keyboard_shortcuts/
       37: "left"
       38: "up"
       39: "right"
-      40: "down" 
+      40: "down"
       45: "insert"
       46: "del"
       96: "0"
@@ -52,7 +55,7 @@ Binny V A, http://www.openjs.com/scripts/events/keyboard_shortcuts/
       107: "+"
       109: "-"
       110: "."
-      111 : "/" 
+      111 : "/"
       112: "f1"
       113: "f2"
       114: "f3"
@@ -60,7 +63,7 @@ Binny V A, http://www.openjs.com/scripts/events/keyboard_shortcuts/
       116: "f5"
       117: "f6"
       118: "f7"
-      119: "f8" 
+      119: "f8"
       120: "f9"
       121: "f10"
       122: "f11"
@@ -70,7 +73,7 @@ Binny V A, http://www.openjs.com/scripts/events/keyboard_shortcuts/
       186: ";"
       187: "="
       188: ","
-      189: "-"  
+      189: "-"
       190: "."
       191: "/"
       219: "["
@@ -87,22 +90,22 @@ Binny V A, http://www.openjs.com/scripts/events/keyboard_shortcuts/
       "4": "$"
       "5": "%"
       "6": "^"
-      "7": "&" 
+      "7": "&"
       "8": "*"
-      "9": "(" 
-      "0": ")" 
-      "-": "_" 
+      "9": "("
+      "0": ")"
+      "-": "_"
       "=": "+"
       ";": ":"
       "'": "\""
-      ",": "<" 
+      ",": "<"
       ".": ">"
       "/": "?"
       "\\": "|"
 
   keyHandler = (handleObj) ->
     # Only care when a possible input has been specified
-    if typeof handleObj.data != "string" 
+    if typeof handleObj.data != "string"
       return
 
     origHandler = handleObj.handler
@@ -128,9 +131,9 @@ Binny V A, http://www.openjs.com/scripts/events/keyboard_shortcuts/
         modif += "meta+"
 
       # Don't fire in text-accepting inputs that we didn't directly bind to
-      # unless a non-shift modifier key is pressed
+      # unless a non-shift modifier key or function key is pressed
       unless this == target
-        if !modif && isTextAcceptingInput(target)
+        if isTextAcceptingInput(target) && !modif && !isFunctionKey(event)
           return
 
       if event.shiftKey && special != "shift"
