@@ -250,7 +250,14 @@ http://github.com/tzuryby/hotkeys
 Original idea by:
 Binny V A, http://www.openjs.com/scripts/events/keyboard_shortcuts/
 */(function(jQuery) {
-  var keyHandler;
+  var isFunctionKey, isTextAcceptingInput, keyHandler;
+  isTextAcceptingInput = function(element) {
+    return /textarea|select/i.test(element.nodeName) || element.type === "text" || element.type === "password";
+  };
+  isFunctionKey = function(event) {
+    var _ref;
+    return (event.type !== "keypress") && ((112 <= (_ref = event.which) && _ref <= 123));
+  };
   jQuery.hotkeys = {
     version: "0.8",
     specialKeys: {
@@ -345,14 +352,12 @@ Binny V A, http://www.openjs.com/scripts/events/keyboard_shortcuts/
     origHandler = handleObj.handler;
     keys = handleObj.data.toLowerCase().split(" ");
     return handleObj.handler = function(event) {
-      var character, key, modif, possible, special, _i, _len;
-      if (this !== event.target && (/textarea|select/i.test(event.target.nodeName) || event.target.type === "text" || event.target.type === "password")) {
-        return;
-      }
+      var character, key, modif, possible, special, target, _i, _len;
       special = event.type !== "keypress" && jQuery.hotkeys.specialKeys[event.which];
       character = String.fromCharCode(event.which).toLowerCase();
       modif = "";
       possible = {};
+      target = event.target;
       if (event.altKey && special !== "alt") {
         modif += "alt+";
       }
@@ -361,6 +366,11 @@ Binny V A, http://www.openjs.com/scripts/events/keyboard_shortcuts/
       }
       if (event.metaKey && !event.ctrlKey && special !== "meta") {
         modif += "meta+";
+      }
+      if (this !== target) {
+        if (isTextAcceptingInput(target) && !modif && !isFunctionKey(event)) {
+          return;
+        }
       }
       if (event.shiftKey && special !== "shift") {
         modif += "shift+";
