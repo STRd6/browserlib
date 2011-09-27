@@ -50,6 +50,10 @@
       clear: ->
         @clearRect(0, 0, canvas.width, canvas.height)
 
+      ###*
+      @name clearRect
+      @methodOf PixieCanvas#
+      ###
       clearRect: (x, y, width, height) ->
         context.clearRect(x, y, width, height)
 
@@ -60,20 +64,6 @@
 
       element: ->
         canvas
-
-      globalAlpha: (newVal) ->
-        if newVal?
-          context.globalAlpha = newVal
-          return @
-        else
-          context.globalAlpha
-
-      compositeOperation: (newVal) ->
-        if newVal?
-          context.globalCompositeOperation = newVal
-          return @
-        else
-          context.globalCompositeOperation
 
       drawImage: (image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight) ->
         context.drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
@@ -102,13 +92,6 @@
         context.stroke()
 
         return @
-
-      lineWidth: (width) ->
-        if width
-          context.lineWidth = width
-          return @
-        else
-          return context.lineWidth
 
       fill: (color) ->
         @fillColor(color)
@@ -272,14 +255,6 @@
         else
           return context.fillStyle
 
-      font: (font) ->
-        if font?
-          context.font = font
-
-          return this
-        else
-          context.font
-
       measureText: (text) ->
         context.measureText(text).width
 
@@ -299,30 +274,24 @@
         else
           return context.strokeStyle
 
-      strokeCircle: (x, y, radius, color) ->
-        $canvas.strokeColor(color)
-        context.beginPath()
-        context.arc(x, y, radius, 0, Math.TAU, true)
-        context.closePath()
-        context.stroke()
+    contextAttrAccessor = (attrs...)->
+      attrs.each (attr) ->
+        $canvas[attr] = (newVal) ->
+          if newVal?
+            context[attr] = newVal
+            return @
+          else
+            context[attr]
 
-        return this
-
-      strokeRect: (x, y, width, height) ->
-        context.strokeRect(x, y, width, height)
-
-        return this
-
-      textAlign: (textAlign) ->
-        context.textAlign = textAlign
-
-        return this
-
-      height: ->
-        canvas.height
-
-      width: ->
-        return canvas.width
+    contextAttrAccessor(
+      "font",
+      "globalAlpha",
+      "globalCompositeOperation",
+      "height",
+      "lineWidth",
+      "textAlign",
+      "width",
+    ) 
 
     if canvas?.getContext
       context = canvas.getContext('2d')
