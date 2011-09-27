@@ -256,12 +256,14 @@
           y
         }
 
-      fillWrappedText: (text, x, y, width) ->
+      fillWrappedText: ({text, x, y, width, position}) ->
+        {x, y} = position if position
+
         tokens = text.split(" ")
         tokens2 = text.split(" ")
         lineHeight = 16
 
-        if $canvas.measureText(text) > width
+        if @measureText(text) > width
           if tokens.length % 2 == 0
             tokens2 = tokens.splice(tokens.length / 2, (tokens.length / 2), "")
           else
