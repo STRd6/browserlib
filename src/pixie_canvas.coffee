@@ -100,7 +100,7 @@
         return @
 
       ###*
-      Fills a circle at the specified position with the specified
+      Draws a circle at the specified position with the specified
       radius and color.
 
       @name drawCircle
@@ -132,7 +132,7 @@
         return @
 
       ###*
-      Fills a rectangle at the specified position with given 
+      Draws a rectangle at the specified position with given 
       width and height. Optionally takes a position, bounds
       and color argument. 
 
