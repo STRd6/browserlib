@@ -47,15 +47,34 @@
       @name clear
       @methodOf PixieCanvas#
       ###
-      clear: ->
-        @clearRect(0, 0, canvas.width, canvas.height)
+      clear: ({x, y, width, height, bounds}={}) ->
+        {x, y, width, height} = bounds if bounds
+
+        context.clearRect(x, y, width, height)
+
+        return @
 
       ###*
-      @name clearRect
-      @methodOf PixieCanvas#
+      @name fill
+      @methodOf PixieCanvas
+
+      @param {Number} x
+      @param {Number} y
+      @param {Number} width
+      @param {Number} height
+      @param {Bounds} [bounds]
+      @param {String|Color} [color]
       ###
-      clearRect: (x, y, width, height) ->
-        context.clearRect(x, y, width, height)
+      fill: ({x, y, width, height, bounds, color}={}) ->
+        {x, y, width, height} = bounds if bounds
+
+        x ||= 0
+        y ||= 0
+        width = canvas.width unless width?
+        height = canvas.height unless height?
+
+        @fillColor(color)
+        context.fillRect(x, y, width, height)
 
         return @
 
@@ -65,37 +84,14 @@
       element: ->
         canvas
 
+      ###*
+      This is a gnarly function. Your best bet is to lett Drawable handle it. 
+
+      @name drawImage
+      @methodOf PixieCanvas#
+      ###
       drawImage: (image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight) ->
         context.drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
-
-        return @
-
-      ###*
-      @name drawLine
-      @methodOf PixieCanvas#
-
-      @param {Point} start
-      @param {Point} end
-      @param {Number} [width]
-      @param {String|Color} [color]
-      ###
-      drawLine: ({start, end, width, color}) ->
-        width ||= 3
-
-        @lineWidth(width)
-        @strokeColor(color)
-
-        context.beginPath()
-        context.moveTo(start.x, start.y)
-        context.lineTo(end.x, end.y)
-        context.closePath()
-        context.stroke()
-
-        return @
-
-      fill: (color) ->
-        @fillColor(color)
-        @fillRect(0, 0, canvas.width, canvas.height)
 
         return @
 
@@ -111,11 +107,13 @@
       @param {Point} [position]
       @param {Number} radius
       @param {Color|String} [color]
+      @param {Circle} [circle]
 
       @returns this
       ###
-      drawCircle: ({x, y, radius, position, color, stroke}) ->
+      drawCircle: ({x, y, radius, position, color, stroke, circle}) ->
         {x, y} = position if position
+        {x, y, radius} = circle if circle
 
         context.beginPath()
         context.arc(x, y, radius, 0, Math.TAU, true)
@@ -161,6 +159,29 @@
           @strokeColor(stroke.color)
           @lineWidth(stroke.width)
           context.strokeRect(x, y, width, height)
+
+        return @
+
+      ###*
+      @name drawLine
+      @methodOf PixieCanvas#
+
+      @param {Point} start
+      @param {Point} end
+      @param {Number} [width]
+      @param {String|Color} [color]
+      ###
+      drawLine: ({start, end, width, color}) ->
+        width ||= 3
+
+        @lineWidth(width)
+        @strokeColor(color)
+
+        context.beginPath()
+        context.moveTo(start.x, start.y)
+        context.lineTo(end.x, end.y)
+        context.closePath()
+        context.stroke()
 
         return @
 
@@ -223,10 +244,17 @@
 
         return @
 
-      centerText: (text, y) ->
-        textWidth = $canvas.measureText(text)
+      centerText: ({text, y, position, color}) ->
+        {y} = position if position
 
-        $canvas.fillText(text, (canvas.width - textWidth) / 2, y)
+        textWidth = @measureText(text)
+
+        @fillText {
+          text
+          color
+          x: (canvas.width - textWidth) / 2
+          y
+        }
 
       fillWrappedText: (text, x, y, width) ->
         tokens = text.split(" ")
@@ -255,14 +283,6 @@
         else
           return context.fillStyle
 
-      measureText: (text) ->
-        context.measureText(text).width
-
-      putImageData: (imageData, x, y) ->
-        context.putImageData(imageData, x, y)
-
-        return this
-
       strokeColor: (color) ->
         if color
           if color.channels
@@ -273,6 +293,14 @@
           return this
         else
           return context.strokeStyle
+
+      measureText: (text) ->
+        context.measureText(text).width
+
+      putImageData: (imageData, x, y) ->
+        context.putImageData(imageData, x, y)
+
+        return this
 
     contextAttrAccessor = (attrs...)->
       attrs.each (attr) ->
