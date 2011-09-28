@@ -118,8 +118,9 @@
         context.arc(x, y, radius, 0, Math.TAU, true)
         context.closePath()
 
-        @fillColor(color)
-        context.fill()
+        if color
+          @fillColor(color)
+          context.fill()
 
         if stroke
           @strokeColor(stroke.color)
