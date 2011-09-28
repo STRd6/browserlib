@@ -88,6 +88,8 @@
 
       @name drawImage
       @methodOf PixieCanvas#
+
+      @returns this
       ###
       drawImage: (image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight) ->
         context.drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
@@ -171,6 +173,8 @@
       @param {Point} end
       @param {Number} [width]
       @param {String|Color} [color]
+
+      @returns this
       ###
       drawLine: ({start, end, width, color}) ->
         width ||= 3
@@ -188,6 +192,7 @@
 
       ###*
       @name fillPoly
+      @methodOf PixieCanvas#
 
       @returns this
       ###
