@@ -46,6 +46,8 @@
       ###*
       @name clear
       @methodOf PixieCanvas#
+
+      @returns this
       ###
       clear: ({x, y, width, height, bounds}={}) ->
         {x, y, width, height} = bounds if bounds
