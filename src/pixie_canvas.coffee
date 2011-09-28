@@ -291,7 +291,7 @@
           else
             context.fillStyle = color
 
-          return this
+          return @
         else
           return context.fillStyle
 
@@ -302,7 +302,7 @@
           else
             context.strokeStyle = color
 
-          return this
+          return @
         else
           return context.strokeStyle
 
@@ -312,7 +312,7 @@
       putImageData: (imageData, x, y) ->
         context.putImageData(imageData, x, y)
 
-        return this
+        return @
 
       context: ->
         context
