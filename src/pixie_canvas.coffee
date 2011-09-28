@@ -214,10 +214,24 @@
         return @
 
       ###*
+      Draw a rounded rectangle.
+
       Adapted from http://js-bits.blogspot.com/2010/07/canvas-rounded-corner-rectangles.html
+
+      @param {Number} x
+      @param {Number} y
+      @param {Number} width
+      @param {Number} height
+      @param {Number} [radius] Defaults to 5
+      @param {Point} [position]
+      @param {Color|String} [color]
+      @param {Bounds} [bounds]
+      @param {Stroke} [stroke]
+
+      @returns this
       ###
       drawRoundRect: ({x, y, width, height, radius, position, bounds, color, stroke}) ->
-        radius ||= 5
+        radius = 5 unless radius?
 
         {x, y} = position if position
         {x, y, width, height} = bounds if bounds
