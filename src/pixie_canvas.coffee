@@ -157,8 +157,9 @@
         {x, y} = position if position
         {x, y, width, height} = bounds if bounds
 
-        @fillColor(color)
-        context.fillRect(x, y, width, height)
+        if color
+          @fillColor(color)
+          context.fillRect(x, y, width, height)
 
         if stroke
           @strokeColor(stroke.color)
