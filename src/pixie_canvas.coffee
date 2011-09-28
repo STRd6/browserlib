@@ -69,6 +69,8 @@
       @param {Number} height
       @param {Bounds} [bounds]
       @param {String|Color} [color]
+
+      @returns this
       ###
       fill: ({x, y, width, height, bounds, color}={}) ->
         {x, y, width, height} = bounds if bounds
