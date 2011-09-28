@@ -83,12 +83,6 @@
 
         return @
 
-      context: ->
-        context
-
-      element: ->
-        canvas
-
       ###*
       This is a gnarly function. Your best bet is to lett Drawable handle it. 
 
@@ -282,6 +276,8 @@
         else
           context.fillText(tokens.join(" "), x, y + lineHeight)
 
+        return @
+
       fillColor: (color) ->
         if color
           if color.channels
@@ -311,6 +307,12 @@
         context.putImageData(imageData, x, y)
 
         return this
+
+      context: ->
+        context
+
+      element: ->
+        canvas
 
     contextAttrAccessor = (attrs...)->
       attrs.each (attr) ->
