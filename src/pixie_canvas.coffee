@@ -22,6 +22,7 @@
 
       @param {Matrix} matrix
       @param {Function} block
+
       @returns this
       ###
       withTransform: (matrix, block) ->
