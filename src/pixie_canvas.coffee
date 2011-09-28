@@ -236,10 +236,19 @@
         return @
 
       ###*
-      @name fillText
+      Draws text on the canvas at the given position, in the given color.
+      If no color is given then the previous fill color is used.
+
+      @name drawText
       @methodOf PixieCanvas#
+
+      @param {Number} x
+      @param {Number} y
+      @param {String} text
+      @param {Point} [position]
+      @param {String|Color} [color]
       ###
-      fillText: ({x, y, text, position, color}) ->
+      drawText: ({x, y, text, position, color}) ->
         {x, y} = position if position
 
         @fillColor(color)
@@ -247,37 +256,33 @@
 
         return @
 
-      centerText: ({text, y, position, color}) ->
-        {y} = position if position
+      ###*
+      Centers the given text on the canvas at the given y position. An x position
+      or point position can also be given in which case the text is centered at the
+      x, y or position value specified.
+
+      @name centerText
+      @methodOf PixieCanvas#
+
+      @param {String} text
+      @param {Number} y
+      @param {Number} [x]
+      @param {Point} [position]
+      @param {String|Color} [color]
+      ###
+      centerText: ({text, x, y, position, color}) ->
+        {x, y} = position if position
+
+        x = canvas.width / 2 unless x?
 
         textWidth = @measureText(text)
 
         @fillText {
           text
           color
-          x: (canvas.width - textWidth) / 2
+          x: x - (textWidth) / 2
           y
         }
-
-      fillWrappedText: ({text, x, y, width, position}) ->
-        {x, y} = position if position
-
-        tokens = text.split(" ")
-        tokens2 = text.split(" ")
-        lineHeight = 16
-
-        if @measureText(text) > width
-          if tokens.length % 2 == 0
-            tokens2 = tokens.splice(tokens.length / 2, (tokens.length / 2), "")
-          else
-            tokens2 = tokens.splice(tokens.length / 2 + 1, (tokens.length / 2) + 1, "")
-
-          context.fillText(tokens.join(" "), x, y)
-          context.fillText(tokens2.join(" "), x, y + lineHeight)
-        else
-          context.fillText(tokens.join(" "), x, y + lineHeight)
-
-        return @
 
       fillColor: (color) ->
         if color
