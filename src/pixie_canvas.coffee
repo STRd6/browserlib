@@ -50,6 +50,11 @@
       clear: ({x, y, width, height, bounds}={}) ->
         {x, y, width, height} = bounds if bounds
 
+        x ||= 0
+        y ||= 0
+        width = canvas.width unless width?
+        height = canvas.height unless height?
+
         context.clearRect(x, y, width, height)
 
         return @
