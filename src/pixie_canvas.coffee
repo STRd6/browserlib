@@ -224,14 +224,14 @@
         context.quadraticCurveTo(x, y, x + radius, y)
         context.closePath()
 
+        if color
+          @fillColor(color)
+          context.fill()
+
         if stroke
           @lineWidth(stroke.width)
           @strokeColor(stroke.color)
           context.stroke()
-
-        if color
-          @fillColor(color)
-          context.fill()
 
         return @
 
