@@ -234,7 +234,9 @@
           @strokeColor(stroke.color)
           context.stroke()
 
-        context.fill()
+        if color
+          @fillColor(color)
+          context.fill()
 
         return @
 
