@@ -120,7 +120,7 @@
       </pre></code>
 
       @name fill
-      @methodOf PixieCanvas
+      @methodOf PixieCanvas#
 
       @param {Number} [x=0] Optional x position to fill from.
       @param {Number} [y=0]
