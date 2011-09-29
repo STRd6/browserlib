@@ -483,7 +483,7 @@
       @methodOf PixieCanvas#
 
       @param {String} text
-      @param {Number} y
+      @param {Number} [y]
       @param {Number} [x]
       @param {Point} [position]
       @param {String|Color} [color]
