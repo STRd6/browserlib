@@ -447,8 +447,8 @@
       @name drawText
       @methodOf PixieCanvas#
 
-      @param {Number} x
-      @param {Number} y
+      @param {Number} [x]
+      @param {Number} [y]
       @param {String} text
       @param {Point} [position]
       @param {String|Color} [color]
