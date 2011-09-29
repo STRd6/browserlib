@@ -243,15 +243,56 @@
       ###*
       Draws a rectangle at the specified position with given 
       width and height. Optionally takes a position, bounds
-      and color argument. 
+      and color argument.
+
+      <code class="run"><pre>
+      # Draw a red rectangle using x, y, width and height
+      canvas.drawRect
+        x: 50
+        y: 50
+        width: 50
+        height: 50
+        color: "#F00"
+
+      # Draw a blue rectangle using position, width and height
+      # and throw in a stroke for good measure
+      canvas.drawRect
+        position: Point(0, 0)
+        width: 50
+        height: 50
+        color: "blue"
+        stroke:
+          color: "orange"
+          width: 3
+
+      # Set up a bounds object for the next examples
+      bounds =
+        x: 100
+        y: 0
+        width: 100
+        height: 100
+
+      # Draw a purple rectangle using bounds
+      canvas.drawRect
+        bounds: bounds
+        color: "green"
+
+      # Draw the outline of the same bounds, but at a different position
+      canvas.drawRect
+        bounds: bounds
+        position: Point(0, 50)
+        stroke:
+          color: "purple"
+          width: 2
+      </pre></code>
 
       @name drawRect
       @methodOf PixieCanvas#
 
-      @param {Number} x
-      @param {Number} y
-      @param {Number} width
-      @param {Number} height
+      @param {Number} [x]
+      @param {Number} [y]
+      @param {Number} [width]
+      @param {Number} [height]
       @param {Point} [position]
       @param {Color|String} [color]
       @param {Bounds} [bounds]
@@ -260,8 +301,8 @@
       @returns this
       ###
       drawRect: ({x, y, width, height, position, bounds, color, stroke}) ->
-        {x, y} = position if position
         {x, y, width, height} = bounds if bounds
+        {x, y} = position if position
 
         if color
           @fillColor(color)
@@ -275,18 +316,46 @@
         return @
 
       ###*
+      Draw a line from `start` to `end`.
+
+      <code class="run"><pre>
+      # Draw a sweet diagonal
+      canvas.drawLine
+        start: Point(0, 0)
+        end: Point(200, 200)
+        color: "purple"
+
+      # Draw another sweet diagonal
+      canvas.drawLine
+        start: Point(200, 0)
+        end: Point(0, 200)
+        color: "red"
+        width: 6
+
+      # Now draw a sweet horizontal with a direction and a length
+      canvas.drawLine
+        start: Point(0, 100)
+        length: 200
+        direction: Point(1, 0)
+        color: "orange"
+
+      </pre></code>
+
       @name drawLine
       @methodOf PixieCanvas#
 
       @param {Point} start
-      @param {Point} end
+      @param {Point} [end]
       @param {Number} [width]
       @param {String|Color} [color]
 
       @returns this
       ###
-      drawLine: ({start, end, width, color}) ->
+      drawLine: ({start, end, width, color, direction, length}) ->
         width ||= 3
+
+        if direction
+          end = direction.norm(length).add(start)
 
         @lineWidth(width)
         @strokeColor(color)
@@ -300,12 +369,12 @@
         return @
 
       ###*
-      @name fillPoly
+      @name drawPoly
       @methodOf PixieCanvas#
 
       @returns this
       ###
-      fillPoly: (points...) ->
+      drawPoly: ({points, color, stroke}) ->
         context.beginPath()
         points.each (point, i) ->
           if i == 0
@@ -313,7 +382,15 @@
           else
             context.lineTo(point.x, point.y)
         context.lineTo points[0].x, points[0].y
-        context.fill()
+
+        if color
+          @fillColor(color)
+          context.fill()
+
+        if stroke
+          @strokeColor(stroke.color)
+          @lineWidth(stroke.width)
+          context.stroke()
 
         return @
 
@@ -322,10 +399,10 @@
 
       Adapted from http://js-bits.blogspot.com/2010/07/canvas-rounded-corner-rectangles.html
 
-      @param {Number} x
-      @param {Number} y
-      @param {Number} width
-      @param {Number} height
+      @param {Number} [x]
+      @param {Number} [y]
+      @param {Number} [width]
+      @param {Number} [height]
       @param {Number} [radius] Defaults to 5
       @param {Point} [position]
       @param {Color|String} [color]
@@ -337,8 +414,8 @@
       drawRoundRect: ({x, y, width, height, radius, position, bounds, color, stroke}) ->
         radius = 5 unless radius?
 
-        {x, y} = position if position
         {x, y, width, height} = bounds if bounds
+        {x, y} = position if position
 
         context.beginPath()
         context.moveTo(x + radius, y)
