@@ -729,10 +729,10 @@ var __slice = Array.prototype.slice;
       @name drawCircle
       @methodOf PixieCanvas#
 
-      @param {Number} x
-      @param {Number} y
+      @param {Number} [x]
+      @param {Number} [y]
       @param {Point} [position]
-      @param {Number} radius
+      @param {Number} [radius]
       @param {Color|String} [color]
       @param {Circle} [circle]
 
@@ -1017,7 +1017,7 @@ var __slice = Array.prototype.slice;
       @methodOf PixieCanvas#
 
       @param {String} text
-      @param {Number} y
+      @param {Number} [y]
       @param {Number} [x]
       @param {Point} [position]
       @param {String|Color} [color]
