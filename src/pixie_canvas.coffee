@@ -148,10 +148,23 @@
         return @
 
       ###*
-      This is a gnarly function. Your best bet is to let Drawable handle it. 
+      A direct map to the Context2d draw image. `GameObject`s
+      that implement drawable will have this wrapped up nicely,
+      so there is a good chance that you will not have to deal with
+      it directly.
 
       @name drawImage
       @methodOf PixieCanvas#
+
+      @param image
+      @param sx
+      @param sy
+      @param sWidth
+      @param sHeight
+      @param dx
+      @param dy
+      @param dWidth
+      @param dHeight
 
       @returns this
       ###
