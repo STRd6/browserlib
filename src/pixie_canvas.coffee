@@ -63,6 +63,21 @@
         return @
 
       ###*
+      Fills the entire canvas (or a specified section of it) with
+      the given color.
+
+      <code class="run"><pre>
+      canvas.fill
+        color: "red"
+
+      canvas.fill
+        x: 50
+        y: 50
+        width: 50
+        height: 50
+        color: "#FFF"
+      </pre></code>
+
       @name fill
       @methodOf PixieCanvas
 
