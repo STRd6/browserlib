@@ -225,10 +225,10 @@
       @name drawCircle
       @methodOf PixieCanvas#
 
-      @param {Number} x
-      @param {Number} y
+      @param {Number} [x]
+      @param {Number} [y]
       @param {Point} [position]
-      @param {Number} radius
+      @param {Number} [radius]
       @param {Color|String} [color]
       @param {Circle} [circle]
 

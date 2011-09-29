@@ -109,9 +109,9 @@
                   
                     <tr>
                       <td class="nameDescription">
-                        <div class="fixedFont"><b><a href="../symbols/PixieCanvas.html#drawImage">drawImage</a></b>()
+                        <div class="fixedFont"><b><a href="../symbols/PixieCanvas.html#drawImage">drawImage</a></b>(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
                         </div>
-                        <div class="description">This is a gnarly function.</div>
+                        <div class="description">A direct map to the Context2d draw image.</div>
                       </td>
                     </tr>
                   
@@ -295,7 +295,7 @@
 
       <code><pre>
       canvas.clear()
-      </code></pre>
+      </pre></code>
 
       Clear a portion of the canvas
 
@@ -316,7 +316,7 @@
 
       <code><pre>
       canvas.clear(25, 25, 50, 50)
-      </code></pre>
+      </pre></code>
 
                   
                 </div>
@@ -512,17 +512,79 @@
                   
                   </span>
 
-                  <b>drawImage</b>()
+                  <b>drawImage</b>(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
                 </div>
 
                 <div class="description">
-                  This is a gnarly function. Your best bet is to let Drawable handle it.
+                  A direct map to the Context2d draw image. `GameObject`s
+      that implement drawable will have this wrapped up nicely,
+      so there is a good chance that you will not have to deal with
+      it directly.
 
                   
                 </div>
 
                 
 
+                
+                  <dl class="detailList params">
+                    <dt class="heading">Parameters:</dt>
+                    
+                      <dt>
+                        <b>image</b>
+                        
+                      </dt>
+                      <dd></dd>
+                    
+                      <dt>
+                        <b>sx</b>
+                        
+                      </dt>
+                      <dd></dd>
+                    
+                      <dt>
+                        <b>sy</b>
+                        
+                      </dt>
+                      <dd></dd>
+                    
+                      <dt>
+                        <b>sWidth</b>
+                        
+                      </dt>
+                      <dd></dd>
+                    
+                      <dt>
+                        <b>sHeight</b>
+                        
+                      </dt>
+                      <dd></dd>
+                    
+                      <dt>
+                        <b>dx</b>
+                        
+                      </dt>
+                      <dd></dd>
+                    
+                      <dt>
+                        <b>dy</b>
+                        
+                      </dt>
+                      <dd></dd>
+                    
+                      <dt>
+                        <b>dWidth</b>
+                        
+                      </dt>
+                      <dd></dd>
+                    
+                      <dt>
+                        <b>dHeight</b>
+                        
+                      </dt>
+                      <dd></dd>
+                    
+                  </dl>
                 
 
                 
