@@ -542,7 +542,7 @@ var __slice = Array.prototype.slice;
 
       <code><pre>
       canvas.clear()
-      </code></pre>
+      </pre></code>
 
       Clear a portion of the canvas
 
@@ -563,7 +563,7 @@ var __slice = Array.prototype.slice;
 
       <code><pre>
       canvas.clear(25, 25, 50, 50)
-      </code></pre>
+      </pre></code>
 
       @name clear
       @methodOf PixieCanvas#
@@ -651,10 +651,23 @@ var __slice = Array.prototype.slice;
       }
     }, (function() {
       /**
-      This is a gnarly function. Your best bet is to let Drawable handle it. 
+      A direct map to the Context2d draw image. `GameObject`s
+      that implement drawable will have this wrapped up nicely,
+      so there is a good chance that you will not have to deal with
+      it directly.
 
       @name drawImage
       @methodOf PixieCanvas#
+
+      @param image
+      @param sx
+      @param sy
+      @param sWidth
+      @param sHeight
+      @param dx
+      @param dy
+      @param dWidth
+      @param dHeight
 
       @returns this
       */
