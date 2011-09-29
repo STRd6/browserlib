@@ -48,12 +48,16 @@
       Clear the canvas (or a portion of it).
 
       <code><pre>
+      # Clear the entire canvas
       canvas.clear()
       </code></pre>
 
       <code class="run"><pre>
+      # Set up: Fill canvas with blue
       canvas.fill("blue")  
-      canvas.clear()
+
+      # Clear a portion of the canvas
+      canvas.clear
         x: 50
         y: 50
         width: 50
