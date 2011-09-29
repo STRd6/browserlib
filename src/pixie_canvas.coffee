@@ -56,7 +56,7 @@
 
       <code><pre>
       canvas.clear()
-      </code></pre>
+      </pre></code>
 
       Clear a portion of the canvas
 
@@ -77,7 +77,7 @@
 
       <code><pre>
       canvas.clear(25, 25, 50, 50)
-      </code></pre>
+      </pre></code>
 
       @name clear
       @methodOf PixieCanvas#
