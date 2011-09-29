@@ -7,6 +7,11 @@
 
     ###*
     PixieCanvas provides a convenient wrapper for working with Context2d.
+
+    Methods try to be as flexible as possible as to what arguments they take.
+
+    Non-getter methods return `this` for method chaining.
+
     @name PixieCanvas
     @constructor
     ###
@@ -47,10 +52,13 @@
       ###*
       Clear the canvas (or a portion of it).
 
+      Clear the entire canvas
+
       <code><pre>
-      # Clear the entire canvas
       canvas.clear()
       </code></pre>
+
+      Clear a portion of the canvas
 
       <code class="run"><pre>
       # Set up: Fill canvas with blue
@@ -64,13 +72,26 @@
         height: 50
       </pre></code>
 
+      You can also clear the canvas by passing x, y, width height as
+      unnamed parameters:
+
+      <code><pre>
+      canvas.clear(25, 25, 50, 50)
+      </code></pre>
+
       @name clear
       @methodOf PixieCanvas#
 
+      @param {Number} [x]
+      @param {Number} [y]
+      @param {Number} [width]
+      @param {Number} [height]
+
       @returns this
       ###
-      clear: ({x, y, width, height, bounds}={}) ->
-        {x, y, width, height} = bounds if bounds
+      clear: (x={}, y, width, height) ->
+        unless y?
+          {x, y, width, height} = x
 
         x ||= 0
         y ||= 0
@@ -86,8 +107,10 @@
       the given color.
 
       <code class="run"><pre>
+      # Paint the town (entire canvas) red
       canvas.fill "red"
 
+      # Fill a section of the canvas white (#FFF)
       canvas.fill
         x: 50
         y: 50
@@ -125,7 +148,7 @@
         return @
 
       ###*
-      This is a gnarly function. Your best bet is to lett Drawable handle it. 
+      This is a gnarly function. Your best bet is to let Drawable handle it. 
 
       @name drawImage
       @methodOf PixieCanvas#
@@ -141,6 +164,51 @@
       Draws a circle at the specified position with the specified
       radius and color.
 
+      <code class="run"><pre>
+      # Draw a large orange circle
+      canvas.drawCircle
+        radius: 30
+        position: Point(100, 75)
+        color: "orange"
+
+      # Draw a blue circle with radius 10 at (25, 50)
+      # and a red stroke
+      canvas.drawCircle
+        x: 25
+        y: 50
+        raduis: 10
+        color: "blue"
+        stroke:
+          color: "red"
+          width: 1
+
+      # Create a circle object to set up the next examples
+      circle =
+        radius: 20
+        x: 50
+        y: 50
+
+      # Draw a given circle in yellow
+      canvas.drawCircle
+        circle: circle
+        color: "yellow"
+
+      # Draw the circle in green at a different position
+      canvas.drawCircle
+        circle: circle
+        position: Point(25, 75)
+        color: "green"
+
+      # Draw an outline circle in purple.
+      canvas.drawCircle
+        x: 50
+        y: 75
+        radius: 10
+        stroke:
+          color: "purple"
+          width: 2
+      </pre></code>
+
       @name drawCircle
       @methodOf PixieCanvas#
 
@@ -154,8 +222,8 @@
       @returns this
       ###
       drawCircle: ({x, y, radius, position, color, stroke, circle}) ->
-        {x, y} = position if position
         {x, y, radius} = circle if circle
+        {x, y} = position if position
 
         context.beginPath()
         context.arc(x, y, radius, 0, Math.TAU, true)
