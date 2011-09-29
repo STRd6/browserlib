@@ -45,6 +45,21 @@
         return @
 
       ###*
+      Clear the canvas (or a portion of it).
+
+      <code><pre>
+      canvas.clear()
+      </code></pre>
+
+      <code class="run"><pre>
+      canvas.fill("blue")  
+      canvas.clear()
+        x: 50
+        y: 50
+        width: 50
+        height: 50
+      </pre></code>
+
       @name clear
       @methodOf PixieCanvas#
 
@@ -67,8 +82,7 @@
       the given color.
 
       <code class="run"><pre>
-      canvas.fill
-        color: "red"
+      canvas.fill "red"
 
       canvas.fill
         x: 50
@@ -81,16 +95,19 @@
       @name fill
       @methodOf PixieCanvas
 
-      @param {Number} x
-      @param {Number} y
-      @param {Number} width
-      @param {Number} height
+      @param {Number} [x=0] Optional x position to fill from.
+      @param {Number} [y=0]
+      @param {Number} [width=canvas.width]
+      @param {Number} [height=canvas.height]
       @param {Bounds} [bounds]
       @param {String|Color} [color]
 
       @returns this
       ###
-      fill: ({x, y, width, height, bounds, color}={}) ->
+      fill: (color={}) ->
+        unless color.isString?()
+          {x, y, width, height, bounds, color} = color
+
         {x, y, width, height} = bounds if bounds
 
         x ||= 0
