@@ -586,6 +586,26 @@
           y
         }
 
+      ###*
+      A getter / setter method to set the canvas fillColor.
+
+      <code><pre>
+      # Set the fill color
+      canvas.fillColor('#FF0000')
+
+      # Passing no arguments returns the fillColor
+      canvas.fillColor()
+      # => '#FF0000'
+
+      # You can also pass a Color object
+      canvas.fillColor(Color('sky blue'))
+      </pre></code>      
+
+      @name fillColor
+      @methodOf PixieCanvas#
+
+      @param {String|Color} [color] color to make the canvas fillColor 
+      ###
       fillColor: (color) ->
         if color
           if color.channels
@@ -597,6 +617,26 @@
         else
           return context.fillStyle
 
+      ###*
+      A getter / setter method to set the canvas strokeColor.
+
+      <code><pre>
+      # Set the stroke color
+      canvas.strokeColor('#FF0000')
+
+      # Passing no arguments returns the strokeColor
+      canvas.strokeColor()
+      # => '#FF0000'
+
+      # You can also pass a Color object
+      canvas.strokeColor(Color('sky blue'))
+      </pre></code>      
+
+      @name strokeColor
+      @methodOf PixieCanvas#
+
+      @param {String|Color} [color] color to make the canvas fillColor 
+      ###
       strokeColor: (color) ->
         if color
           if color.channels
