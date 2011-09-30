@@ -82,10 +82,10 @@
       @name clear
       @methodOf PixieCanvas#
 
-      @param {Number} [x] Optional where to start clearing on the x axis
-      @param {Number} [y] Optional where to start clearing on the y axis
-      @param {Number} [width] Optional width of area to clear
-      @param {Number} [height] Optional height of area to clear
+      @param {Number} [x] where to start clearing on the x axis
+      @param {Number} [y] where to start clearing on the y axis
+      @param {Number} [width] width of area to clear
+      @param {Number} [height] height of area to clear
 
       @returns {PixieCanvas} this
       ###
@@ -126,8 +126,8 @@
       @param {Number} [y=0] Optional y position to fill from
       @param {Number} [width=canvas.width] Optional width of area to fill
       @param {Number} [height=canvas.height] Optional height of area to fill 
-      @param {Bounds} [bounds] Optional bounds object to fill
-      @param {String|Color} [color] Optional color of area to fill
+      @param {Bounds} [bounds] bounds object to fill
+      @param {String|Color} [color] color of area to fill
 
       @returns {PixieCanvas} this
       ###
@@ -225,7 +225,7 @@
       @name drawCircle
       @methodOf PixieCanvas#
 
-      @param {Number} [x]
+      @param {Number} [x] 
       @param {Number} [y]
       @param {Point} [position]
       @param {Number} [radius]
