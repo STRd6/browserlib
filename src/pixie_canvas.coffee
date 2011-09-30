@@ -573,6 +573,8 @@
       @param {Number} [x] location on the x axis to start printing. Overrides the default centering behavior if passed
       @param {Point} [position] position to start printing. Overrides x and y if passed
       @param {String|Color} [color] color of text to print
+
+      @returns {PixieCanvas} this
       ###
       centerText: ({text, x, y, position, color}) ->
         {x, y} = position if position
@@ -607,6 +609,8 @@
       @methodOf PixieCanvas#
 
       @param {String|Color} [color] color to make the canvas fillColor 
+
+      @returns {PixieCanvas} this
       ###
       fillColor: (color) ->
         if color
@@ -638,6 +642,8 @@
       @methodOf PixieCanvas#
 
       @param {String|Color} [color] color to make the canvas strokeColor 
+
+      @returns {PixieCanvas} this
       ###
       strokeColor: (color) ->
         if color
@@ -662,6 +668,8 @@
       @methodOf PixieCanvas#
 
       @param {String} [text] the text to measure 
+
+      @returns {PixieCanvas} this
       ###
       measureText: (text) ->
         context.measureText(text).width
