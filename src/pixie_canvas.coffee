@@ -450,17 +450,17 @@
       @name drawRoundRect
       @methodOf PixieCanvas#
 
-      @param {Number} [x]
-      @param {Number} [y]
-      @param {Number} [width]
-      @param {Number} [height]
-      @param {Number} [radius] Defaults to 5
-      @param {Point} [position]
-      @param {Color|String} [color]
-      @param {Bounds} [bounds]
-      @param {Stroke} [stroke]
+      @param {Number} [x] location on the x axis to start drawing
+      @param {Number} [y] location on the y axis to start drawing
+      @param {Number} [width] width of the rounded rectangle
+      @param {Number} [height] height of the rounded rectangle
+      @param {Number} [radius=5] radius to round the rectangle corners
+      @param {Point} [position] position to start drawing. Overrides x and y if passed
+      @param {Color|String} [color] color of the rounded rectangle
+      @param {Bounds} [bounds] bounds of the rounded rectangle. Overrides x, y, width, and height if passed
+      @param {Stroke} [stroke] stroke object that specifies stroke color and stroke width
 
-      @returns this
+      @returns {PixieCanvas} this
       ###
       drawRoundRect: ({x, y, width, height, radius, position, bounds, color, stroke}) ->
         radius = 5 unless radius?
