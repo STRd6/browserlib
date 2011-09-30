@@ -309,10 +309,10 @@
       @param {Number} [height] height of rectangle to draw
       @param {Point} [position] position to start drawing. Overrides x and y if passed
       @param {Color|String} [color] color of rectangle
-      @param {Bounds} [bounds] 
-      @param {Stroke} [stroke]
+      @param {Bounds} [bounds] bounds of rectangle. Overrides x, y, width, height if passed
+      @param {Stroke} [stroke] stroke object that specifies stroke color and stroke width
 
-      @returns this
+      @returns {PixieCanvas} this
       ###
       drawRect: ({x, y, width, height, position, bounds, color, stroke}) ->
         {x, y, width, height} = bounds if bounds
