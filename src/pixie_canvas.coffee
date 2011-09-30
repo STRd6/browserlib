@@ -496,6 +496,10 @@
       If no color is given then the previous fill color is used.
 
       <code class="run"><pre>
+      # fill the background to indicate the canvas bounds
+      canvas.fill
+        color: #eeeeee
+
       # A line to indicate the baseline
       canvas.drawLine
         start: Point(25, 50)
