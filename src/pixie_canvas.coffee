@@ -231,6 +231,7 @@
       @param {Number} [radius] length of the radius of the circle
       @param {Color|String} [color] color of the circle
       @param {Circle} [circle] circle object that contains position and radius. Overrides x, y, and radius if passed
+      @param {Object} [stroke] stroke object that specifies stroke color and stroke width
 
       @returns {PixieCanvas} this
       ###
