@@ -8,6 +8,7 @@
     ###*
     * PowerCanvas provides a convenient wrapper for working with Context2d.
     * @name PowerCanvas
+    * @deprecated Use {@link PixieCanvas} instead
     * @constructor
     ###
     $canvas = $(canvas).extend
