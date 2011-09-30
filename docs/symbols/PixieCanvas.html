@@ -100,7 +100,7 @@
                   
                     <tr>
                       <td class="nameDescription">
-                        <div class="fixedFont"><b><a href="../symbols/PixieCanvas.html#drawCircle">drawCircle</a></b>(x, y, position, radius, color, circle)
+                        <div class="fixedFont"><b><a href="../symbols/PixieCanvas.html#drawCircle">drawCircle</a></b>(x, y, position, radius, color, circle, stroke)
                         </div>
                         <div class="description">Draws a circle at the specified position with the specified
       radius and color.</div>
@@ -413,7 +413,7 @@
                   
                   </span>
 
-                  <b>drawCircle</b>(x, y, position, radius, color, circle)
+                  <b>drawCircle</b>(x, y, position, radius, color, circle, stroke)
                 </div>
 
                 <div class="description">
@@ -432,7 +432,7 @@
       canvas.drawCircle
         x: 25
         y: 50
-        raduis: 10
+        radius: 10
         color: "blue"
         stroke:
           color: "red"
@@ -478,37 +478,43 @@
                         <b>x</b><span class='light fixedFont'> Number</span> 
                         <i>Optional</i>
                       </dt>
-                      <dd></dd>
+                      <dd>location on the x axis to start drawing</dd>
                     
                       <dt>
                         <b>y</b><span class='light fixedFont'> Number</span> 
                         <i>Optional</i>
                       </dt>
-                      <dd></dd>
+                      <dd>location on the y axis to start drawing</dd>
                     
                       <dt>
                         <b>position</b><span class='light fixedFont'> Point</span> 
                         <i>Optional</i>
                       </dt>
-                      <dd></dd>
+                      <dd>position object of location to start drawing. This will override x and y values passed</dd>
                     
                       <dt>
                         <b>radius</b><span class='light fixedFont'> Number</span> 
                         <i>Optional</i>
                       </dt>
-                      <dd></dd>
+                      <dd>length of the radius of the circle</dd>
                     
                       <dt>
                         <b>color</b><span class='light fixedFont'> Color|String</span> 
                         <i>Optional</i>
                       </dt>
-                      <dd></dd>
+                      <dd>color of the circle</dd>
                     
                       <dt>
                         <b>circle</b><span class='light fixedFont'> Circle</span> 
                         <i>Optional</i>
                       </dt>
-                      <dd></dd>
+                      <dd>circle object that contains position and radius. Overrides x, y, and radius if passed</dd>
+                    
+                      <dt>
+                        <b>stroke</b><span class='light fixedFont'> Stroke</span> 
+                        <i>Optional</i>
+                      </dt>
+                      <dd>stroke object that specifies stroke color and stroke width</dd>
                     
                   </dl>
                 
@@ -524,7 +530,7 @@
 
                     
                       
-                        <dt class="heading">Returns :</dt>
+                        <dt class="heading">Returns <span class="light fixedFont"><a href="../symbols/PixieCanvas.html">PixieCanvas</a></span> :</dt>
                         <dd>this</dd>
                       
                     
@@ -882,49 +888,49 @@
                         <b>x</b><span class='light fixedFont'> Number</span> 
                         <i>Optional</i>
                       </dt>
-                      <dd></dd>
+                      <dd>location on the x axis to start drawing</dd>
                     
                       <dt>
                         <b>y</b><span class='light fixedFont'> Number</span> 
                         <i>Optional</i>
                       </dt>
-                      <dd></dd>
+                      <dd>location on the y axis to start drawing</dd>
                     
                       <dt>
                         <b>width</b><span class='light fixedFont'> Number</span> 
                         <i>Optional</i>
                       </dt>
-                      <dd></dd>
+                      <dd>width of rectangle to draw</dd>
                     
                       <dt>
                         <b>height</b><span class='light fixedFont'> Number</span> 
                         <i>Optional</i>
                       </dt>
-                      <dd></dd>
+                      <dd>height of rectangle to draw</dd>
                     
                       <dt>
                         <b>position</b><span class='light fixedFont'> Point</span> 
                         <i>Optional</i>
                       </dt>
-                      <dd></dd>
+                      <dd>position to start drawing. Overrides x and y if passed</dd>
                     
                       <dt>
                         <b>color</b><span class='light fixedFont'> Color|String</span> 
                         <i>Optional</i>
                       </dt>
-                      <dd></dd>
+                      <dd>color of rectangle</dd>
                     
                       <dt>
                         <b>bounds</b><span class='light fixedFont'> Bounds</span> 
                         <i>Optional</i>
                       </dt>
-                      <dd></dd>
+                      <dd>bounds of rectangle. Overrides x, y, width, height if passed</dd>
                     
                       <dt>
                         <b>stroke</b><span class='light fixedFont'> Stroke</span> 
                         <i>Optional</i>
                       </dt>
-                      <dd></dd>
+                      <dd>stroke object that specifies stroke color and stroke width</dd>
                     
                   </dl>
                 
@@ -940,7 +946,7 @@
 
                     
                       
-                        <dt class="heading">Returns :</dt>
+                        <dt class="heading">Returns <span class="light fixedFont"><a href="../symbols/PixieCanvas.html">PixieCanvas</a></span> :</dt>
                         <dd>this</dd>
                       
                     
@@ -1180,37 +1186,37 @@
                         <b>x</b><span class='light fixedFont'> Number</span> 
                         <i>Optional, Default: 0</i>
                       </dt>
-                      <dd>Optional x position to fill from.</dd>
+                      <dd>Optional x position to fill from</dd>
                     
                       <dt>
                         <b>y</b><span class='light fixedFont'> Number</span> 
                         <i>Optional, Default: 0</i>
                       </dt>
-                      <dd></dd>
+                      <dd>Optional y position to fill from</dd>
                     
                       <dt>
                         <b>width</b><span class='light fixedFont'> Number</span> 
                         <i>Optional, Default: canvas.width</i>
                       </dt>
-                      <dd></dd>
+                      <dd>Optional width of area to fill</dd>
                     
                       <dt>
                         <b>height</b><span class='light fixedFont'> Number</span> 
                         <i>Optional, Default: canvas.height</i>
                       </dt>
-                      <dd></dd>
+                      <dd>Optional height of area to fill</dd>
                     
                       <dt>
                         <b>bounds</b><span class='light fixedFont'> Bounds</span> 
                         <i>Optional</i>
                       </dt>
-                      <dd></dd>
+                      <dd>bounds object to fill</dd>
                     
                       <dt>
                         <b>color</b><span class='light fixedFont'> String|Color</span> 
                         <i>Optional</i>
                       </dt>
-                      <dd></dd>
+                      <dd>color of area to fill</dd>
                     
                   </dl>
                 
@@ -1226,7 +1232,7 @@
 
                     
                       
-                        <dt class="heading">Returns :</dt>
+                        <dt class="heading">Returns <span class="light fixedFont"><a href="../symbols/PixieCanvas.html">PixieCanvas</a></span> :</dt>
                         <dd>this</dd>
                       
                     

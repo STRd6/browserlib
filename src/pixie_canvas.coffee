@@ -358,12 +358,12 @@
       @name drawLine
       @methodOf PixieCanvas#
 
-      @param {Point} start
-      @param {Point} [end]
-      @param {Number} [width]
-      @param {String|Color} [color]
+      @param {Point} start position to start drawing from
+      @param {Point} [end] position to stop drawing
+      @param {Number} [width] width of the line
+      @param {String|Color} [color] color of the line
 
-      @returns this
+      @returns {PixieCanvas} this
       ###
       drawLine: ({start, end, width, color, direction, length}) ->
         width ||= 3
