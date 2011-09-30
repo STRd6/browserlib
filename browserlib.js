@@ -609,14 +609,14 @@ var __slice = Array.prototype.slice;
       @name fill
       @methodOf PixieCanvas#
 
-      @param {Number} [x=0] Optional x position to fill from.
-      @param {Number} [y=0]
-      @param {Number} [width=canvas.width]
-      @param {Number} [height=canvas.height]
-      @param {Bounds} [bounds]
-      @param {String|Color} [color]
+      @param {Number} [x=0] Optional x position to fill from
+      @param {Number} [y=0] Optional y position to fill from
+      @param {Number} [width=canvas.width] Optional width of area to fill
+      @param {Number} [height=canvas.height] Optional height of area to fill 
+      @param {Bounds} [bounds] bounds object to fill
+      @param {String|Color} [color] color of area to fill
 
-      @returns this
+      @returns {PixieCanvas} this
       */
     })(), {
       fill: function(color) {
@@ -686,7 +686,7 @@ var __slice = Array.prototype.slice;
       canvas.drawCircle
         x: 25
         y: 50
-        raduis: 10
+        radius: 10
         color: "blue"
         stroke:
           color: "red"
@@ -722,14 +722,15 @@ var __slice = Array.prototype.slice;
       @name drawCircle
       @methodOf PixieCanvas#
 
-      @param {Number} [x]
-      @param {Number} [y]
-      @param {Point} [position]
-      @param {Number} [radius]
-      @param {Color|String} [color]
-      @param {Circle} [circle]
+      @param {Number} [x] location on the x axis to start drawing
+      @param {Number} [y] location on the y axis to start drawing
+      @param {Point} [position] position object of location to start drawing. This will override x and y values passed
+      @param {Number} [radius] length of the radius of the circle
+      @param {Color|String} [color] color of the circle
+      @param {Circle} [circle] circle object that contains position and radius. Overrides x, y, and radius if passed
+      @param {Stroke} [stroke] stroke object that specifies stroke color and stroke width
 
-      @returns this
+      @returns {PixieCanvas} this
       */
     })(), {
       drawCircle: function(_arg) {
@@ -805,16 +806,16 @@ var __slice = Array.prototype.slice;
       @name drawRect
       @methodOf PixieCanvas#
 
-      @param {Number} [x]
-      @param {Number} [y]
-      @param {Number} [width]
-      @param {Number} [height]
-      @param {Point} [position]
-      @param {Color|String} [color]
-      @param {Bounds} [bounds]
-      @param {Stroke} [stroke]
+      @param {Number} [x] location on the x axis to start drawing
+      @param {Number} [y] location on the y axis to start drawing
+      @param {Number} [width] width of rectangle to draw
+      @param {Number} [height] height of rectangle to draw
+      @param {Point} [position] position to start drawing. Overrides x and y if passed
+      @param {Color|String} [color] color of rectangle
+      @param {Bounds} [bounds] bounds of rectangle. Overrides x, y, width, height if passed
+      @param {Stroke} [stroke] stroke object that specifies stroke color and stroke width
 
-      @returns this
+      @returns {PixieCanvas} this
       */
     })(), {
       drawRect: function(_arg) {
