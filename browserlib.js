@@ -868,12 +868,12 @@ var __slice = Array.prototype.slice;
       @name drawLine
       @methodOf PixieCanvas#
 
-      @param {Point} start
-      @param {Point} [end]
-      @param {Number} [width]
-      @param {String|Color} [color]
+      @param {Point} start position to start drawing from
+      @param {Point} [end] position to stop drawing
+      @param {Number} [width] width of the line
+      @param {String|Color} [color] color of the line
 
-      @returns this
+      @returns {PixieCanvas} this
       */
     })(), {
       drawLine: function(_arg) {
@@ -914,11 +914,11 @@ var __slice = Array.prototype.slice;
       @name drawPoly
       @methodOf PixieCanvas#
 
-      @param {Point[]} [points]
-      @param {String|Color} [color]
-      @param {stroke} [stroke]
+      @param {Point[]} [points] collection of points that define the vertices of the polygon
+      @param {String|Color} [color] color of the polygon
+      @param {Stroke} [stroke] stroke object that specifies stroke color and stroke width
 
-      @returns this
+      @returns {PixieCanvas} this
       */
     })(), {
       drawPoly: function(_arg) {
