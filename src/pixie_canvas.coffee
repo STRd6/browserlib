@@ -382,8 +382,29 @@
         return @
 
       ###*
+      Draw a polygon.
+
+      <code class="run"><pre>
+      # Draw a sweet rhombus
+      canvas.drawPoly
+        points: [
+          Point(50, 25)
+          Point(75, 50)
+          Point(50, 75)
+          Point(25, 50)
+        ]
+        color: "purple"
+        stroke:
+          color: "red"
+          width: 2
+      </pre></code>
+
       @name drawPoly
       @methodOf PixieCanvas#
+
+      @param {Point[]} [points]
+      @param {String|Color} [color]
+      @param {stroke} [stroke]
 
       @returns this
       ###
