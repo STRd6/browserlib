@@ -189,7 +189,7 @@
       canvas.drawCircle
         x: 25
         y: 50
-        raduis: 10
+        radius: 10
         color: "blue"
         stroke:
           color: "red"
