@@ -82,12 +82,12 @@
       @name clear
       @methodOf PixieCanvas#
 
-      @param {Number} [x] where to start clearing on the x axis
-      @param {Number} [y] where to start clearing on the y axis
-      @param {Number} [width] width of area to clear
-      @param {Number} [height] height of area to clear
+      @param {Number} [x] Optional where to start clearing on the x axis
+      @param {Number} [y] Optional where to start clearing on the y axis
+      @param {Number} [width] Optional width of area to clear
+      @param {Number} [height] Optional height of area to clear
 
-      @returns this
+      @returns {PixieCanvas} this
       ###
       clear: (x={}, y, width, height) ->
         unless y?
@@ -123,8 +123,8 @@
       @methodOf PixieCanvas#
 
       @param {Number} [x=0] Optional x position to fill from.
-      @param {Number} [y=0]
-      @param {Number} [width=canvas.width]
+      @param {Number} [y=0] Optional y position to fill from
+      @param {Number} [width=canvas.width] 
       @param {Number} [height=canvas.height]
       @param {Bounds} [bounds]
       @param {String|Color} [color]
