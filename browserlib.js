@@ -514,7 +514,7 @@ var __slice = Array.prototype.slice;
       @param {Matrix} matrix
       @param {Function} block
 
-      @returns this
+      @returns {PixieCanvas} this
       */
     })(), {
       withTransform: function(matrix, block) {
@@ -653,16 +653,16 @@ var __slice = Array.prototype.slice;
       @methodOf PixieCanvas#
 
       @param image
-      @param sx
-      @param sy
-      @param sWidth
-      @param sHeight
-      @param dx
-      @param dy
-      @param dWidth
-      @param dHeight
+      @param {Number} sx
+      @param {Number} sy
+      @param {Number} sWidth
+      @param {Number} sHeight
+      @param {Number} dx
+      @param {Number} dy
+      @param {Number} dWidth
+      @param {Number} dHeight
 
-      @returns this
+      @returns {PixieCanvas} this
       */
     })(), {
       drawImage: function(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight) {
@@ -1046,6 +1046,8 @@ var __slice = Array.prototype.slice;
       @param {String} text text to print
       @param {Point} [position] position to start printing. Overrides x and y if passed
       @param {String|Color} [color] color of text to start printing
+
+      @returns {PixieCanvas} this
       */
     })(), {
       drawText: function(_arg) {
@@ -1098,6 +1100,8 @@ var __slice = Array.prototype.slice;
       @param {Number} [x] location on the x axis to start printing. Overrides the default centering behavior if passed
       @param {Point} [position] position to start printing. Overrides x and y if passed
       @param {String|Color} [color] color of text to print
+
+      @returns {PixieCanvas} this
       */
     })(), {
       centerText: function(_arg) {
@@ -1137,6 +1141,8 @@ var __slice = Array.prototype.slice;
       @methodOf PixieCanvas#
 
       @param {String|Color} [color] color to make the canvas fillColor 
+
+      @returns {PixieCanvas} this
       */
     })(), {
       fillColor: function(color) {
@@ -1171,6 +1177,8 @@ var __slice = Array.prototype.slice;
       @methodOf PixieCanvas#
 
       @param {String|Color} [color] color to make the canvas strokeColor 
+
+      @returns {PixieCanvas} this
       */
     })(), {
       strokeColor: function(color) {
@@ -1198,6 +1206,8 @@ var __slice = Array.prototype.slice;
       @methodOf PixieCanvas#
 
       @param {String} [text] the text to measure 
+
+      @returns {PixieCanvas} this
       */
     })(), {
       measureText: function(text) {
