@@ -231,7 +231,7 @@
       @param {Number} [radius] length of the radius of the circle
       @param {Color|String} [color] color of the circle
       @param {Circle} [circle] circle object that contains position and radius. Overrides x, y, and radius if passed
-      @param {Object} [stroke] stroke object that specifies stroke color and stroke width
+      @param {Stroke} [stroke] stroke object that specifies stroke color and stroke width
 
       @returns {PixieCanvas} this
       ###
@@ -303,13 +303,13 @@
       @name drawRect
       @methodOf PixieCanvas#
 
-      @param {Number} [x]
-      @param {Number} [y]
-      @param {Number} [width]
-      @param {Number} [height]
-      @param {Point} [position]
-      @param {Color|String} [color]
-      @param {Bounds} [bounds]
+      @param {Number} [x] location on the x axis to start drawing
+      @param {Number} [y] location on the y axis to start drawing
+      @param {Number} [width] width of rectangle to draw
+      @param {Number} [height] height of rectangle to draw
+      @param {Point} [position] position to start drawing. Overrides x and y if passed
+      @param {Color|String} [color] color of rectangle
+      @param {Bounds} [bounds] 
       @param {Stroke} [stroke]
 
       @returns this
