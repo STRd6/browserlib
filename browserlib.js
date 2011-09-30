@@ -1103,7 +1103,7 @@ var __slice = Array.prototype.slice;
           x = canvas.width / 2;
         }
         textWidth = this.measureText(text);
-        return this.fillText({
+        return this.drawText({
           text: text,
           color: color,
           x: x - textWidth / 2,
