@@ -403,11 +403,11 @@
       @name drawPoly
       @methodOf PixieCanvas#
 
-      @param {Point[]} [points]
-      @param {String|Color} [color]
-      @param {stroke} [stroke]
+      @param {Point[]} [points] collection of points that define the vertices of the polygon
+      @param {String|Color} [color] color of the polygon
+      @param {Stroke} [stroke] stroke object that specifies stroke color and stroke width
 
-      @returns this
+      @returns {PixieCanvas} this
       ###
       drawPoly: ({points, color, stroke}) ->
         context.beginPath()
