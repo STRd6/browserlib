@@ -956,6 +956,19 @@ var __slice = Array.prototype.slice;
 
       Adapted from http://js-bits.blogspot.com/2010/07/canvas-rounded-corner-rectangles.html
 
+      <code class="run"><pre>
+      # Draw a purple rounded rectangle with a red outline
+      canvas.drawRoundRect
+        position: Point(25, 25)
+        radius: 10
+        width: 150
+        height: 100
+        color: "purple"
+        stroke:
+          color: "red"
+          width: 2
+      </pre></code>
+
       @param {Number} [x]
       @param {Number} [y]
       @param {Number} [width]
@@ -1008,6 +1021,21 @@ var __slice = Array.prototype.slice;
       Draws text on the canvas at the given position, in the given color.
       If no color is given then the previous fill color is used.
 
+      <code class="run"><pre>
+      # A line to indicate the baseline
+      canvas.drawLine
+        start: Point(25, 50)
+        end: Point(125, 50)
+        color: "#333"
+
+      # Draw some text, note the position of the baseline
+      canvas.drawText
+        position: Point(25, 50)
+        color: "red"
+        text: "It's dangerous to go alone"
+
+      </pre></code>
+
       @name drawText
       @methodOf PixieCanvas#
 
@@ -1033,6 +1061,27 @@ var __slice = Array.prototype.slice;
       Centers the given text on the canvas at the given y position. An x position
       or point position can also be given in which case the text is centered at the
       x, y or position value specified.
+
+      <code class="run"><pre>
+      # A line to indicate the baseline
+      canvas.drawLine
+        start: Point(25, 25)
+        end: Point(125, 25)
+        color: "#333"
+
+      # Center text on the screen at y value 25
+      canvas.centerText
+        y: 25
+        color: "red"
+        text: "It's dangerous to go alone"
+
+      # Center text at point (75, 75)
+      canvas.centerText
+        position: Point(75, 75)
+        color: "green"
+        text: "take this"
+
+      </pre></code>
 
       @name centerText
       @methodOf PixieCanvas#
