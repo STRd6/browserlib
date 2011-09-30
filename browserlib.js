@@ -966,17 +966,17 @@ var __slice = Array.prototype.slice;
       @name drawRoundRect
       @methodOf PixieCanvas#
 
-      @param {Number} [x]
-      @param {Number} [y]
-      @param {Number} [width]
-      @param {Number} [height]
-      @param {Number} [radius] Defaults to 5
-      @param {Point} [position]
-      @param {Color|String} [color]
-      @param {Bounds} [bounds]
-      @param {Stroke} [stroke]
+      @param {Number} [x] location on the x axis to start drawing
+      @param {Number} [y] location on the y axis to start drawing
+      @param {Number} [width] width of the rounded rectangle
+      @param {Number} [height] height of the rounded rectangle
+      @param {Number} [radius=5] radius to round the rectangle corners
+      @param {Point} [position] position to start drawing. Overrides x and y if passed
+      @param {Color|String} [color] color of the rounded rectangle
+      @param {Bounds} [bounds] bounds of the rounded rectangle. Overrides x, y, width, and height if passed
+      @param {Stroke} [stroke] stroke object that specifies stroke color and stroke width
 
-      @returns this
+      @returns {PixieCanvas} this
       */
     })(), {
       drawRoundRect: function(_arg) {
@@ -1019,6 +1019,10 @@ var __slice = Array.prototype.slice;
       If no color is given then the previous fill color is used.
 
       <code class="run"><pre>
+      # fill the background to indicate the canvas bounds
+      canvas.fill
+        color: '#eeeeee'
+
       # A line to indicate the baseline
       canvas.drawLine
         start: Point(25, 50)
@@ -1037,11 +1041,11 @@ var __slice = Array.prototype.slice;
       @name drawText
       @methodOf PixieCanvas#
 
-      @param {Number} [x]
-      @param {Number} [y]
-      @param {String} text
-      @param {Point} [position]
-      @param {String|Color} [color]
+      @param {Number} [x] location on x axis to start printing
+      @param {Number} [y] location on y axis to start printing
+      @param {String} text text to print
+      @param {Point} [position] position to start printing. Overrides x and y if passed
+      @param {String|Color} [color] color of text to start printing
       */
     })(), {
       drawText: function(_arg) {
