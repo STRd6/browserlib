@@ -132,7 +132,7 @@
       @returns this
       ###
       fill: (color={}) ->
-        unless color.isString?()
+        unless color.isString?() || color.channels
           {x, y, width, height, bounds, color} = color
 
         {x, y, width, height} = bounds if bounds
