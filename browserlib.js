@@ -566,7 +566,7 @@ var __slice = Array.prototype.slice;
       @param {Number} [width] width of area to clear
       @param {Number} [height] height of area to clear
 
-      @returns this
+      @returns {PixieCanvas} this
       */
     })(), {
       clear: function(x, y, width, height) {
