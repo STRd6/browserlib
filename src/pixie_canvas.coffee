@@ -518,11 +518,11 @@
       @name drawText
       @methodOf PixieCanvas#
 
-      @param {Number} [x]
-      @param {Number} [y]
-      @param {String} text
-      @param {Point} [position]
-      @param {String|Color} [color]
+      @param {Number} [x] location on x axis to start printing
+      @param {Number} [y] location on y axis to start printing
+      @param {String} text text to print
+      @param {Point} [position] position to start printing. Overrides x and y if passed
+      @param {String|Color} [color] color of text to start printing
       ###
       drawText: ({x, y, text, position, color}) ->
         {x, y} = position if position
