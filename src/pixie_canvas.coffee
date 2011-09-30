@@ -565,7 +565,7 @@
 
         textWidth = @measureText(text)
 
-        @fillText {
+        @drawText {
           text
           color
           x: x - (textWidth) / 2
