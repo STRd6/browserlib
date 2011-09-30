@@ -567,10 +567,10 @@
       @methodOf PixieCanvas#
 
       @param {String} text Text to print
-      @param {Number} [y]
-      @param {Number} [x]
-      @param {Point} [position]
-      @param {String|Color} [color]
+      @param {Number} [y] location on the y axis to start printing
+      @param {Number} [x] location on the x axis to start printing. Overrides the default centering behavior if passed
+      @param {Point} [position] position to start printing. Overrides x and y if passed
+      @param {String|Color} [color] color of text to print
       ###
       centerText: ({text, x, y, position, color}) ->
         {x, y} = position if position
