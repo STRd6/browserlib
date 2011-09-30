@@ -635,7 +635,7 @@
       @name strokeColor
       @methodOf PixieCanvas#
 
-      @param {String|Color} [color] color to make the canvas fillColor 
+      @param {String|Color} [color] color to make the canvas strokeColor 
       ###
       strokeColor: (color) ->
         if color
