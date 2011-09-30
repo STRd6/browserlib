@@ -446,6 +446,9 @@
           width: 2
       </pre></code>
 
+      @name drawRoundRect
+      @methodOf PixieCanvas#
+
       @param {Number} [x]
       @param {Number} [y]
       @param {Number} [width]
@@ -550,7 +553,7 @@
       </pre></code>
 
       @name centerText
-      @methodOf PixieCanvas#
+      @methodOf PixieCanvas#fillText
 
       @param {String} text
       @param {Number} [y]
