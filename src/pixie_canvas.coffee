@@ -122,14 +122,14 @@
       @name fill
       @methodOf PixieCanvas#
 
-      @param {Number} [x=0] Optional x position to fill from.
+      @param {Number} [x=0] Optional x position to fill from
       @param {Number} [y=0] Optional y position to fill from
-      @param {Number} [width=canvas.width] 
-      @param {Number} [height=canvas.height]
-      @param {Bounds} [bounds]
-      @param {String|Color} [color]
+      @param {Number} [width=canvas.width] Optional width of area to fill
+      @param {Number} [height=canvas.height] Optional height of area to fill 
+      @param {Bounds} [bounds] Optional bounds object to fill
+      @param {String|Color} [color] Optional color of area to fill
 
-      @returns this
+      @returns {PixieCanvas} this
       ###
       fill: (color={}) ->
         unless color.isString?() || color.channels
