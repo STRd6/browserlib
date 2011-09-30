@@ -969,6 +969,9 @@ var __slice = Array.prototype.slice;
           width: 2
       </pre></code>
 
+      @name drawRoundRect
+      @methodOf PixieCanvas#
+
       @param {Number} [x]
       @param {Number} [y]
       @param {Number} [width]
@@ -1084,7 +1087,7 @@ var __slice = Array.prototype.slice;
       </pre></code>
 
       @name centerText
-      @methodOf PixieCanvas#
+      @methodOf PixieCanvas#fillText
 
       @param {String} text
       @param {Number} [y]
