@@ -653,6 +653,7 @@
 
       <code><pre>
       canvas.measureText('Hello World!')
+      # => 55
       </pre></code>      
 
       @name measureText
