@@ -555,7 +555,7 @@
       </pre></code>
 
       @name centerText
-      @methodOf PixieCanvas#fillText
+      @methodOf PixieCanvas#
 
       @param {String} text
       @param {Number} [y]
