@@ -523,6 +523,8 @@
       @param {String} text text to print
       @param {Point} [position] position to start printing. Overrides x and y if passed
       @param {String|Color} [color] color of text to start printing
+
+      @returns {PixieCanvas} this
       ###
       drawText: ({x, y, text, position, color}) ->
         {x, y} = position if position
