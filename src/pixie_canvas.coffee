@@ -566,7 +566,7 @@
       @name centerText
       @methodOf PixieCanvas#
 
-      @param {String} text
+      @param {String} text Text to print
       @param {Number} [y]
       @param {Number} [x]
       @param {Point} [position]
