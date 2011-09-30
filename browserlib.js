@@ -1,13 +1,6 @@
 ;
 ;
-document.oncontextmenu = function() {
-  return false;
-};
-$(document).bind("keydown", function(event) {
-  if (!$(event.target).is("input")) {
-    return event.preventDefault();
-  }
-});;
+;
 var Joysticks;
 var __slice = Array.prototype.slice;
 Joysticks = (function() {
@@ -568,10 +561,10 @@ var __slice = Array.prototype.slice;
       @name clear
       @methodOf PixieCanvas#
 
-      @param {Number} [x]
-      @param {Number} [y]
-      @param {Number} [width]
-      @param {Number} [height]
+      @param {Number} [x] where to start clearing on the x axis
+      @param {Number} [y] where to start clearing on the y axis
+      @param {Number} [width] width of area to clear
+      @param {Number} [height] height of area to clear
 
       @returns this
       */
