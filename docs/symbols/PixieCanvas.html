@@ -998,55 +998,55 @@
                         <b>x</b><span class='light fixedFont'> Number</span> 
                         <i>Optional</i>
                       </dt>
-                      <dd></dd>
+                      <dd>location on the x axis to start drawing</dd>
                     
                       <dt>
                         <b>y</b><span class='light fixedFont'> Number</span> 
                         <i>Optional</i>
                       </dt>
-                      <dd></dd>
+                      <dd>location on the y axis to start drawing</dd>
                     
                       <dt>
                         <b>width</b><span class='light fixedFont'> Number</span> 
                         <i>Optional</i>
                       </dt>
-                      <dd></dd>
+                      <dd>width of the rounded rectangle</dd>
                     
                       <dt>
                         <b>height</b><span class='light fixedFont'> Number</span> 
                         <i>Optional</i>
                       </dt>
-                      <dd></dd>
+                      <dd>height of the rounded rectangle</dd>
                     
                       <dt>
                         <b>radius</b><span class='light fixedFont'> Number</span> 
-                        <i>Optional</i>
+                        <i>Optional, Default: 5</i>
                       </dt>
-                      <dd>Defaults to 5</dd>
+                      <dd>radius to round the rectangle corners</dd>
                     
                       <dt>
                         <b>position</b><span class='light fixedFont'> Point</span> 
                         <i>Optional</i>
                       </dt>
-                      <dd></dd>
+                      <dd>position to start drawing. Overrides x and y if passed</dd>
                     
                       <dt>
                         <b>color</b><span class='light fixedFont'> Color|String</span> 
                         <i>Optional</i>
                       </dt>
-                      <dd></dd>
+                      <dd>color of the rounded rectangle</dd>
                     
                       <dt>
                         <b>bounds</b><span class='light fixedFont'> Bounds</span> 
                         <i>Optional</i>
                       </dt>
-                      <dd></dd>
+                      <dd>bounds of the rounded rectangle. Overrides x, y, width, and height if passed</dd>
                     
                       <dt>
                         <b>stroke</b><span class='light fixedFont'> Stroke</span> 
                         <i>Optional</i>
                       </dt>
-                      <dd></dd>
+                      <dd>stroke object that specifies stroke color and stroke width</dd>
                     
                   </dl>
                 
@@ -1062,7 +1062,7 @@
 
                     
                       
-                        <dt class="heading">Returns :</dt>
+                        <dt class="heading">Returns <span class="light fixedFont"><a href="../symbols/PixieCanvas.html">PixieCanvas</a></span> :</dt>
                         <dd>this</dd>
                       
                     
@@ -1088,6 +1088,10 @@
       If no color is given then the previous fill color is used.
 
       <code class="run"><pre>
+      # fill the background to indicate the canvas bounds
+      canvas.fill
+        color: '#eeeeee'
+
       # A line to indicate the baseline
       canvas.drawLine
         start: Point(25, 50)
@@ -1116,31 +1120,31 @@
                         <b>x</b><span class='light fixedFont'> Number</span> 
                         <i>Optional</i>
                       </dt>
-                      <dd></dd>
+                      <dd>location on x axis to start printing</dd>
                     
                       <dt>
                         <b>y</b><span class='light fixedFont'> Number</span> 
                         <i>Optional</i>
                       </dt>
-                      <dd></dd>
+                      <dd>location on y axis to start printing</dd>
                     
                       <dt>
                         <b>text</b><span class='light fixedFont'> String</span> 
                         
                       </dt>
-                      <dd></dd>
+                      <dd>text to print</dd>
                     
                       <dt>
                         <b>position</b><span class='light fixedFont'> Point</span> 
                         <i>Optional</i>
                       </dt>
-                      <dd></dd>
+                      <dd>position to start printing. Overrides x and y if passed</dd>
                     
                       <dt>
                         <b>color</b><span class='light fixedFont'> String|Color</span> 
                         <i>Optional</i>
                       </dt>
-                      <dd></dd>
+                      <dd>color of text to start printing</dd>
                     
                   </dl>
                 
