@@ -28,7 +28,7 @@
       @param {Matrix} matrix
       @param {Function} block
 
-      @returns this
+      @returns {PixieCanvas} this
       ###
       withTransform: (matrix, block) ->
         context.save()
@@ -157,16 +157,16 @@
       @methodOf PixieCanvas#
 
       @param image
-      @param sx
-      @param sy
-      @param sWidth
-      @param sHeight
-      @param dx
-      @param dy
-      @param dWidth
-      @param dHeight
+      @param {Number} sx
+      @param {Number} sy
+      @param {Number} sWidth
+      @param {Number} sHeight
+      @param {Number} dx
+      @param {Number} dy
+      @param {Number} dWidth
+      @param {Number} dHeight
 
-      @returns this
+      @returns {PixieCanvas} this
       ###
       drawImage: (image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight) ->
         context.drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)

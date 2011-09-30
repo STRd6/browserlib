@@ -167,6 +167,30 @@
                   
                     <tr>
                       <td class="nameDescription">
+                        <div class="fixedFont"><b><a href="../symbols/PixieCanvas.html#fillColor">fillColor</a></b>(color)
+                        </div>
+                        <div class="description">A getter / setter method to set the canvas fillColor.</div>
+                      </td>
+                    </tr>
+                  
+                    <tr>
+                      <td class="nameDescription">
+                        <div class="fixedFont"><b><a href="../symbols/PixieCanvas.html#measureText">measureText</a></b>(text)
+                        </div>
+                        <div class="description">Determine how wide some text is.</div>
+                      </td>
+                    </tr>
+                  
+                    <tr>
+                      <td class="nameDescription">
+                        <div class="fixedFont"><b><a href="../symbols/PixieCanvas.html#strokeColor">strokeColor</a></b>(color)
+                        </div>
+                        <div class="description">A getter / setter method to set the canvas strokeColor.</div>
+                      </td>
+                    </tr>
+                  
+                    <tr>
+                      <td class="nameDescription">
                         <div class="fixedFont"><b><a href="../symbols/PixieCanvas.html#withTransform">withTransform</a></b>(matrix, block)
                         </div>
                         <div class="description">Passes this canvas to the block with the given matrix transformation
@@ -244,6 +268,10 @@
       x, y or position value specified.
 
       <code class="run"><pre>
+      # Fill canvas to indicate bounds
+      canvas.fill
+        color: "#eee"
+
       # A line to indicate the baseline
       canvas.drawLine
         start: Point(25, 25)
@@ -278,31 +306,31 @@
                         <b>text</b><span class='light fixedFont'> String</span> 
                         
                       </dt>
-                      <dd></dd>
+                      <dd>Text to print</dd>
                     
                       <dt>
                         <b>y</b><span class='light fixedFont'> Number</span> 
                         <i>Optional</i>
                       </dt>
-                      <dd></dd>
+                      <dd>location on the y axis to start printing</dd>
                     
                       <dt>
                         <b>x</b><span class='light fixedFont'> Number</span> 
                         <i>Optional</i>
                       </dt>
-                      <dd></dd>
+                      <dd>location on the x axis to start printing. Overrides the default centering behavior if passed</dd>
                     
                       <dt>
                         <b>position</b><span class='light fixedFont'> Point</span> 
                         <i>Optional</i>
                       </dt>
-                      <dd></dd>
+                      <dd>position to start printing. Overrides x and y if passed</dd>
                     
                       <dt>
                         <b>color</b><span class='light fixedFont'> String|Color</span> 
                         <i>Optional</i>
                       </dt>
-                      <dd></dd>
+                      <dd>color of text to print</dd>
                     
                   </dl>
                 
@@ -1088,9 +1116,9 @@
       If no color is given then the previous fill color is used.
 
       <code class="run"><pre>
-      # fill the background to indicate the canvas bounds
+      # Fill canvas to indicate bounds
       canvas.fill
-        color: '#eeeeee'
+        color: '#eee'
 
       # A line to indicate the baseline
       canvas.drawLine
@@ -1246,6 +1274,131 @@
                     
 
                   </dl>
+                
+              
+                <div class="fixedFont heading">
+                  <a name="fillColor"></a>
+                  <span class='lighter'>
+                  
+                  </span>
+
+                  <b>fillColor</b>(color)
+                </div>
+
+                <div class="description">
+                  A getter / setter method to set the canvas fillColor.
+
+      <code><pre>
+      # Set the fill color
+      canvas.fillColor('#FF0000')
+
+      # Passing no arguments returns the fillColor
+      canvas.fillColor()
+      # => '#FF0000'
+
+      # You can also pass a Color object
+      canvas.fillColor(Color('sky blue'))
+      </pre></code>
+
+                  
+                </div>
+
+                
+
+                
+                  <dl class="detailList params">
+                    <dt class="heading">Parameters:</dt>
+                    
+                      <dt>
+                        <b>color</b><span class='light fixedFont'> String|Color</span> 
+                        <i>Optional</i>
+                      </dt>
+                      <dd>color to make the canvas fillColor</dd>
+                    
+                  </dl>
+                
+
+                
+              
+                <div class="fixedFont heading">
+                  <a name="measureText"></a>
+                  <span class='lighter'>
+                  
+                  </span>
+
+                  <b>measureText</b>(text)
+                </div>
+
+                <div class="description">
+                  Determine how wide some text is.
+
+      <code><pre>
+      canvas.measureText('Hello World!')
+      # => 55
+      </pre></code>
+
+                  
+                </div>
+
+                
+
+                
+                  <dl class="detailList params">
+                    <dt class="heading">Parameters:</dt>
+                    
+                      <dt>
+                        <b>text</b><span class='light fixedFont'> String</span> 
+                        <i>Optional</i>
+                      </dt>
+                      <dd>the text to measure</dd>
+                    
+                  </dl>
+                
+
+                
+              
+                <div class="fixedFont heading">
+                  <a name="strokeColor"></a>
+                  <span class='lighter'>
+                  
+                  </span>
+
+                  <b>strokeColor</b>(color)
+                </div>
+
+                <div class="description">
+                  A getter / setter method to set the canvas strokeColor.
+
+      <code><pre>
+      # Set the stroke color
+      canvas.strokeColor('#FF0000')
+
+      # Passing no arguments returns the strokeColor
+      canvas.strokeColor()
+      # => '#FF0000'
+
+      # You can also pass a Color object
+      canvas.strokeColor(Color('sky blue'))
+      </pre></code>
+
+                  
+                </div>
+
+                
+
+                
+                  <dl class="detailList params">
+                    <dt class="heading">Parameters:</dt>
+                    
+                      <dt>
+                        <b>color</b><span class='light fixedFont'> String|Color</span> 
+                        <i>Optional</i>
+                      </dt>
+                      <dd>color to make the canvas strokeColor</dd>
+                    
+                  </dl>
+                
+
                 
               
                 <div class="fixedFont heading">
