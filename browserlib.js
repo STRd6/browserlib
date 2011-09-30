@@ -1019,9 +1019,9 @@ var __slice = Array.prototype.slice;
       If no color is given then the previous fill color is used.
 
       <code class="run"><pre>
-      # fill the background to indicate the canvas bounds
+      # Fill canvas to indicate bounds
       canvas.fill
-        color: '#eeeeee'
+        color: '#eee'
 
       # A line to indicate the baseline
       canvas.drawLine
@@ -1065,6 +1065,10 @@ var __slice = Array.prototype.slice;
       x, y or position value specified.
 
       <code class="run"><pre>
+      # Fill canvas to indicate bounds
+      canvas.fill
+        color: "#eee"
+
       # A line to indicate the baseline
       canvas.drawLine
         start: Point(25, 25)
@@ -1089,11 +1093,11 @@ var __slice = Array.prototype.slice;
       @name centerText
       @methodOf PixieCanvas#
 
-      @param {String} text
-      @param {Number} [y]
-      @param {Number} [x]
-      @param {Point} [position]
-      @param {String|Color} [color]
+      @param {String} text Text to print
+      @param {Number} [y] location on the y axis to start printing
+      @param {Number} [x] location on the x axis to start printing. Overrides the default centering behavior if passed
+      @param {Point} [position] position to start printing. Overrides x and y if passed
+      @param {String|Color} [color] color of text to print
       */
     })(), {
       centerText: function(_arg) {
@@ -1112,7 +1116,29 @@ var __slice = Array.prototype.slice;
           x: x - textWidth / 2,
           y: y
         });
-      },
+      }
+    }, (function() {
+      /**
+      A getter / setter method to set the canvas fillColor.
+
+      <code><pre>
+      # Set the fill color
+      canvas.fillColor('#FF0000')
+
+      # Passing no arguments returns the fillColor
+      canvas.fillColor()
+      # => '#FF0000'
+
+      # You can also pass a Color object
+      canvas.fillColor(Color('sky blue'))
+      </pre></code>      
+
+      @name fillColor
+      @methodOf PixieCanvas#
+
+      @param {String|Color} [color] color to make the canvas fillColor 
+      */
+    })(), {
       fillColor: function(color) {
         if (color) {
           if (color.channels) {
@@ -1124,7 +1150,29 @@ var __slice = Array.prototype.slice;
         } else {
           return context.fillStyle;
         }
-      },
+      }
+    }, (function() {
+      /**
+      A getter / setter method to set the canvas strokeColor.
+
+      <code><pre>
+      # Set the stroke color
+      canvas.strokeColor('#FF0000')
+
+      # Passing no arguments returns the strokeColor
+      canvas.strokeColor()
+      # => '#FF0000'
+
+      # You can also pass a Color object
+      canvas.strokeColor(Color('sky blue'))
+      </pre></code>      
+
+      @name strokeColor
+      @methodOf PixieCanvas#
+
+      @param {String|Color} [color] color to make the canvas strokeColor 
+      */
+    })(), {
       strokeColor: function(color) {
         if (color) {
           if (color.channels) {
@@ -1136,7 +1184,22 @@ var __slice = Array.prototype.slice;
         } else {
           return context.strokeStyle;
         }
-      },
+      }
+    }, (function() {
+      /**
+      Determine how wide some text is.
+
+      <code><pre>
+      canvas.measureText('Hello World!')
+      # => 55
+      </pre></code>      
+
+      @name measureText
+      @methodOf PixieCanvas#
+
+      @param {String} [text] the text to measure 
+      */
+    })(), {
       measureText: function(text) {
         return context.measureText(text).width;
       },
