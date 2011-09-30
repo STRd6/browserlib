@@ -631,7 +631,7 @@ var __slice = Array.prototype.slice;
         if (color == null) {
           color = {};
         }
-        if (!(typeof color.isString === "function" ? color.isString() : void 0)) {
+        if (!((typeof color.isString === "function" ? color.isString() : void 0) || color.channels)) {
           _ref = color, x = _ref.x, y = _ref.y, width = _ref.width, height = _ref.height, bounds = _ref.bounds, color = _ref.color;
         }
         if (bounds) {
