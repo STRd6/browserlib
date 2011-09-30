@@ -433,6 +433,19 @@
 
       Adapted from http://js-bits.blogspot.com/2010/07/canvas-rounded-corner-rectangles.html
 
+      <code class="run"><pre>
+      # Draw a purple rounded rectangle with a red outline
+      canvas.drawRoundRect
+        position: Point(25, 25)
+        radius: 10
+        width: 150
+        height: 100
+        color: "purple"
+        stroke:
+          color: "red"
+          width: 2
+      </pre></code>
+
       @param {Number} [x]
       @param {Number} [y]
       @param {Number} [width]
