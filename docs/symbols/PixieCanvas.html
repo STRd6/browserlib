@@ -84,14 +84,6 @@
                   
                     <tr>
                       <td class="nameDescription">
-                        <div class="fixedFont"><b><a href="../symbols/PixieCanvas.html#centerText">centerText</a></b>(text, y, x, position, color)
-                        </div>
-                        <div class="description">Centers the given text on the canvas at the given y position.</div>
-                      </td>
-                    </tr>
-                  
-                    <tr>
-                      <td class="nameDescription">
                         <div class="fixedFont"><b><a href="../symbols/PixieCanvas.html#clear">clear</a></b>(x, y, width, height)
                         </div>
                         <div class="description">Clear the canvas (or a portion of it).</div>
@@ -137,6 +129,14 @@
                         </div>
                         <div class="description">Draws a rectangle at the specified position with given 
       width and height.</div>
+                      </td>
+                    </tr>
+                  
+                    <tr>
+                      <td class="nameDescription">
+                        <div class="fixedFont"><b><a href="../symbols/PixieCanvas.html#drawRoundRect">drawRoundRect</a></b>(x, y, width, height, radius, position, color, bounds, stroke)
+                        </div>
+                        <div class="description">Draw a rounded rectangle.</div>
                       </td>
                     </tr>
                   
@@ -220,85 +220,6 @@
         
           <div class="details props">
             <div class="innerProps">
-              
-                <div class="fixedFont heading">
-                  <a name="centerText"></a>
-                  <span class='lighter'>
-                  
-                  </span>
-
-                  <b>centerText</b>(text, y, x, position, color)
-                </div>
-
-                <div class="description">
-                  Centers the given text on the canvas at the given y position. An x position
-      or point position can also be given in which case the text is centered at the
-      x, y or position value specified.
-
-      <code class="run"><pre>
-      # A line to indicate the baseline
-      canvas.drawLine
-        start: Point(25, 25)
-        end: Point(125, 25)
-        color: "#333"
-
-      # Center text on the screen at y value 25
-      canvas.centerText
-        y: 25
-        color: "red"
-        text: "It's dangerous to go alone"
-
-      # Center text at point (75, 75)
-      canvas.centerText
-        position: Point(75, 75)
-        color: "green"
-        text: "take this"
-
-      </pre></code>
-
-                  
-                </div>
-
-                
-
-                
-                  <dl class="detailList params">
-                    <dt class="heading">Parameters:</dt>
-                    
-                      <dt>
-                        <b>text</b><span class='light fixedFont'> String</span> 
-                        
-                      </dt>
-                      <dd></dd>
-                    
-                      <dt>
-                        <b>y</b><span class='light fixedFont'> Number</span> 
-                        <i>Optional</i>
-                      </dt>
-                      <dd></dd>
-                    
-                      <dt>
-                        <b>x</b><span class='light fixedFont'> Number</span> 
-                        <i>Optional</i>
-                      </dt>
-                      <dd></dd>
-                    
-                      <dt>
-                        <b>position</b><span class='light fixedFont'> Point</span> 
-                        <i>Optional</i>
-                      </dt>
-                      <dd></dd>
-                    
-                      <dt>
-                        <b>color</b><span class='light fixedFont'> String|Color</span> 
-                        <i>Optional</i>
-                      </dt>
-                      <dd></dd>
-                    
-                  </dl>
-                
-
-                
               
                 <div class="fixedFont heading">
                   <a name="clear"></a>
@@ -892,6 +813,122 @@
                         <i>Optional</i>
                       </dt>
                       <dd></dd>
+                    
+                      <dt>
+                        <b>position</b><span class='light fixedFont'> Point</span> 
+                        <i>Optional</i>
+                      </dt>
+                      <dd></dd>
+                    
+                      <dt>
+                        <b>color</b><span class='light fixedFont'> Color|String</span> 
+                        <i>Optional</i>
+                      </dt>
+                      <dd></dd>
+                    
+                      <dt>
+                        <b>bounds</b><span class='light fixedFont'> Bounds</span> 
+                        <i>Optional</i>
+                      </dt>
+                      <dd></dd>
+                    
+                      <dt>
+                        <b>stroke</b><span class='light fixedFont'> Stroke</span> 
+                        <i>Optional</i>
+                      </dt>
+                      <dd></dd>
+                    
+                  </dl>
+                
+
+                
+                  <dl class="detailList nomargin">
+
+                    
+
+                    
+
+                    
+
+                    
+                      
+                        <dt class="heading">Returns :</dt>
+                        <dd>this</dd>
+                      
+                    
+
+                    
+
+                    
+
+                  </dl>
+                
+              
+                <div class="fixedFont heading">
+                  <a name="drawRoundRect"></a>
+                  <span class='lighter'>
+                  
+                  </span>
+
+                  <b>drawRoundRect</b>(x, y, width, height, radius, position, color, bounds, stroke)
+                </div>
+
+                <div class="description">
+                  Draw a rounded rectangle.
+
+      Adapted from http://js-bits.blogspot.com/2010/07/canvas-rounded-corner-rectangles.html
+
+      <code class="run"><pre>
+      # Draw a purple rounded rectangle with a red outline
+      canvas.drawRoundRect
+        position: Point(25, 25)
+        radius: 10
+        width: 150
+        height: 100
+        color: "purple"
+        stroke:
+          color: "red"
+          width: 2
+      </pre></code>
+
+                  
+                </div>
+
+                
+
+                
+                  <dl class="detailList params">
+                    <dt class="heading">Parameters:</dt>
+                    
+                      <dt>
+                        <b>x</b><span class='light fixedFont'> Number</span> 
+                        <i>Optional</i>
+                      </dt>
+                      <dd></dd>
+                    
+                      <dt>
+                        <b>y</b><span class='light fixedFont'> Number</span> 
+                        <i>Optional</i>
+                      </dt>
+                      <dd></dd>
+                    
+                      <dt>
+                        <b>width</b><span class='light fixedFont'> Number</span> 
+                        <i>Optional</i>
+                      </dt>
+                      <dd></dd>
+                    
+                      <dt>
+                        <b>height</b><span class='light fixedFont'> Number</span> 
+                        <i>Optional</i>
+                      </dt>
+                      <dd></dd>
+                    
+                      <dt>
+                        <b>radius</b><span class='light fixedFont'> Number</span> 
+                        <i>Optional</i>
+                      </dt>
+                      <dd>Defaults to 5</dd>
                     
                       <dt>
                         <b>position</b><span class='light fixedFont'> Point</span> 
