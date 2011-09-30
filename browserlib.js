@@ -1030,6 +1030,7 @@ var __slice = Array.prototype.slice;
         start: Point(25, 50)
         end: Point(125, 50)
         color: "#333"
+        width: 1
 
       # Draw some text, note the position of the baseline
       canvas.drawText
@@ -1071,6 +1072,7 @@ var __slice = Array.prototype.slice;
         start: Point(25, 25)
         end: Point(125, 25)
         color: "#333"
+        width: 1
 
       # Center text on the screen at y value 25
       canvas.centerText
