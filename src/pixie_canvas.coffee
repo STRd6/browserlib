@@ -498,7 +498,7 @@
       <code class="run"><pre>
       # fill the background to indicate the canvas bounds
       canvas.fill
-        color: #eeeeee
+        color: '#eeeeee'
 
       # A line to indicate the baseline
       canvas.drawLine
