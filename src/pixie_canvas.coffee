@@ -648,6 +648,26 @@
         else
           return context.strokeStyle
 
+      ###*
+      Determine how wide some text is.
+
+      <code><pre>
+      # Set the fill color
+      canvas.fillColor('#FF0000')
+
+      # Passing no arguments returns the fillColor
+      canvas.fillColor()
+      # => '#FF0000'
+
+      # You can also pass a Color object
+      canvas.fillColor(Color('sky blue'))
+      </pre></code>      
+
+      @name measureText
+      @methodOf PixieCanvas#
+
+      @param {String} [text] the text to measure 
+      ###
       measureText: (text) ->
         context.measureText(text).width
 
