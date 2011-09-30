@@ -225,14 +225,14 @@
       @name drawCircle
       @methodOf PixieCanvas#
 
-      @param {Number} [x] 
-      @param {Number} [y]
-      @param {Point} [position]
-      @param {Number} [radius]
-      @param {Color|String} [color]
-      @param {Circle} [circle]
+      @param {Number} [x] location on the x axis to start drawing
+      @param {Number} [y] location on the y axis to start drawing
+      @param {Point} [position] position object of location to start drawing. This will override x and y values passed
+      @param {Number} [radius] length of the radius of the circle
+      @param {Color|String} [color] color of the circle
+      @param {Circle} [circle] circle object that contains position and radius. Overrides x, y, and radius if passed
 
-      @returns this
+      @returns {PixieCanvas} this
       ###
       drawCircle: ({x, y, radius, position, color, stroke, circle}) ->
         {x, y, radius} = circle if circle
