@@ -395,7 +395,13 @@ Binny V A, http://www.openjs.com/scripts/events/keyboard_shortcuts/
 Merges properties from objects into target without overiding.
 First come, first served.
 
-@return target
+@name reverseMerge
+@methodOf jQuery#
+
+@param {Object} target the object to merge the given properties onto
+@param {Object} objects... one or more objects whose properties are merged onto target
+
+@return {Object} target
 */var __slice = Array.prototype.slice;
 jQuery.extend({
   reverseMerge: function() {
