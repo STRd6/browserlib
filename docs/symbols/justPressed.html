@@ -4,7 +4,7 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <meta name="generator" content="JsDoc Toolkit" />
     
-    <title>JsDoc Reference - keydown</title>
+    <title>JsDoc Reference - justPressed</title>
     <link href="/stylesheets/docs.css" type="text/css" rel="stylesheet" media="all" />
   </head>
 
@@ -38,7 +38,7 @@
       <div class="innerContent">
         <h1 class="classTitle">
           
-          <span>keydown</span>
+          <span>justPressed</span>
         </h1>
 
         <p class="description summary">
@@ -51,15 +51,15 @@
 
         
           <div class="props">
-            <table class="summaryTable" cellspacing="0" summary="A summary of the constructor documented in the class keydown.">
+            <table class="summaryTable" cellspacing="0" summary="A summary of the constructor documented in the class justPressed.">
               <caption>Class Summary</caption>
               <tbody>
                 <tr>
                   <td class="nameDescription" >
                     <div class="fixedFont">
-                      <b><a href="../symbols/keydown.html#constructor">keydown</a></b>()
+                      <b><a href="../symbols/justPressed.html#constructor">justPressed</a></b>()
                     </div>
-                    <div class="description">The global keydown property lets your query the status of keys.</div>
+                    <div class="description">The global justPressed property lets your query the status of keys.</div>
                   </td>
                 </tr>
                 <tr>
@@ -91,23 +91,24 @@
               <a name="constructor"></a>
 
               <div class="fixedFont">
-                <b>keydown</b>()
+                <b>justPressed</b>()
               </div>
 
               <div class="description">
-                The global keydown property lets your query the status of keys.
+                The global justPressed property lets your query the status of keys. However, 
+  unlike keydown it will only trigger once for each time the key is pressed.
 
   <code><pre>
-  if keydown.left
+  if justPressed.left
     moveLeft()
 
-  if keydown.a or keydown.space
+  if justPressed.a or justPressed.space
     attack()
 
-  if keydown.return
+  if justPressed.return
     confirm()
 
-  if keydown.esc
+  if justPressed.esc
     cancel()
   </pre></code>
                 
