@@ -12,8 +12,7 @@
 
   @param {String} key
   @param {Object} value
-  @type Object
-  @returns value
+  @returns {Object} value
   ###
   store = (key, value) ->
     localStorage[key] = JSON.stringify(value)
@@ -27,8 +26,7 @@
   @methodOf Local
 
   @param {String} key
-  @type Object
-  @returns The object that was stored or undefined if no object was stored.
+  @returns {Object} The object that was stored or undefined if no object was stored.
   ###
   retrieve = (key) ->
     value = localStorage[key]
@@ -48,8 +46,7 @@
     @methodOf Local
 
     @param {String} prefix
-    @type Local
-    @returns An interface to local storage with the given prefix applied.
+    @returns {Local} An interface to local storage with the given prefix applied.
     ###
     new: (prefix) ->
       prefix ||= ""
