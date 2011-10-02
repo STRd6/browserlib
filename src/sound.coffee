@@ -66,7 +66,7 @@
     @name playFromUrl
     @methodOf Sound
 
-    @param {String} location of sound file to play
+    @param {String} url location of sound file to play
 
     @returns {Sound} this sound object
     ### 
