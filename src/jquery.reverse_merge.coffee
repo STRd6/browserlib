@@ -2,7 +2,7 @@
 Merges properties from objects into target without overiding.
 First come, first served.
 
-@return target
+@return {Object} target
 ###
 jQuery.extend
   reverseMerge: (target, objects...) ->
