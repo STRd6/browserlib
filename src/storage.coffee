@@ -24,7 +24,7 @@
   @methodOf Local
 
   @param {String} key string used to identify the object you are storing
-  @param {Object} value value of the 
+  @param {Object} value value of the object you are storing
 
   @returns {Object} value
   ###
