@@ -1592,7 +1592,12 @@ http://paulirish.com/2011/requestanimationframe-for-smart-animating/
   }, 1000 / 60);
 });;
 (function($) {
-  var Sound, directory, format, loadSoundChannel, sounds, _ref;
+  /**
+  A simple interface for playing sounds in games.  
+
+  @name Sound
+  @namespace
+  */  var Sound, directory, format, loadSoundChannel, sounds, _ref;
   directory = (typeof App !== "undefined" && App !== null ? (_ref = App.directories) != null ? _ref.sounds : void 0 : void 0) || "sounds";
   format = "wav";
   sounds = {};
@@ -1615,7 +1620,18 @@ http://paulirish.com/2011/requestanimationframe-for-smart-animating/
       }
     };
   };
-  return Object.extend(Sound, {
+  return Object.extend(Sound, (function() {
+    /**
+    Play a sound from your sounds 
+    directory with the name of `id`.
+
+    @name play
+    @methodOf Sound
+
+    @param {String} id id or name of the sound file to play
+    @param {String} maxChannels max number of sounds able to be played simultaneously
+    */
+  })(), {
     play: function(id, maxChannels) {
       var channel, channels, freeChannels, sound;
       maxChannels || (maxChannels = 4);
@@ -1638,14 +1654,37 @@ http://paulirish.com/2011/requestanimationframe-for-smart-animating/
           return sound.play();
         }
       }
-    },
+    }
+  }, (function() {
+    /**
+    Play a sound from the given
+    url with the name of `id`.
+
+    @name playFromUrl
+    @methodOf Sound
+
+    @param {String} location of sound file to play
+
+    @returns {Sound} this sound object
+    */
+  })(), {
     playFromUrl: function(url) {
       var sound;
       sound = $('<audio />').get(0);
       sound.src = url;
       sound.play();
       return sound;
-    },
+    }
+  }, (function() {
+    /**
+    Stop a sound while it is playing.
+
+    @name stop
+    @methodOf Sound
+
+    @param {String} id id or name of sound to stop playing.
+    */
+  })(), {
     stop: function(id) {
       var _ref2;
       return (_ref2 = sounds[id]) != null ? _ref2.stop() : void 0;
