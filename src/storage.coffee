@@ -36,6 +36,17 @@
   ###*
   Retrieve an object from local storage.
 
+  <code><pre>
+  Local.get('name')
+  # => 'Matt'
+
+  Local.get('age')
+  # => 26
+
+  Local.get('person')
+  # => { age: 26, name: 'Matt' }
+  </pre></code>
+
   @name get
   @methodOf Local
 
