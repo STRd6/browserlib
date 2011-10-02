@@ -1,11 +1,24 @@
 ( ->
   ###*
+  A wrapper on the Local Storage API 
+
   @name Local
   @namespace
   ###
 
   ###*
   Store an object in local storage.
+
+  <code><pre>
+  # you can store strings
+  Local.set('name', 'Matt')
+
+  # and numbers
+  Local.set('age', 26)
+
+  # and even objects
+  Local.set('person', {name: 'Matt', age: 26})
+  </pre></code>
 
   @name set
   @methodOf Local
