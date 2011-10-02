@@ -1593,7 +1593,7 @@ http://paulirish.com/2011/requestanimationframe-for-smart-animating/
 });;
 (function($) {
   /**
-  A simple interface for playing sounds in games.  
+  A simple interface for playing sounds in games.
 
   @name Sound
   @namespace
@@ -1624,6 +1624,11 @@ http://paulirish.com/2011/requestanimationframe-for-smart-animating/
     /**
     Play a sound from your sounds 
     directory with the name of `id`.
+
+    <code><pre>
+    # plays a sound called explode from your sounds directory
+    Sound.play('explode')
+    </pre></code>
 
     @name play
     @methodOf Sound
@@ -1660,6 +1665,11 @@ http://paulirish.com/2011/requestanimationframe-for-smart-animating/
     Play a sound from the given
     url with the name of `id`.
 
+    <code><pre>
+    # plays the sound at the specified url
+    Sound.playFromUrl('http://YourSoundWebsite.com/explode.wav')
+    </pre></code>
+
     @name playFromUrl
     @methodOf Sound
 
@@ -1678,6 +1688,12 @@ http://paulirish.com/2011/requestanimationframe-for-smart-animating/
   }, (function() {
     /**
     Stop a sound while it is playing.
+
+    <code><pre>
+    # stops the sound 'explode' from 
+    # playing if it is currently playing 
+    Sound.stop('explode')
+    </pre></code>
 
     @name stop
     @methodOf Sound
