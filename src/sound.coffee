@@ -1,6 +1,6 @@
 (($) ->
   ###*
-  A simple interface for playing sounds in games.  
+  A simple interface for playing sounds in games.
 
   @name Sound
   @namespace
@@ -29,6 +29,11 @@
     ###*
     Play a sound from your sounds 
     directory with the name of `id`.
+
+    <code><pre>
+    # plays a sound called explode from your sounds directory
+    Sound.play('explode')
+    </pre></code>
 
     @name play
     @methodOf Sound
