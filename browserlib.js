@@ -1709,19 +1709,32 @@ http://paulirish.com/2011/requestanimationframe-for-smart-animating/
 })(jQuery);;
 (function() {
   /**
+  A wrapper on the Local Storage API 
+
   @name Local
   @namespace
   */
   /**
   Store an object in local storage.
 
+  <code><pre>
+  # you can store strings
+  Local.set('name', 'Matt')
+
+  # and numbers
+  Local.set('age', 26)
+
+  # and even objects
+  Local.set('person', {name: 'Matt', age: 26})
+  </pre></code>
+
   @name set
   @methodOf Local
 
-  @param {String} key
-  @param {Object} value
-  @type Object
-  @returns value
+  @param {String} key string used to identify the object you are storing
+  @param {Object} value value of the object you are storing
+
+  @returns {Object} value
   */  var retrieve, store;
   store = function(key, value) {
     localStorage[key] = JSON.stringify(value);
@@ -1730,12 +1743,23 @@ http://paulirish.com/2011/requestanimationframe-for-smart-animating/
   /**
   Retrieve an object from local storage.
 
+  <code><pre>
+  Local.get('name')
+  # => 'Matt'
+
+  Local.get('age')
+  # => 26
+
+  Local.get('person')
+  # => { age: 26, name: 'Matt' }
+  </pre></code>
+
   @name get
   @methodOf Local
 
-  @param {String} key
-  @type Object
-  @returns The object that was stored or undefined if no object was stored.
+  @param {String} key string that identifies the stored object
+
+  @returns {Object} The object that was stored or undefined if no object was stored.
   */
   retrieve = function(key) {
     var value;
@@ -1755,8 +1779,7 @@ http://paulirish.com/2011/requestanimationframe-for-smart-animating/
     @methodOf Local
 
     @param {String} prefix
-    @type Local
-    @returns An interface to local storage with the given prefix applied.
+    @returns {Local} An interface to local storage with the given prefix applied.
     */
     "new": function(prefix) {
       prefix || (prefix = "");
