@@ -68,6 +68,11 @@
     Play a sound from the given
     url with the name of `id`.
 
+    <code><pre>
+    # plays the sound at the specified url
+    Sound.playFromUrl('http://YourSoundWebsite.com/explode.wav')
+    </pre></code>
+
     @name playFromUrl
     @methodOf Sound
 
@@ -85,6 +90,12 @@
 
     ###*
     Stop a sound while it is playing.
+
+    <code><pre>
+    # stops the sound 'explode' from 
+    # playing if it is currently playing 
+    Sound.stop('explode')
+    </pre></code>
 
     @name stop
     @methodOf Sound
