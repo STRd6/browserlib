@@ -59,6 +59,17 @@
           channels.push(sound)
           sound.play()
 
+    ###*
+    Play a sound from the given
+    url with the name of `id`.
+
+    @name playFromUrl
+    @methodOf Sound
+
+    @param {String} location of sound file to play
+
+    @returns {Sound} this sound object
+    ### 
     playFromUrl: (url) ->
       sound = $('<audio />').get(0)
       sound.src = url
@@ -67,6 +78,14 @@
 
       return sound
 
+    ###*
+    Stop a sound while it is playing.
+
+    @name stop
+    @methodOf Sound
+
+    @param {String} id id or name of sound to stop playing.
+    ### 
     stop: (id) ->
       sounds[id]?.stop()
 
