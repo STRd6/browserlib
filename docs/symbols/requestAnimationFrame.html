@@ -4,7 +4,7 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <meta name="generator" content="JsDoc Toolkit" />
     
-    <title>JsDoc Reference - justPressed</title>
+    <title>JsDoc Reference - requestAnimationFrame</title>
     <link href="/stylesheets/docs.css" type="text/css" rel="stylesheet" media="all" />
   </head>
 
@@ -42,7 +42,7 @@
       <div class="innerContent">
         <h1 class="classTitle">
           
-          <span>justPressed</span>
+          <span>requestAnimationFrame</span>
         </h1>
 
         <p class="description summary">
@@ -55,15 +55,16 @@
 
         
           <div class="props">
-            <table class="summaryTable" cellspacing="0" summary="A summary of the constructor documented in the class justPressed.">
+            <table class="summaryTable" cellspacing="0" summary="A summary of the constructor documented in the class requestAnimationFrame.">
               <caption>Class Summary</caption>
               <tbody>
                 <tr>
                   <td class="nameDescription" >
                     <div class="fixedFont">
-                      <b><a href="../symbols/justPressed.html#constructor">justPressed</a></b>()
+                      <b><a href="../symbols/requestAnimationFrame.html#constructor">requestAnimationFrame</a></b>()
                     </div>
-                    <div class="description">The global justPressed property lets your query the status of keys.</div>
+                    <div class="description">A browser polyfill so you can consistently 
+call requestAnimationFrame.</div>
                   </td>
                 </tr>
                 <tr>
@@ -95,26 +96,16 @@
               <a name="constructor"></a>
 
               <div class="fixedFont">
-                <b>justPressed</b>()
+                <b>requestAnimationFrame</b>()
               </div>
 
               <div class="description">
-                The global justPressed property lets your query the status of keys. However, 
-  unlike keydown it will only trigger once for each time the key is pressed.
+                A browser polyfill so you can consistently 
+call requestAnimationFrame. Using 
+requestAnimationFrame is preferred to 
+setInterval for main game loops.
 
-  <code><pre>
-  if justPressed.left
-    moveLeft()
-
-  if justPressed.a or justPressed.space
-    attack()
-
-  if justPressed.return
-    confirm()
-
-  if justPressed.esc
-    cancel()
-  </pre></code>
+http://paulirish.com/2011/requestanimationframe-for-smart-animating/
                 
               </div>
 

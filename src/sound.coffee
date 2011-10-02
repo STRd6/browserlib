@@ -1,9 +1,10 @@
 (($) ->
-  # TODO: detecting audio with canPlay is f***ed
-  # Hopefully get more robust later
-  # audio.canPlayType("audio/ogg") === "maybe" WTF?
-  # http://ajaxian.com/archives/the-doctor-subscribes-html-5-audio-cross-browser-support
+  ###*
+  A simple interface for playing sounds in games.  
 
+  @name Sound
+  @namespace
+  ###
   directory = App?.directories?.sounds || "sounds"
   format = "wav"
   sounds = {}
@@ -25,6 +26,16 @@
       Sound.stop(id)
 
   Object.extend Sound,
+    ###*
+    Play a sound from your sounds 
+    directory with the name of `id`.
+
+    @name play
+    @methodOf Sound
+
+    @param {String} id id or name of the sound file to play
+    @param {String} maxChannels max number of sounds able to be played simultaneously
+    ###  
     play: (id, maxChannels) ->
       # TODO: Too many channels crash Chrome!!!1
       maxChannels ||= 4
