@@ -19,6 +19,28 @@ $ ->
   @name keydown
   @namespace
   ###
+
+  ###*
+  The global justPressed property lets your query the status of keys. However, 
+  unlike keydown it will only trigger once for each time the key is pressed.
+
+  <code><pre>
+  if justPressed.left
+    moveLeft()
+
+  if justPressed.a or justPressed.space
+    attack()
+
+  if justPressed.return
+    confirm()
+
+  if justPressed.esc
+    cancel()
+  </pre></code>
+
+  @name justPressed
+  @namespace
+  ###
   window.keydown = {}
   window.justPressed = {}
 
