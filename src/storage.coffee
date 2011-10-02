@@ -71,7 +71,7 @@
     @name new
     @methodOf Local
 
-    @param {String} prefix
+    @param {String} prefix 
     @returns {Local} An interface to local storage with the given prefix applied.
     ###
     new: (prefix) ->

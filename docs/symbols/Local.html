@@ -65,7 +65,7 @@
                     <div class="fixedFont">
                       <b><a href="../symbols/Local.html#constructor">Local</a></b>()
                     </div>
-                    <div class="description"></div>
+                    <div class="description">A wrapper on the Local Storage API</div>
                   </td>
                 </tr>
                 <tr>
@@ -140,7 +140,7 @@
               </div>
 
               <div class="description">
-                
+                A wrapper on the Local Storage API
                 
               </div>
 
@@ -177,6 +177,17 @@
                 <div class="description">
                   Retrieve an object from local storage.
 
+  <code><pre>
+  Local.get('name')
+  # => 'Matt'
+
+  Local.get('age')
+  # => 26
+
+  Local.get('person')
+  # => { age: 26, name: 'Matt' }
+  </pre></code>
+
                   
                 </div>
 
@@ -190,7 +201,7 @@
                         <b>key</b><span class='light fixedFont'> String</span> 
                         
                       </dt>
-                      <dd></dd>
+                      <dd>string that identifies the stored object</dd>
                     
                   </dl>
                 
@@ -206,7 +217,7 @@
 
                     
                       
-                        <dt class="heading">Returns :</dt>
+                        <dt class="heading">Returns <span class="light fixedFont">Object</span> :</dt>
                         <dd>The object that was stored or undefined if no object was stored.</dd>
                       
                     
@@ -259,7 +270,7 @@
 
                     
                       
-                        <dt class="heading">Returns :</dt>
+                        <dt class="heading">Returns <span class="light fixedFont"><a href="../symbols/Local.html">Local</a></span> :</dt>
                         <dd>An interface to local storage with the given prefix applied.</dd>
                       
                     
@@ -283,6 +294,17 @@
                 <div class="description">
                   Store an object in local storage.
 
+  <code><pre>
+  # you can store strings
+  Local.set('name', 'Matt')
+
+  # and numbers
+  Local.set('age', 26)
+
+  # and even objects
+  Local.set('person', {name: 'Matt', age: 26})
+  </pre></code>
+
                   
                 </div>
 
@@ -296,13 +318,13 @@
                         <b>key</b><span class='light fixedFont'> String</span> 
                         
                       </dt>
-                      <dd></dd>
+                      <dd>string used to identify the object you are storing</dd>
                     
                       <dt>
                         <b>value</b><span class='light fixedFont'> Object</span> 
                         
                       </dt>
-                      <dd></dd>
+                      <dd>value of the object you are storing</dd>
                     
                   </dl>
                 
@@ -318,7 +340,7 @@
 
                     
                       
-                        <dt class="heading">Returns :</dt>
+                        <dt class="heading">Returns <span class="light fixedFont">Object</span> :</dt>
                         <dd>value</dd>
                       
                     
