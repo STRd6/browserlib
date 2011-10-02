@@ -1,25 +1,17 @@
 ###*
 The Music object provides an easy API to play
-songs from your sounds project directory.
-
-@name Music
-@namespace
+songs from your sounds project directory. By
+default, the track is looped.
 
 <code><pre>
-if keydown.left
-  moveLeft()
+  backgroundTrack = Music()
 
-if keydown.a or keydown.space
-  attack()
-
-if keydown.return
-  confirm()
-
-if keydown.esc
-  cancel()
+  # plays the track named intro_theme.mp3
+  # from your sounds directory.
+  backgroundTrack.play('intro_theme')
 </pre></code>
 
-@name keydown
+@name Music
 @namespace
 ###
 
