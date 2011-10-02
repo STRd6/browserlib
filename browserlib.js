@@ -500,11 +500,7 @@ songs from your sounds project directory. By
 default, the track is looped.
 
 <code><pre>
-  backgroundTrack = Music()
-
-  # plays the track named intro_theme.mp3
-  # from your sounds directory.
-  backgroundTrack.play('intro_theme')
+  Music.play('intro_theme')
 </pre></code>
 
 @name Music
