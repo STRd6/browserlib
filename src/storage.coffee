@@ -10,8 +10,9 @@
   @name set
   @methodOf Local
 
-  @param {String} key
-  @param {Object} value
+  @param {String} key string used to identify the object you are storing
+  @param {Object} value value of the 
+
   @returns {Object} value
   ###
   store = (key, value) ->
