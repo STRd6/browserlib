@@ -2,6 +2,8 @@ $ ->
   ###*
   The global keydown property lets your query the status of keys.
 
+  @name keydown
+
   <pre>
   # Examples:
 
