@@ -4,7 +4,7 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <meta name="generator" content="JsDoc Toolkit" />
     
-    <title>JsDoc Reference - keydown</title>
+    <title>JsDoc Reference - Music</title>
     <link href="/stylesheets/docs.css" type="text/css" rel="stylesheet" media="all" />
   </head>
 
@@ -40,7 +40,7 @@
       <div class="innerContent">
         <h1 class="classTitle">
           
-          <span>keydown</span>
+          <span>Music</span>
         </h1>
 
         <p class="description summary">
@@ -53,15 +53,16 @@
 
         
           <div class="props">
-            <table class="summaryTable" cellspacing="0" summary="A summary of the constructor documented in the class keydown.">
+            <table class="summaryTable" cellspacing="0" summary="A summary of the constructor documented in the class Music.">
               <caption>Class Summary</caption>
               <tbody>
                 <tr>
                   <td class="nameDescription" >
                     <div class="fixedFont">
-                      <b><a href="../symbols/keydown.html#constructor">keydown</a></b>()
+                      <b><a href="../symbols/Music.html#constructor">Music</a></b>()
                     </div>
-                    <div class="description">The global keydown property lets your query the status of keys.</div>
+                    <div class="description">The Music object provides an easy API to play
+songs from your sounds project directory.</div>
                   </td>
                 </tr>
                 <tr>
@@ -93,25 +94,21 @@
               <a name="constructor"></a>
 
               <div class="fixedFont">
-                <b>keydown</b>()
+                <b>Music</b>()
               </div>
 
               <div class="description">
-                The global keydown property lets your query the status of keys.
+                The Music object provides an easy API to play
+songs from your sounds project directory. By
+default, the track is looped.
 
-  <code><pre>
-  if keydown.left
-    moveLeft()
+<code><pre>
+  backgroundTrack = Music()
 
-  if keydown.a or keydown.space
-    attack()
-
-  if keydown.return
-    confirm()
-
-  if keydown.esc
-    cancel()
-  </pre></code>
+  # plays the track named intro_theme.mp3
+  # from your sounds directory.
+  backgroundTrack.play('intro_theme')
+</pre></code>
                 
               </div>
 
