@@ -494,7 +494,22 @@ $(function() {
     return _results;
   };
 });;
-var Music;
+/**
+The Music object provides an easy API to play
+songs from your sounds project directory. By
+default, the track is looped.
+
+<code><pre>
+  backgroundTrack = Music()
+
+  # plays the track named intro_theme.mp3
+  # from your sounds directory.
+  backgroundTrack.play('intro_theme')
+</pre></code>
+
+@name Music
+@namespace
+*/var Music;
 Music = (function() {
   var track;
   track = $("<audio />", {
