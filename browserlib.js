@@ -1778,20 +1778,20 @@ http://paulirish.com/2011/requestanimationframe-for-smart-animating/
     @name new
     @methodOf Local
 
-    @param {String} prefix
+    @param {String} prefix 
     @returns {Local} An interface to local storage with the given prefix applied.
     */
     "new": function(prefix) {
       prefix || (prefix = "");
       return {
         get: function(key) {
-          return retrieve("" + prefix + "_key");
+          return retrieve("" + prefix + "_" + key);
         },
         set: function(key, value) {
-          return store("" + prefix + "_key", value);
+          return store("" + prefix + "_" + key, value);
         },
         put: function(key, value) {
-          return store("" + prefix + "_key", value);
+          return store("" + prefix + "_" + key, value);
         }
       };
     }
