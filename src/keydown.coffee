@@ -4,9 +4,7 @@ $ ->
 
   @name keydown
 
-  <pre>
-  # Examples:
-
+  <code><pre>
   if keydown.left
     moveLeft()
 
@@ -18,8 +16,7 @@ $ ->
 
   if keydown.esc
     cancel()
-
-  </pre>
+  </pre></code>
 
   @name keydown
   @namespace
