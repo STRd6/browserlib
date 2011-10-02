@@ -78,11 +78,11 @@
       prefix ||= ""
 
       get: (key) ->
-        retrieve("#{prefix}_key")
+        retrieve("#{prefix}_#{key}")
       set: (key, value) ->
-        store("#{prefix}_key", value)
+        store("#{prefix}_#{key}", value)
       put: (key, value) ->
-        store("#{prefix}_key", value)
+        store("#{prefix}_#{key}", value)
 
 )()
 
