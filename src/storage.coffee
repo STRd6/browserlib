@@ -50,7 +50,8 @@
   @name get
   @methodOf Local
 
-  @param {String} key
+  @param {String} key string that identifies the stored object
+
   @returns {Object} The object that was stored or undefined if no object was stored.
   ###
   retrieve = (key) ->
