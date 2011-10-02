@@ -422,9 +422,9 @@ $(function() {
   /**
   The global keydown property lets your query the status of keys.
 
-  <pre>
-  # Examples:
+  @name keydown
 
+  <code><pre>
   if keydown.left
     moveLeft()
 
@@ -436,8 +436,7 @@ $(function() {
 
   if keydown.esc
     cancel()
-
-  </pre>
+  </pre></code>
 
   @name keydown
   @namespace
