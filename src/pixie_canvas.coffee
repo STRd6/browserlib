@@ -685,6 +685,9 @@
       element: ->
         canvas
 
+      createPattern: (image, repitition) ->
+        context.createPattern(image, repitition)
+
     contextAttrAccessor = (attrs...)->
       attrs.each (attr) ->
         $canvas[attr] = (newVal) ->
