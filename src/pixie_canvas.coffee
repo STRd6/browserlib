@@ -688,7 +688,7 @@
       createPattern: (image, repitition) ->
         context.createPattern(image, repitition)
 
-    contextAttrAccessor = (attrs...)->
+    contextAttrAccessor = (attrs...) ->
       attrs.each (attr) ->
         $canvas[attr] = (newVal) ->
           if newVal?
@@ -697,15 +697,27 @@
           else
             context[attr]
 
+    canvasAttrAccessor = (attrs...) ->
+      attrs.each (attr) ->
+        $canvas[attr] = (newVal) ->
+          if newVal?
+            canvas[attr] = newVal
+            return @
+          else
+            canvas[attr]
+
     contextAttrAccessor(
       "font",
       "globalAlpha",
       "globalCompositeOperation",
-      "height",
       "lineWidth",
       "textAlign",
+    )
+
+    canvasAttrAccessor(
+      "height",
       "width",
-    ) 
+    )
 
     if canvas?.getContext
       context = canvas.getContext('2d')
