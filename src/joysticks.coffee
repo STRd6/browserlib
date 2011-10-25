@@ -216,9 +216,7 @@ Joysticks = ( ->
         periodicCheck = ->
           if plugin.status
             promptElement.remove()
-            log "removed"
           else
-            log "checking"
             setTimeout periodicCheck, 500
 
         periodicCheck()
