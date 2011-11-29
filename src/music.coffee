@@ -21,5 +21,12 @@ Music = (->
   play: (name) ->
     track.src = "#{BASE_URL}/sounds/#{name}.mp3"
     track.play()
+
+  volume: (newVolume) ->
+    if newVolume?
+      track.volume = newVolume
+      return this
+    else
+      track.volume
 )()
 
