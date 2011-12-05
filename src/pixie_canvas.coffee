@@ -688,6 +688,13 @@
       createPattern: (image, repitition) ->
         context.createPattern(image, repitition)
 
+      clip: (x, y, width, height) ->
+        context().beginPath()
+        context().rect(x, y, width, height)
+        context().clip()
+
+        return @
+
     contextAttrAccessor = (attrs...) ->
       attrs.each (attr) ->
         $canvas[attr] = (newVal) ->
