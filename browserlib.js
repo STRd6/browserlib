@@ -1237,9 +1237,9 @@ var __slice = Array.prototype.slice;
         return context.createPattern(image, repitition);
       },
       clip: function(x, y, width, height) {
-        context().beginPath();
-        context().rect(x, y, width, height);
-        context().clip();
+        context.beginPath();
+        context.rect(x, y, width, height);
+        context.clip();
         return this;
       }
     });
