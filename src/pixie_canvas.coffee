@@ -689,9 +689,9 @@
         context.createPattern(image, repitition)
 
       clip: (x, y, width, height) ->
-        context().beginPath()
-        context().rect(x, y, width, height)
-        context().clip()
+        context.beginPath()
+        context.rect(x, y, width, height)
+        context.clip()
 
         return @
 
