@@ -9,12 +9,10 @@ $(document).bind("keydown", function(event) {
   if (!$(event.target).is("input")) return event.preventDefault();
 });
 ;
-
 /**
 This error handler captures any runtime errors and reports them to the IDE
 if present.
 */
-
 window.onerror = function(message, url, lineNumber) {
   var errorContext;
   errorContext = $('script').last().text().split('\n').slice(lineNumber - 5, (lineNumber + 4) + 1 || 9e9);
@@ -22,8 +20,8 @@ window.onerror = function(message, url, lineNumber) {
   return typeof displayRuntimeError === "function" ? displayRuntimeError("<code>" + message + "</code> <br /><br />(Sometimes this context may be wrong.)<br /><code><pre>" + (errorContext.join('\n')) + "</pre></code>") : void 0;
 };
 ;
-var Joysticks;
-var __slice = Array.prototype.slice;
+var Joysticks,
+  __slice = Array.prototype.slice;
 
 Joysticks = (function() {
   var AXIS_MAX, Controller, DEAD_ZONE, MAX_BUFFER, TRIP_HIGH, TRIP_LOW, axisMappingDefault, axisMappingOSX, buttonMappingDefault, buttonMappingOSX, controllers, displayInstallPrompt, joysticks, plugin, previousJoysticks, type;
@@ -254,7 +252,6 @@ Joysticks = (function() {
   };
 })();
 ;
-
 /**
 jQuery Hotkeys Plugin
 Copyright 2010, John Resig
@@ -266,7 +263,6 @@ http://github.com/tzuryby/hotkeys
 Original idea by:
 Binny V A, http://www.openjs.com/scripts/events/keyboard_shortcuts/
 */
-
 (function(jQuery) {
   var isFunctionKey, isTextAcceptingInput, keyHandler;
   isTextAcceptingInput = function(element) {
@@ -405,7 +401,6 @@ Binny V A, http://www.openjs.com/scripts/events/keyboard_shortcuts/
   });
 })(jQuery);
 ;
-
 /**
 Merges properties from objects into target without overiding.
 First come, first served.
@@ -418,7 +413,6 @@ First come, first served.
 
 @return {Object} target
 */
-
 var __slice = Array.prototype.slice;
 
 jQuery.extend({
@@ -513,6 +507,77 @@ $(function() {
 });
 ;
 
+$(function() {
+  /**
+  The global mouseDown property lets your query the status of mouse buttons.
+
+  <code><pre>
+  if mouseDown.left
+    moveLeft()
+
+  if mouseDown.right
+    attack()
+  </pre></code>
+
+  @name mouseDown
+  @namespace
+  */
+  /**
+  The global mousePressed property lets your query the status of mouse buttons.
+  However, unlike mouseDown it will only trigger the first time the button
+  pressed.
+
+  <code><pre>
+  if mousePressed.left
+    moveLeft()
+
+  if mousePressed.right
+    attack()
+  </pre></code>
+
+  @name justPressed
+  @namespace
+  */
+  var buttonName, buttonNames, prevButtonsDown;
+  window.mouseDown = {};
+  window.mousePressed = {};
+  window.mousePosition = Point(0, 0);
+  prevButtonsDown = {};
+  buttonNames = {
+    1: "left",
+    2: "middle",
+    3: "right"
+  };
+  buttonName = function(event) {
+    return buttonNames[event.which];
+  };
+  $(document).bind("mousemove", function(event) {
+    mousePosition.x = event.pageX;
+    return mousePosition.y = event.pageY;
+  });
+  $(document).bind("mousedown", function(event) {
+    return mouseDown[buttonName(event)] = true;
+  });
+  $(document).bind("mouseup", function(event) {
+    return mouseDown[buttonName(event)] = false;
+  });
+  return window.updateMouse = function() {
+    var button, value, _results;
+    window.mousePressed = {};
+    for (button in mouseDown) {
+      value = mouseDown[button];
+      if (!prevButtonsDown[button]) mousePressed[button] = value;
+    }
+    prevButtonsDown = {};
+    _results = [];
+    for (button in mouseDown) {
+      value = mouseDown[button];
+      _results.push(prevButtonsDown[button] = value);
+    }
+    return _results;
+  };
+});
+;
 /**
 The Music object provides an easy API to play
 songs from your sounds project directory. By
@@ -525,7 +590,6 @@ default, the track is looped.
 @name Music
 @namespace
 */
-
 var Music;
 
 Music = (function() {
@@ -1567,7 +1631,6 @@ var __slice = Array.prototype.slice;
   };
 })(jQuery);
 ;
-
 /**
 A browser polyfill so you can consistently 
 call requestAnimationFrame. Using 
@@ -1579,7 +1642,6 @@ http://paulirish.com/2011/requestanimationframe-for-smart-animating/
 @name requestAnimationFrame
 @namespace
 */
-
 window.requestAnimationFrame || (window.requestAnimationFrame = window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame || function(callback, element) {
   return window.setTimeout(function() {
     return callback(+new Date());
