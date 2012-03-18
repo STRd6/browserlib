@@ -52,7 +52,7 @@ $ ->
   $(document).bind "mousedown", (event) ->
     mouseDown[buttonName(event)] = true
 
-  $(document).bind "mousedown", (event) ->
+  $(document).bind "mouseup", (event) ->
     mouseDown[buttonName(event)] = false
 
   window.updateMouse = ->
