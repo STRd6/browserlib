@@ -47,7 +47,7 @@ $ ->
   prevKeysDown = {}
 
   keyName = (event) ->
-    jQuery.hotkeys.specialKeys[event.which] || 
+    jQuery.hotkeys.specialKeys[event.which] ||
     String.fromCharCode(event.which).toLowerCase()
 
   $(document).bind "keydown", (event) ->
@@ -60,11 +60,14 @@ $ ->
 
   window.updateKeys = () ->
     window.justPressed = {}
+    keydown.any = false
 
     for key, value of keydown
       justPressed[key] = value unless prevKeysDown[key]
 
-    prevKeysDown = {}
-    for key, value of keydown  
-      prevKeysDown[key] = value
+      justPressed.any = true if justPressed[key]
+      keydown.any = true if value
 
+    prevKeysDown = {}
+    for key, value of keydown
+      prevKeysDown[key] = value
