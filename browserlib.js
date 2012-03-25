@@ -492,9 +492,12 @@ $(function() {
   return window.updateKeys = function() {
     var key, value, _results;
     window.justPressed = {};
+    keydown.any = false;
     for (key in keydown) {
       value = keydown[key];
       if (!prevKeysDown[key]) justPressed[key] = value;
+      if (justPressed[key]) justPressed.any = true;
+      if (value) keydown.any = true;
     }
     prevKeysDown = {};
     _results = [];
