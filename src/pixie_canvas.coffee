@@ -1,7 +1,5 @@
 ( ($) ->
-  $.fn.pixieCanvas = (options) ->
-    options ||= {}
-
+  $.fn.pixieCanvas = (options={}) ->
     canvas = this.get(0)
     context = undefined
 
