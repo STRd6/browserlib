@@ -433,42 +433,42 @@ jQuery.extend({
 $(function() {
   /**
   The global keydown property lets your query the status of keys.
-
+  
   <code><pre>
   if keydown.left
     moveLeft()
-
+  
   if keydown.a or keydown.space
     attack()
-
+  
   if keydown.return
     confirm()
-
+  
   if keydown.esc
     cancel()
   </pre></code>
-
+  
   @name keydown
   @namespace
   */
   /**
   The global justPressed property lets your query the status of keys. However, 
   unlike keydown it will only trigger once for each time the key is pressed.
-
+  
   <code><pre>
   if justPressed.left
     moveLeft()
-
+  
   if justPressed.a or justPressed.space
     attack()
-
+  
   if justPressed.return
     confirm()
-
+  
   if justPressed.esc
     cancel()
   </pre></code>
-
+  
   @name justPressed
   @namespace
   */
@@ -513,15 +513,15 @@ $(function() {
 $(function() {
   /**
   The global mouseDown property lets your query the status of mouse buttons.
-
+  
   <code><pre>
   if mouseDown.left
     moveLeft()
-
+  
   if mouseDown.right
     attack()
   </pre></code>
-
+  
   @name mouseDown
   @namespace
   */
@@ -529,15 +529,15 @@ $(function() {
   The global mousePressed property lets your query the status of mouse buttons.
   However, unlike mouseDown it will only trigger the first time the button
   pressed.
-
+  
   <code><pre>
   if mousePressed.left
     moveLeft()
-
+  
   if mousePressed.right
     attack()
   </pre></code>
-
+  
   @name justPressed
   @namespace
   */
@@ -622,16 +622,16 @@ var __slice = Array.prototype.slice;
 (function($) {
   return $.fn.pixieCanvas = function(options) {
     var $canvas, canvas, canvasAttrAccessor, context, contextAttrAccessor;
-    options || (options = {});
+    if (options == null) options = {};
     canvas = this.get(0);
     context = void 0;
     /**
     PixieCanvas provides a convenient wrapper for working with Context2d.
-
+    
     Methods try to be as flexible as possible as to what arguments they take.
-
+    
     Non-getter methods return `this` for method chaining.
-
+    
     @name PixieCanvas
     @constructor
     */
@@ -641,13 +641,13 @@ var __slice = Array.prototype.slice;
       applied. All drawing methods called within the block will draw
       into the canvas with the transformation applied. The transformation
       is removed at the end of the block, even if the block throws an error.
-
+      
       @name withTransform
       @methodOf PixieCanvas#
-
+      
       @param {Matrix} matrix
       @param {Function} block
-
+      
       @returns {PixieCanvas} this
       */
       withTransform: function(matrix, block) {
@@ -662,19 +662,19 @@ var __slice = Array.prototype.slice;
       },
       /**
       Clear the canvas (or a portion of it).
-
+      
       Clear the entire canvas
-
+      
       <code><pre>
       canvas.clear()
       </pre></code>
-
+      
       Clear a portion of the canvas
-
+      
       <code class="run"><pre>
       # Set up: Fill canvas with blue
       canvas.fill("blue")  
-
+      
       # Clear a portion of the canvas
       canvas.clear
         x: 50
@@ -682,22 +682,22 @@ var __slice = Array.prototype.slice;
         width: 50
         height: 50
       </pre></code>
-
+      
       You can also clear the canvas by passing x, y, width height as
       unnamed parameters:
-
+      
       <code><pre>
       canvas.clear(25, 25, 50, 50)
       </pre></code>
-
+      
       @name clear
       @methodOf PixieCanvas#
-
+      
       @param {Number} [x] where to start clearing on the x axis
       @param {Number} [y] where to start clearing on the y axis
       @param {Number} [width] width of area to clear
       @param {Number} [height] height of area to clear
-
+      
       @returns {PixieCanvas} this
       */
       clear: function(x, y, width, height) {
@@ -716,11 +716,11 @@ var __slice = Array.prototype.slice;
       /**
       Fills the entire canvas (or a specified section of it) with
       the given color.
-
+      
       <code class="run"><pre>
       # Paint the town (entire canvas) red
       canvas.fill "red"
-
+      
       # Fill a section of the canvas white (#FFF)
       canvas.fill
         x: 50
@@ -729,17 +729,17 @@ var __slice = Array.prototype.slice;
         height: 50
         color: "#FFF"
       </pre></code>
-
+      
       @name fill
       @methodOf PixieCanvas#
-
+      
       @param {Number} [x=0] Optional x position to fill from
       @param {Number} [y=0] Optional y position to fill from
       @param {Number} [width=canvas.width] Optional width of area to fill
       @param {Number} [height=canvas.height] Optional height of area to fill 
       @param {Bounds} [bounds] bounds object to fill
       @param {String|Color} [color] color of area to fill
-
+      
       @returns {PixieCanvas} this
       */
       fill: function(color) {
@@ -764,10 +764,10 @@ var __slice = Array.prototype.slice;
       that implement drawable will have this wrapped up nicely,
       so there is a good chance that you will not have to deal with
       it directly.
-
+      
       @name drawImage
       @methodOf PixieCanvas#
-
+      
       @param image
       @param {Number} sx
       @param {Number} sy
@@ -777,7 +777,7 @@ var __slice = Array.prototype.slice;
       @param {Number} dy
       @param {Number} dWidth
       @param {Number} dHeight
-
+      
       @returns {PixieCanvas} this
       */
       drawImage: function(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight) {
@@ -787,14 +787,14 @@ var __slice = Array.prototype.slice;
       /**
       Draws a circle at the specified position with the specified
       radius and color.
-
+      
       <code class="run"><pre>
       # Draw a large orange circle
       canvas.drawCircle
         radius: 30
         position: Point(100, 75)
         color: "orange"
-
+      
       # Draw a blue circle with radius 10 at (25, 50)
       # and a red stroke
       canvas.drawCircle
@@ -805,24 +805,24 @@ var __slice = Array.prototype.slice;
         stroke:
           color: "red"
           width: 1
-
+      
       # Create a circle object to set up the next examples
       circle =
         radius: 20
         x: 50
         y: 50
-
+      
       # Draw a given circle in yellow
       canvas.drawCircle
         circle: circle
         color: "yellow"
-
+      
       # Draw the circle in green at a different position
       canvas.drawCircle
         circle: circle
         position: Point(25, 75)
         color: "green"
-
+      
       # Draw an outline circle in purple.
       canvas.drawCircle
         x: 50
@@ -832,10 +832,10 @@ var __slice = Array.prototype.slice;
           color: "purple"
           width: 2
       </pre></code>
-
+      
       @name drawCircle
       @methodOf PixieCanvas#
-
+      
       @param {Number} [x] location on the x axis to start drawing
       @param {Number} [y] location on the y axis to start drawing
       @param {Point} [position] position object of location to start drawing. This will override x and y values passed
@@ -843,7 +843,7 @@ var __slice = Array.prototype.slice;
       @param {Color|String} [color] color of the circle
       @param {Circle} [circle] circle object that contains position and radius. Overrides x, y, and radius if passed
       @param {Stroke} [stroke] stroke object that specifies stroke color and stroke width
-
+      
       @returns {PixieCanvas} this
       */
       drawCircle: function(_arg) {
@@ -869,7 +869,7 @@ var __slice = Array.prototype.slice;
       Draws a rectangle at the specified position with given 
       width and height. Optionally takes a position, bounds
       and color argument.
-
+      
       <code class="run"><pre>
       # Draw a red rectangle using x, y, width and height
       canvas.drawRect
@@ -878,7 +878,7 @@ var __slice = Array.prototype.slice;
         width: 50
         height: 50
         color: "#F00"
-
+      
       # Draw a blue rectangle using position, width and height
       # and throw in a stroke for good measure
       canvas.drawRect
@@ -889,19 +889,19 @@ var __slice = Array.prototype.slice;
         stroke:
           color: "orange"
           width: 3
-
+      
       # Set up a bounds object for the next examples
       bounds =
         x: 100
         y: 0
         width: 100
         height: 100
-
+      
       # Draw a purple rectangle using bounds
       canvas.drawRect
         bounds: bounds
         color: "green"
-
+      
       # Draw the outline of the same bounds, but at a different position
       canvas.drawRect
         bounds: bounds
@@ -910,10 +910,10 @@ var __slice = Array.prototype.slice;
           color: "purple"
           width: 2
       </pre></code>
-
+      
       @name drawRect
       @methodOf PixieCanvas#
-
+      
       @param {Number} [x] location on the x axis to start drawing
       @param {Number} [y] location on the y axis to start drawing
       @param {Number} [width] width of rectangle to draw
@@ -922,7 +922,7 @@ var __slice = Array.prototype.slice;
       @param {Color|String} [color] color of rectangle
       @param {Bounds} [bounds] bounds of rectangle. Overrides x, y, width, height if passed
       @param {Stroke} [stroke] stroke object that specifies stroke color and stroke width
-
+      
       @returns {PixieCanvas} this
       */
       drawRect: function(_arg) {
@@ -945,38 +945,38 @@ var __slice = Array.prototype.slice;
       },
       /**
       Draw a line from `start` to `end`.
-
+      
       <code class="run"><pre>
       # Draw a sweet diagonal
       canvas.drawLine
         start: Point(0, 0)
         end: Point(200, 200)
         color: "purple"
-
+      
       # Draw another sweet diagonal
       canvas.drawLine
         start: Point(200, 0)
         end: Point(0, 200)
         color: "red"
         width: 6
-
+      
       # Now draw a sweet horizontal with a direction and a length
       canvas.drawLine
         start: Point(0, 100)
         length: 200
         direction: Point(1, 0)
         color: "orange"
-
+      
       </pre></code>
-
+      
       @name drawLine
       @methodOf PixieCanvas#
-
+      
       @param {Point} start position to start drawing from
       @param {Point} [end] position to stop drawing
       @param {Number} [width] width of the line
       @param {String|Color} [color] color of the line
-
+      
       @returns {PixieCanvas} this
       */
       drawLine: function(_arg) {
@@ -995,7 +995,7 @@ var __slice = Array.prototype.slice;
       },
       /**
       Draw a polygon.
-
+      
       <code class="run"><pre>
       # Draw a sweet rhombus
       canvas.drawPoly
@@ -1010,14 +1010,14 @@ var __slice = Array.prototype.slice;
           color: "red"
           width: 2
       </pre></code>
-
+      
       @name drawPoly
       @methodOf PixieCanvas#
-
+      
       @param {Point[]} [points] collection of points that define the vertices of the polygon
       @param {String|Color} [color] color of the polygon
       @param {Stroke} [stroke] stroke object that specifies stroke color and stroke width
-
+      
       @returns {PixieCanvas} this
       */
       drawPoly: function(_arg) {
@@ -1045,9 +1045,9 @@ var __slice = Array.prototype.slice;
       },
       /**
       Draw a rounded rectangle.
-
+      
       Adapted from http://js-bits.blogspot.com/2010/07/canvas-rounded-corner-rectangles.html
-
+      
       <code class="run"><pre>
       # Draw a purple rounded rectangle with a red outline
       canvas.drawRoundRect
@@ -1060,10 +1060,10 @@ var __slice = Array.prototype.slice;
           color: "red"
           width: 2
       </pre></code>
-
+      
       @name drawRoundRect
       @methodOf PixieCanvas#
-
+      
       @param {Number} [x] location on the x axis to start drawing
       @param {Number} [y] location on the y axis to start drawing
       @param {Number} [width] width of the rounded rectangle
@@ -1073,7 +1073,7 @@ var __slice = Array.prototype.slice;
       @param {Color|String} [color] color of the rounded rectangle
       @param {Bounds} [bounds] bounds of the rounded rectangle. Overrides x, y, width, and height if passed
       @param {Stroke} [stroke] stroke object that specifies stroke color and stroke width
-
+      
       @returns {PixieCanvas} this
       */
       drawRoundRect: function(_arg) {
@@ -1109,36 +1109,36 @@ var __slice = Array.prototype.slice;
       /**
       Draws text on the canvas at the given position, in the given color.
       If no color is given then the previous fill color is used.
-
+      
       <code class="run"><pre>
       # Fill canvas to indicate bounds
       canvas.fill
         color: '#eee'
-
+      
       # A line to indicate the baseline
       canvas.drawLine
         start: Point(25, 50)
         end: Point(125, 50)
         color: "#333"
         width: 1
-
+      
       # Draw some text, note the position of the baseline
       canvas.drawText
         position: Point(25, 50)
         color: "red"
         text: "It's dangerous to go alone"
-
+      
       </pre></code>
-
+      
       @name drawText
       @methodOf PixieCanvas#
-
+      
       @param {Number} [x] location on x axis to start printing
       @param {Number} [y] location on y axis to start printing
       @param {String} text text to print
       @param {Point} [position] position to start printing. Overrides x and y if passed
       @param {String|Color} [color] color of text to start printing
-
+      
       @returns {PixieCanvas} this
       */
       drawText: function(_arg) {
@@ -1153,42 +1153,42 @@ var __slice = Array.prototype.slice;
       Centers the given text on the canvas at the given y position. An x position
       or point position can also be given in which case the text is centered at the
       x, y or position value specified.
-
+      
       <code class="run"><pre>
       # Fill canvas to indicate bounds
       canvas.fill
         color: "#eee"
-
+      
       # A line to indicate the baseline
       canvas.drawLine
         start: Point(25, 25)
         end: Point(125, 25)
         color: "#333"
         width: 1
-
+      
       # Center text on the screen at y value 25
       canvas.centerText
         y: 25
         color: "red"
         text: "It's dangerous to go alone"
-
+      
       # Center text at point (75, 75)
       canvas.centerText
         position: Point(75, 75)
         color: "green"
         text: "take this"
-
+      
       </pre></code>
-
+      
       @name centerText
       @methodOf PixieCanvas#
-
+      
       @param {String} text Text to print
       @param {Number} [y] location on the y axis to start printing
       @param {Number} [x] location on the x axis to start printing. Overrides the default centering behavior if passed
       @param {Point} [position] position to start printing. Overrides x and y if passed
       @param {String|Color} [color] color of text to print
-
+      
       @returns {PixieCanvas} this
       */
       centerText: function(_arg) {
@@ -1206,24 +1206,24 @@ var __slice = Array.prototype.slice;
       },
       /**
       A getter / setter method to set the canvas fillColor.
-
+      
       <code><pre>
       # Set the fill color
       canvas.fillColor('#FF0000')
-
+      
       # Passing no arguments returns the fillColor
       canvas.fillColor()
       # => '#FF0000'
-
+      
       # You can also pass a Color object
       canvas.fillColor(Color('sky blue'))
       </pre></code>      
-
+      
       @name fillColor
       @methodOf PixieCanvas#
-
+      
       @param {String|Color} [color] color to make the canvas fillColor 
-
+      
       @returns {PixieCanvas} this
       */
       fillColor: function(color) {
@@ -1240,24 +1240,24 @@ var __slice = Array.prototype.slice;
       },
       /**
       A getter / setter method to set the canvas strokeColor.
-
+      
       <code><pre>
       # Set the stroke color
       canvas.strokeColor('#FF0000')
-
+      
       # Passing no arguments returns the strokeColor
       canvas.strokeColor()
       # => '#FF0000'
-
+      
       # You can also pass a Color object
       canvas.strokeColor(Color('sky blue'))
       </pre></code>      
-
+      
       @name strokeColor
       @methodOf PixieCanvas#
-
+      
       @param {String|Color} [color] color to make the canvas strokeColor 
-
+      
       @returns {PixieCanvas} this
       */
       strokeColor: function(color) {
@@ -1274,17 +1274,17 @@ var __slice = Array.prototype.slice;
       },
       /**
       Determine how wide some text is.
-
+      
       <code><pre>
       canvas.measureText('Hello World!')
       # => 55
       </pre></code>      
-
+      
       @name measureText
       @methodOf PixieCanvas#
-
+      
       @param {String} [text] the text to measure 
-
+      
       @returns {PixieCanvas} this
       */
       measureText: function(text) {
@@ -1486,7 +1486,7 @@ var __slice = Array.prototype.slice;
        * Fills a rectangle with the current fillColor
        * at the specified position with the specified
        * width and height 
-
+      
        * @name fillRect
        * @methodOf PowerCanvas#
        *
@@ -1655,7 +1655,7 @@ window.requestAnimationFrame || (window.requestAnimationFrame = window.webkitReq
 (function($) {
   /**
   A simple interface for playing sounds in games.
-
+  
   @name Sound
   @namespace
   */
@@ -1686,15 +1686,15 @@ window.requestAnimationFrame || (window.requestAnimationFrame = window.webkitReq
     /**
     Play a sound from your sounds 
     directory with the name of `id`.
-
+    
     <code><pre>
     # plays a sound called explode from your sounds directory
     Sound.play('explode')
     </pre></code>
-
+    
     @name play
     @methodOf Sound
-
+    
     @param {String} id id or name of the sound file to play
     @param {String} maxChannels max number of sounds able to be played simultaneously
     */
@@ -1722,17 +1722,17 @@ window.requestAnimationFrame || (window.requestAnimationFrame = window.webkitReq
     /**
     Play a sound from the given
     url with the name of `id`.
-
+    
     <code><pre>
     # plays the sound at the specified url
     Sound.playFromUrl('http://YourSoundWebsite.com/explode.wav')
     </pre></code>
-
+    
     @name playFromUrl
     @methodOf Sound
-
+    
     @param {String} url location of sound file to play
-
+    
     @returns {Sound} this sound object
     */
     playFromUrl: function(url) {
@@ -1744,16 +1744,16 @@ window.requestAnimationFrame || (window.requestAnimationFrame = window.webkitReq
     },
     /**
     Stop a sound while it is playing.
-
+    
     <code><pre>
     # stops the sound 'explode' from 
     # playing if it is currently playing 
     Sound.stop('explode')
     </pre></code>
-
+    
     @name stop
     @methodOf Sound
-
+    
     @param {String} id id or name of sound to stop playing.
     */
     stop: function(id) {
@@ -1767,30 +1767,30 @@ window.requestAnimationFrame || (window.requestAnimationFrame = window.webkitReq
 (function() {
   /**
   A wrapper on the Local Storage API 
-
+  
   @name Local
   @namespace
   */
   /**
   Store an object in local storage.
-
+  
   <code><pre>
   # you can store strings
   Local.set('name', 'Matt')
-
+  
   # and numbers
   Local.set('age', 26)
-
+  
   # and even objects
   Local.set('person', {name: 'Matt', age: 26})
   </pre></code>
-
+  
   @name set
   @methodOf Local
-
+  
   @param {String} key string used to identify the object you are storing
   @param {Object} value value of the object you are storing
-
+  
   @returns {Object} value
   */
   var retrieve, store;
@@ -1800,23 +1800,23 @@ window.requestAnimationFrame || (window.requestAnimationFrame = window.webkitReq
   };
   /**
   Retrieve an object from local storage.
-
+  
   <code><pre>
   Local.get('name')
   # => 'Matt'
-
+  
   Local.get('age')
   # => 26
-
+  
   Local.get('person')
   # => { age: 26, name: 'Matt' }
   </pre></code>
-
+  
   @name get
   @methodOf Local
-
+  
   @param {String} key string that identifies the stored object
-
+  
   @returns {Object} The object that was stored or undefined if no object was stored.
   */
   retrieve = function(key) {
@@ -1830,10 +1830,10 @@ window.requestAnimationFrame || (window.requestAnimationFrame = window.webkitReq
     put: store,
     /**
     Access an instance of Local with a specified prefix.
-
+    
     @name new
     @methodOf Local
-
+    
     @param {String} prefix 
     @returns {Local} An interface to local storage with the given prefix applied.
     */
