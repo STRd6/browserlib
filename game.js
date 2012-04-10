@@ -596,22 +596,64 @@ default, the track is looped.
 var Music;
 
 Music = (function() {
-  var track;
+  var globalMusicVolume, track, trackVolume, updateTrackVolume;
+  globalMusicVolume = 1;
+  trackVolume = 1;
   track = $("<audio />", {
     loop: "loop"
   }).appendTo('body').get(0);
-  track.volume = 1;
+  updateTrackVolume = function() {
+    return track.volume = globalMusicVolume * trackVolume;
+  };
   return {
+    /**
+    Set the global volume modifier for all music.
+    
+    Any value set is clamped between 0 and 1. This is multiplied
+    into each individual track that plays.
+    
+    If no argument is given return the current global music volume.
+    
+    @name globalVolume
+    @methodOf Music
+    @param {Number} [newVolume] The volume to set
+    */
+    globalVolume: function(newVolume) {
+      if (newVolume != null) {
+        globalMusicVolume = newVolume.clamp(0, 1);
+        updateTrackVolume();
+      }
+      return globalMusicVolume;
+    },
+    /**
+    Plays a music track.
+    
+    @name play
+    @methodOf Music
+    @param {String} name The name of the track to play.
+    */
     play: function(name) {
+      updateTrackVolume();
       track.src = "" + BASE_URL + "/sounds/" + name + ".mp3";
       return track.play();
     },
+    /**
+    Get or set the current music volume. Any value passed is
+    clamped between 0 and 1. Use this to adjust the volume of
+    individual tracks or to increase or decrease volume during
+    gameplay.
+    
+    @name volume
+    @methodOf Music
+    @param {Number} [newVolume] The volume to set to.
+    */
     volume: function(newVolume) {
       if (newVolume != null) {
-        track.volume = newVolume;
+        trackVolume = newVolume.clamp(0, 1);
+        updateTrackVolume();
         return this;
       } else {
-        return track.volume;
+        return trackVolume;
       }
     }
   };
