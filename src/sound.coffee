@@ -8,6 +8,7 @@
   directory = App?.directories?.sounds || "sounds"
   format = "wav"
   sounds = {}
+  globalVolume = 1
 
   loadSoundChannel = (name) ->
     url = "#{BASE_URL}/#{directory}/#{name}.#{format}"
@@ -26,6 +27,26 @@
       Sound.stop(id)
 
   Object.extend Sound,
+    ###*
+    Set the global volume modifier for all sound effects.
+  
+    Any value set is clamped between 0 and 1. This is multiplied
+    into each individual effect that plays.
+  
+    If no argument is given return the current global sound effect volume.
+  
+    @name globalVolume
+    @methodOf Sound
+    @param {Number} [newVolume] The volume to set
+    ###
+    globalVolume: (newVolume) ->
+      if newVolume?
+        globalVolume = newVolume.clamp(0, 1)
+  
+        updateTrackVolume()
+
+      return globalVolume
+
     ###*
     Play a sound from your sounds 
     directory with the name of `id`.
@@ -57,12 +78,14 @@
         try
           channel.currentTime = 0
 
+        channel.volume = globalVolume
         channel.play()
       else
         if !maxChannels || channels.length < maxChannels
           sound = loadSoundChannel(id)
           channels.push(sound)
           sound.play()
+          sound.volume = globalVolume
 
     ###*
     Play a sound from the given
@@ -85,6 +108,7 @@
       sound.src = url
 
       sound.play()
+      sound.volume = globalVolume
 
       return sound
 
