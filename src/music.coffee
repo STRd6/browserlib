@@ -11,20 +11,10 @@ default, the track is looped.
 @namespace
 ###
 
-root = exports ? this
-
 Music = (->
   # TODO: Load this from local storage of user preferences
   globalMusicVolume = 1
   trackVolume = 1
-
-  root.musicVolume = (newVolume) ->
-    if newVolume?
-      globalMusicVolume = newVolume.clamp(0, 1)
-
-      updateTrackVolume
-
-    return globalMusicVolume
 
   # TODO: Add format fallbacks
   track = $ "<audio />",
@@ -34,12 +24,49 @@ Music = (->
   updateTrackVolume = ->
     track.volume = globalMusicVolume * trackVolume
 
-  updateTrackVolume()
+  ###*
+  Set the global volume modifier for all music.
 
+  Any value set is clamped between 0 and 1. This is multiplied
+  into each individual track that plays.
+
+  If no argument is given return the current global music volume.
+
+  @name globalVolume
+  @methodOf Music
+  @param {Number} [newVolume] The volume to set
+  ###
+  globalVolume: (newVolume) ->
+    if newVolume?
+      globalMusicVolume = newVolume.clamp(0, 1)
+
+      updateTrackVolume()
+
+    return globalMusicVolume
+
+  ###*
+  Plays a music track.
+
+  @name play
+  @methodOf Music
+  @param {String} name The name of the track to play.
+  ###
   play: (name) ->
+    updateTrackVolume()
+    # TODO: Format fallbacks
     track.src = "#{BASE_URL}/sounds/#{name}.mp3"
     track.play()
 
+  ###*
+  Get or set the current music volume. Any value passed is
+  clamped between 0 and 1. Use this to adjust the volume of
+  individual tracks or to increase or decrease volume during
+  gameplay.
+
+  @name volume
+  @methodOf Music
+  @param {Number} [newVolume] The volume to set to.
+  ###
   volume: (newVolume) ->
     if newVolume?
       trackVolume = newVolume.clamp(0, 1)
