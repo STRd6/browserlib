@@ -42,8 +42,6 @@
     globalVolume: (newVolume) ->
       if newVolume?
         globalVolume = newVolume.clamp(0, 1)
-  
-        updateTrackVolume()
 
       return globalVolume
 
@@ -131,4 +129,3 @@
 
     (exports ? this)["Sound"] = Sound
 )(jQuery)
-
