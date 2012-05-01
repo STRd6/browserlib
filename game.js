@@ -540,7 +540,7 @@ $(function() {
     attack()
   </pre></code>
   
-  @name justPressed
+  @name mousePressed
   @namespace
   */
   var buttonName, buttonNames, prevButtonsDown;
