@@ -120,6 +120,14 @@
                   
                     <tr>
                       <td class="nameDescription">
+                        <div class="fixedFont">Sound.<b><a href="../symbols/Sound.html#.globalVolume">globalVolume</a></b>(newVolume)
+                        </div>
+                        <div class="description">Set the global volume modifier for all sound effects.</div>
+                      </td>
+                    </tr>
+                  
+                    <tr>
+                      <td class="nameDescription">
                         <div class="fixedFont">Sound.<b><a href="../symbols/Sound.html#.play">play</a></b>(id, maxChannels)
                         </div>
                         <div class="description">Play a sound from your sounds 
@@ -194,6 +202,43 @@
         
           <div class="details props">
             <div class="innerProps">
+              
+                <div class="fixedFont heading">
+                  <a name=".globalVolume"></a>
+                  <span class='lighter'>
+                  <em>static</em>
+                  </span>
+
+                  <span class="light">Sound.</span><b>globalVolume</b>(newVolume)
+                </div>
+
+                <div class="description">
+                  Set the global volume modifier for all sound effects.
+      
+    Any value set is clamped between 0 and 1. This is multiplied
+    into each individual effect that plays.
+      
+    If no argument is given return the current global sound effect volume.
+
+                  
+                </div>
+
+                
+
+                
+                  <dl class="detailList params">
+                    <dt class="heading">Parameters:</dt>
+                    
+                      <dt>
+                        <b>newVolume</b><span class='light fixedFont'> Number</span> 
+                        <i>Optional</i>
+                      </dt>
+                      <dd>The volume to set</dd>
+                    
+                  </dl>
+                
+
+                
               
                 <div class="fixedFont heading">
                   <a name=".play"></a>

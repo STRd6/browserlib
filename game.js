@@ -496,8 +496,10 @@ $(function() {
     for (key in keydown) {
       value = keydown[key];
       if (!prevKeysDown[key]) justPressed[key] = value;
-      if (justPressed[key]) justPressed.any = true;
-      if (value) keydown.any = true;
+      if (justPressed[key] || mousePressed.left || mousePressed.right) {
+        justPressed.any = true;
+      }
+      if (value || mouseDown.left || mouseDown.right) keydown.any = true;
     }
     prevKeysDown = {};
     _results = [];
