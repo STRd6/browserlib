@@ -1701,10 +1701,11 @@ window.requestAnimationFrame || (window.requestAnimationFrame = window.webkitReq
   @name Sound
   @namespace
   */
-  var Sound, directory, format, loadSoundChannel, sounds, _ref;
+  var Sound, directory, format, globalVolume, loadSoundChannel, sounds, _ref;
   directory = (typeof App !== "undefined" && App !== null ? (_ref = App.directories) != null ? _ref.sounds : void 0 : void 0) || "sounds";
   format = "wav";
   sounds = {};
+  globalVolume = 1;
   loadSoundChannel = function(name) {
     var sound, url;
     url = "" + BASE_URL + "/" + directory + "/" + name + "." + format;
@@ -1725,6 +1726,22 @@ window.requestAnimationFrame || (window.requestAnimationFrame = window.webkitReq
     };
   };
   return Object.extend(Sound, {
+    /**
+    Set the global volume modifier for all sound effects.
+      
+    Any value set is clamped between 0 and 1. This is multiplied
+    into each individual effect that plays.
+      
+    If no argument is given return the current global sound effect volume.
+      
+    @name globalVolume
+    @methodOf Sound
+    @param {Number} [newVolume] The volume to set
+    */
+    globalVolume: function(newVolume) {
+      if (newVolume != null) globalVolume = newVolume.clamp(0, 1);
+      return globalVolume;
+    },
     /**
     Play a sound from your sounds 
     directory with the name of `id`.
@@ -1752,12 +1769,14 @@ window.requestAnimationFrame || (window.requestAnimationFrame = window.webkitReq
         try {
           channel.currentTime = 0;
         } catch (_error) {}
+        channel.volume = globalVolume;
         return channel.play();
       } else {
         if (!maxChannels || channels.length < maxChannels) {
           sound = loadSoundChannel(id);
           channels.push(sound);
-          return sound.play();
+          sound.play();
+          return sound.volume = globalVolume;
         }
       }
     },
@@ -1782,6 +1801,7 @@ window.requestAnimationFrame || (window.requestAnimationFrame = window.webkitReq
       sound = $('<audio />').get(0);
       sound.src = url;
       sound.play();
+      sound.volume = globalVolume;
       return sound;
     },
     /**

@@ -65,8 +65,8 @@ $ ->
     for key, value of keydown
       justPressed[key] = value unless prevKeysDown[key]
 
-      justPressed.any = true if justPressed[key]
-      keydown.any = true if value
+      justPressed.any = true if (justPressed[key] || mousePressed.left || mousePressed.right)
+      keydown.any = true if (value || mouseDown.left || mouseDown.right)
 
     prevKeysDown = {}
     for key, value of keydown

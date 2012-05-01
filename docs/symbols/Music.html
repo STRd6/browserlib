@@ -111,6 +111,45 @@ songs from your sounds project directory.</div>
   #### METHODS SUMMARY
   -->
         
+          
+          
+            <div class="props">
+              <table class="summaryTable" cellspacing="0" summary="A summary of the methods documented in the class Music.">
+                <caption>Method Summary</caption>
+
+                <tbody>
+                  
+                    <tr>
+                      <td class="nameDescription">
+                        <div class="fixedFont">Music.<b><a href="../symbols/Music.html#.globalVolume">globalVolume</a></b>(newVolume)
+                        </div>
+                        <div class="description">Set the global volume modifier for all music.</div>
+                      </td>
+                    </tr>
+                  
+                    <tr>
+                      <td class="nameDescription">
+                        <div class="fixedFont">Music.<b><a href="../symbols/Music.html#.play">play</a></b>(name)
+                        </div>
+                        <div class="description">Plays a music track.</div>
+                      </td>
+                    </tr>
+                  
+                    <tr>
+                      <td class="nameDescription">
+                        <div class="fixedFont">Music.<b><a href="../symbols/Music.html#.volume">volume</a></b>(newVolume)
+                        </div>
+                        <div class="description">Get or set the current music volume.</div>
+                      </td>
+                    </tr>
+                  
+                </tbody>
+              </table>
+            </div>
+          
+
+          
+        
 
   <!--
   #### EVENTS SUMMARY
@@ -157,6 +196,116 @@ default, the track is looped.
   <!--
   #### METHOD DETAILS
   -->
+        
+          <div class="details props">
+            <div class="innerProps">
+              
+                <div class="fixedFont heading">
+                  <a name=".globalVolume"></a>
+                  <span class='lighter'>
+                  <em>static</em>
+                  </span>
+
+                  <span class="light">Music.</span><b>globalVolume</b>(newVolume)
+                </div>
+
+                <div class="description">
+                  Set the global volume modifier for all music.
+    
+    Any value set is clamped between 0 and 1. This is multiplied
+    into each individual track that plays.
+    
+    If no argument is given return the current global music volume.
+
+                  
+                </div>
+
+                
+
+                
+                  <dl class="detailList params">
+                    <dt class="heading">Parameters:</dt>
+                    
+                      <dt>
+                        <b>newVolume</b><span class='light fixedFont'> Number</span> 
+                        <i>Optional</i>
+                      </dt>
+                      <dd>The volume to set</dd>
+                    
+                  </dl>
+                
+
+                
+              
+                <div class="fixedFont heading">
+                  <a name=".play"></a>
+                  <span class='lighter'>
+                  <em>static</em>
+                  </span>
+
+                  <span class="light">Music.</span><b>play</b>(name)
+                </div>
+
+                <div class="description">
+                  Plays a music track.
+
+                  
+                </div>
+
+                
+
+                
+                  <dl class="detailList params">
+                    <dt class="heading">Parameters:</dt>
+                    
+                      <dt>
+                        <b>name</b><span class='light fixedFont'> String</span> 
+                        
+                      </dt>
+                      <dd>The name of the track to play.</dd>
+                    
+                  </dl>
+                
+
+                
+              
+                <div class="fixedFont heading">
+                  <a name=".volume"></a>
+                  <span class='lighter'>
+                  <em>static</em>
+                  </span>
+
+                  <span class="light">Music.</span><b>volume</b>(newVolume)
+                </div>
+
+                <div class="description">
+                  Get or set the current music volume. Any value passed is
+    clamped between 0 and 1. Use this to adjust the volume of
+    individual tracks or to increase or decrease volume during
+    gameplay.
+
+                  
+                </div>
+
+                
+
+                
+                  <dl class="detailList params">
+                    <dt class="heading">Parameters:</dt>
+                    
+                      <dt>
+                        <b>newVolume</b><span class='light fixedFont'> Number</span> 
+                        <i>Optional</i>
+                      </dt>
+                      <dd>The volume to set to.</dd>
+                    
+                  </dl>
+                
+
+                
+              
+            </div>
+          </div>
         
 
   <!--
