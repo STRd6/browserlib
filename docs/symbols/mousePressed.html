@@ -4,7 +4,7 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <meta name="generator" content="JsDoc Toolkit" />
     
-    <title>JsDoc Reference - keydown</title>
+    <title>JsDoc Reference - mousePressed</title>
     <link href="/assets/docs.css" type="text/css" rel="stylesheet" media="all" />
   </head>
 
@@ -76,7 +76,7 @@
       <div class="innerContent">
         <h1 class="classTitle">
           
-          <span>keydown</span>
+          <span>mousePressed</span>
         </h1>
 
         <p class="description summary">
@@ -89,15 +89,15 @@
 
         
           <div class="props">
-            <table class="summaryTable" cellspacing="0" summary="A summary of the constructor documented in the class keydown.">
+            <table class="summaryTable" cellspacing="0" summary="A summary of the constructor documented in the class mousePressed.">
               <caption>Class Summary</caption>
               <tbody>
                 <tr>
                   <td class="nameDescription" >
                     <div class="fixedFont">
-                      <b><a href="../symbols/keydown.html#constructor">keydown</a></b>()
+                      <b><a href="../symbols/mousePressed.html#constructor">mousePressed</a></b>()
                     </div>
-                    <div class="description">The global keydown property lets your query the status of keys.</div>
+                    <div class="description">The global mousePressed property lets your query the status of mouse buttons.</div>
                   </td>
                 </tr>
                 <tr>
@@ -129,24 +129,20 @@
               <a name="constructor"></a>
 
               <div class="fixedFont">
-                <b>keydown</b>()
+                <b>mousePressed</b>()
               </div>
 
               <div class="description">
-                The global keydown property lets your query the status of keys.
+                The global mousePressed property lets your query the status of mouse buttons.
+  However, unlike mouseDown it will only trigger the first time the button
+  pressed.
   
   <code><pre>
-  if keydown.left
+  if mousePressed.left
     moveLeft()
   
-  if keydown.a or keydown.space
+  if mousePressed.right
     attack()
-  
-  if keydown.return
-    confirm()
-  
-  if keydown.esc
-    cancel()
   </pre></code>
                 
               </div>
