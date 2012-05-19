@@ -20,6 +20,15 @@ window.onerror = function(message, url, lineNumber) {
   return typeof displayRuntimeError === "function" ? displayRuntimeError("<code>" + message + "</code> <br /><br />(Sometimes this context may be wrong.)<br /><code><pre>" + (errorContext.join('\n')) + "</pre></code>") : void 0;
 };
 ;
+var root;
+
+(function() {}, root = typeof exports !== "undefined" && exports !== null ? exports : this, root.gameKeys = function(keyMap) {
+  return parent.postMessage({
+    type: 'controls',
+    data: keyMap
+  }, 'http://pixieengine.com');
+})();
+;
 var Joysticks,
   __slice = Array.prototype.slice;
 

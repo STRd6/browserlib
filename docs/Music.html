@@ -1,0 +1,139 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset='utf-8' />
+    <meta content='IE=edge,chrome=1' http-equiv='X-UA-Compatible' />
+    <title>Music</title>
+    <link href='/assets/spacedocs/docs.css' media='screen, projection' rel='stylesheet' type='text/css' />
+  </head>
+  <body>
+    <pre></pre>
+    <nav>
+      <a href='Local.html'>Local</a>
+      <a class='active' href='Music.html'>Music</a>
+      <a href='PixieCanvas.html'>PixieCanvas</a>
+      <a href='PowerCanvas.html'>PowerCanvas</a>
+      <a href='Sound.html'>Sound</a>
+      <a href='jQuery.html'>jQuery</a>
+      <a href='justPressed.html'>justPressed</a>
+      <a href='keydown.html'>keydown</a>
+      <a href='mouseDown.html'>mouseDown</a>
+      <a href='mousePressed.html'>mousePressed</a>
+      <a href='requestAnimationFrame.html'>requestAnimationFrame</a>
+    </nav>
+    <section class='method_list'>
+      <h3>Music Methods</h3>
+      <div class='methods'>
+        <a href='Music.html#.globalVolume'>.globalVolume</a>
+        <a href='Music.html#.play'>.play</a>
+        <a href='Music.html#.volume'>.volume</a>
+      </div>
+    </section>
+    <div class='documentation'>
+      <a name='.globalVolume'></a>
+      <!-- TODO make sure method_data isn't nil -->
+      <h1>Music.globalVolume(newVolume)</h1>
+      <div class='description'>
+        <section class='summary'><p>Set the global volume modifier for all music.</p></section>
+        <section class='usage'>
+          <h3>Usage</h3>
+          <p>Any value set is clamped between 0 and 1. This is multiplied<br />into each individual track that plays.</p>
+          
+          <p>If no argument is given return the current global music volume.</p>
+        </section>
+        <section class='parameters'>
+          <h3>Parameters</h3>
+          <ul>
+            <li>
+              <span class='param_name'>newVolume</span>
+               -
+              <span class='param_description'>The volume to set</span>
+            </li>
+          </ul>
+        </section>
+        <section class='returns'>
+          <h3>Returns</h3>
+          <p>
+            Type:
+            <a href='.html'></a>
+          </p>
+          <p class='return_description'></p>
+        </section>
+        <section class='source'>
+          <h3>Source</h3>
+          <a class='toggle_source'>Toggle</a>
+          <pre><code>globalVolume: function(newVolume) {&#x000A;      if (newVolume != null) {&#x000A;        globalMusicVolume = newVolume.clamp(0, 1);&#x000A;        updateTrackVolume();&#x000A;      }&#x000A;      return globalMusicVolume;&#x000A;    },</code></pre>
+        </section>
+      </div>
+      <hr />
+      <a name='.play'></a>
+      <!-- TODO make sure method_data isn't nil -->
+      <h1>Music.play(name)</h1>
+      <div class='description'>
+        <section class='summary'><p>Plays a music track.</p></section>
+        <section class='usage'>
+          <h3>Usage</h3>
+          
+        </section>
+        <section class='parameters'>
+          <h3>Parameters</h3>
+          <ul>
+            <li>
+              <span class='param_name'>name</span>
+               -
+              <span class='param_description'>The name of the track to play.</span>
+            </li>
+          </ul>
+        </section>
+        <section class='returns'>
+          <h3>Returns</h3>
+          <p>
+            Type:
+            <a href='.html'></a>
+          </p>
+          <p class='return_description'></p>
+        </section>
+        <section class='source'>
+          <h3>Source</h3>
+          <a class='toggle_source'>Toggle</a>
+          <pre><code>play: function(name) {&#x000A;      updateTrackVolume();&#x000A;      track.src = "" + BASE_URL + "/sounds/" + name + ".mp3";&#x000A;      return track.play();&#x000A;    },</code></pre>
+        </section>
+      </div>
+      <hr />
+      <a name='.volume'></a>
+      <!-- TODO make sure method_data isn't nil -->
+      <h1>Music.volume(newVolume)</h1>
+      <div class='description'>
+        <section class='summary'><p>Get or set the current music volume. Any value passed is<br />clamped between 0 and 1. Use this to adjust the volume of<br />individual tracks or to increase or decrease volume during<br />gameplay.</p></section>
+        <section class='usage'>
+          <h3>Usage</h3>
+          
+        </section>
+        <section class='parameters'>
+          <h3>Parameters</h3>
+          <ul>
+            <li>
+              <span class='param_name'>newVolume</span>
+               -
+              <span class='param_description'>The volume to set to.</span>
+            </li>
+          </ul>
+        </section>
+        <section class='returns'>
+          <h3>Returns</h3>
+          <p>
+            Type:
+            <a href='.html'></a>
+          </p>
+          <p class='return_description'></p>
+        </section>
+        <section class='source'>
+          <h3>Source</h3>
+          <a class='toggle_source'>Toggle</a>
+          <pre><code>volume: function(newVolume) {&#x000A;      if (newVolume != null) {&#x000A;        trackVolume = newVolume.clamp(0, 1);&#x000A;        updateTrackVolume();&#x000A;        return this;&#x000A;      } else {&#x000A;        return trackVolume;&#x000A;      }&#x000A;    }&#x000A;  };&#x000A;})();&#x000A;;&#x000A;var __slice = Array.prototype.slice;&#x000A;&#x000A;(function($) {&#x000A;  return $.fn.pixieCanvas = function(options) {&#x000A;    var $canvas, canvas, canvasAttrAccessor, context, contextAttrAccessor;&#x000A;    if (options == null) options = {};&#x000A;    canvas = this.get(0);&#x000A;    context = void 0;</code></pre>
+        </section>
+      </div>
+      <hr />
+    </div>
+  </body>
+</html>

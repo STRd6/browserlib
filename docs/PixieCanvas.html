@@ -1,0 +1,939 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset='utf-8' />
+    <meta content='IE=edge,chrome=1' http-equiv='X-UA-Compatible' />
+    <title>PixieCanvas</title>
+    <link href='/assets/spacedocs/docs.css' media='screen, projection' rel='stylesheet' type='text/css' />
+  </head>
+  <body>
+    <pre></pre>
+    <nav>
+      <a href='Local.html'>Local</a>
+      <a href='Music.html'>Music</a>
+      <a class='active' href='PixieCanvas.html'>PixieCanvas</a>
+      <a href='PowerCanvas.html'>PowerCanvas</a>
+      <a href='Sound.html'>Sound</a>
+      <a href='jQuery.html'>jQuery</a>
+      <a href='justPressed.html'>justPressed</a>
+      <a href='keydown.html'>keydown</a>
+      <a href='mouseDown.html'>mouseDown</a>
+      <a href='mousePressed.html'>mousePressed</a>
+      <a href='requestAnimationFrame.html'>requestAnimationFrame</a>
+    </nav>
+    <section class='method_list'>
+      <h3>PixieCanvas Methods</h3>
+      <div class='methods'>
+        <a href='PixieCanvas.html##withTransform'>#withTransform</a>
+        <a href='PixieCanvas.html##clear'>#clear</a>
+        <a href='PixieCanvas.html##fill'>#fill</a>
+        <a href='PixieCanvas.html##drawImage'>#drawImage</a>
+        <a href='PixieCanvas.html##drawCircle'>#drawCircle</a>
+        <a href='PixieCanvas.html##drawRect'>#drawRect</a>
+        <a href='PixieCanvas.html##drawLine'>#drawLine</a>
+        <a href='PixieCanvas.html##drawPoly'>#drawPoly</a>
+        <a href='PixieCanvas.html##drawRoundRect'>#drawRoundRect</a>
+        <a href='PixieCanvas.html##drawText'>#drawText</a>
+        <a href='PixieCanvas.html##centerText'>#centerText</a>
+        <a href='PixieCanvas.html##fillColor'>#fillColor</a>
+        <a href='PixieCanvas.html##strokeColor'>#strokeColor</a>
+        <a href='PixieCanvas.html##measureText'>#measureText</a>
+      </div>
+    </section>
+    <div class='documentation'>
+      <a name='#withTransform'></a>
+      <!-- TODO make sure method_data isn't nil -->
+      <h1>PixieCanvas#withTransform(matrix, block)</h1>
+      <div class='description'>
+        <section class='summary'><p>Passes this canvas to the block with the given matrix transformation<br />applied. All drawing methods called within the block will draw<br />into the canvas with the transformation applied. The transformation<br />is removed at the end of the block, even if the block throws an error.</p></section>
+        <section class='usage'>
+          <h3>Usage</h3>
+          
+        </section>
+        <section class='parameters'>
+          <h3>Parameters</h3>
+          <ul>
+            <li>
+              <span class='param_name'>matrix</span>
+               -
+              <span class='param_description'></span>
+            </li>
+            <li>
+              <span class='param_name'>block</span>
+               -
+              <span class='param_description'></span>
+            </li>
+          </ul>
+        </section>
+        <section class='returns'>
+          <h3>Returns</h3>
+          <p>
+            Type:
+            <a href='PixieCanvas.html'>PixieCanvas</a>
+          </p>
+          <p class='return_description'>this</p>
+        </section>
+        <section class='source'>
+          <h3>Source</h3>
+          <a class='toggle_source'>Toggle</a>
+          <pre><code>withTransform: function(matrix, block) {&#x000A;        context.save();&#x000A;        context.transform(matrix.a, matrix.b, matrix.c, matrix.d, matrix.tx, matrix.ty);&#x000A;        try {&#x000A;          block(this);&#x000A;        } finally {&#x000A;          context.restore();&#x000A;        }&#x000A;        return this;&#x000A;      },</code></pre>
+        </section>
+      </div>
+      <hr />
+      <a name='#clear'></a>
+      <!-- TODO make sure method_data isn't nil -->
+      <h1>PixieCanvas#clear(x, y, width, height)</h1>
+      <div class='description'>
+        <section class='summary'><p>Clear the canvas (or a portion of it).</p></section>
+        <section class='usage'>
+          <h3>Usage</h3>
+          <p>Clear the entire canvas</p>
+          
+          <p><code><pre><br />canvas.clear()<br /></pre></code></p>
+          
+          <p>Clear a portion of the canvas</p>
+          
+          <p><code class="run"><pre></p>
+          
+          <h1>Set up: Fill canvas with blue</h1>
+          
+          <p>canvas.fill("blue")  </p>
+          
+          <h1>Clear a portion of the canvas</h1>
+          
+          <p>canvas.clear<br />  x: 50<br />  y: 50<br />  width: 50<br />  height: 50<br /></pre></code></p>
+          
+          <p>You can also clear the canvas by passing x, y, width height as<br />unnamed parameters:</p>
+          
+          <p><code><pre><br />canvas.clear(25, 25, 50, 50)<br /></pre></code></p>
+        </section>
+        <section class='parameters'>
+          <h3>Parameters</h3>
+          <ul>
+            <li>
+              <span class='param_name'>x</span>
+               -
+              <span class='param_description'>where to start clearing on the x axis</span>
+            </li>
+            <li>
+              <span class='param_name'>y</span>
+               -
+              <span class='param_description'>where to start clearing on the y axis</span>
+            </li>
+            <li>
+              <span class='param_name'>width</span>
+               -
+              <span class='param_description'>width of area to clear</span>
+            </li>
+            <li>
+              <span class='param_name'>height</span>
+               -
+              <span class='param_description'>height of area to clear</span>
+            </li>
+          </ul>
+        </section>
+        <section class='returns'>
+          <h3>Returns</h3>
+          <p>
+            Type:
+            <a href='PixieCanvas.html'>PixieCanvas</a>
+          </p>
+          <p class='return_description'>this</p>
+        </section>
+        <section class='source'>
+          <h3>Source</h3>
+          <a class='toggle_source'>Toggle</a>
+          <pre><code>clear: function(x, y, width, height) {&#x000A;        var _ref;&#x000A;        if (x == null) x = {};&#x000A;        if (y == null) {&#x000A;          _ref = x, x = _ref.x, y = _ref.y, width = _ref.width, height = _ref.height;&#x000A;        }&#x000A;        x || (x = 0);&#x000A;        y || (y = 0);&#x000A;        if (width == null) width = canvas.width;&#x000A;        if (height == null) height = canvas.height;&#x000A;        context.clearRect(x, y, width, height);&#x000A;        return this;&#x000A;      },</code></pre>
+        </section>
+      </div>
+      <hr />
+      <a name='#fill'></a>
+      <!-- TODO make sure method_data isn't nil -->
+      <h1>PixieCanvas#fill(x=0, y=0, width=canvas.width, height=canvas.height, bounds, color)</h1>
+      <div class='description'>
+        <section class='summary'><p>Fills the entire canvas (or a specified section of it) with<br />the given color.</p></section>
+        <section class='usage'>
+          <h3>Usage</h3>
+          <p><code class="run"><pre></p>
+          
+          <h1>Paint the town (entire canvas) red</h1>
+          
+          <p>canvas.fill "red"</p>
+          
+          <h1>Fill a section of the canvas white (#FFF)</h1>
+          
+          <p>canvas.fill<br />  x: 50<br />  y: 50<br />  width: 50<br />  height: 50<br />  color: "#FFF"<br /></pre></code></p>
+        </section>
+        <section class='parameters'>
+          <h3>Parameters</h3>
+          <ul>
+            <li>
+              <span class='param_name'>x=0</span>
+               -
+              <span class='param_description'>Optional x position to fill from</span>
+            </li>
+            <li>
+              <span class='param_name'>y=0</span>
+               -
+              <span class='param_description'>Optional y position to fill from</span>
+            </li>
+            <li>
+              <span class='param_name'>width=canvas.width</span>
+               -
+              <span class='param_description'>Optional width of area to fill</span>
+            </li>
+            <li>
+              <span class='param_name'>height=canvas.height</span>
+               -
+              <span class='param_description'>Optional height of area to fill</span>
+            </li>
+            <li>
+              <span class='param_name'>bounds</span>
+               -
+              <span class='param_description'>bounds object to fill</span>
+            </li>
+            <li>
+              <span class='param_name'>color</span>
+               -
+              <span class='param_description'>color of area to fill</span>
+            </li>
+          </ul>
+        </section>
+        <section class='returns'>
+          <h3>Returns</h3>
+          <p>
+            Type:
+            <a href='PixieCanvas.html'>PixieCanvas</a>
+          </p>
+          <p class='return_description'>this</p>
+        </section>
+        <section class='source'>
+          <h3>Source</h3>
+          <a class='toggle_source'>Toggle</a>
+          <pre><code>fill: function(color) {&#x000A;        var bounds, height, width, x, y, _ref;&#x000A;        if (color == null) color = {};&#x000A;        if (!((typeof color.isString === "function" ? color.isString() : void 0) || color.channels)) {&#x000A;          _ref = color, x = _ref.x, y = _ref.y, width = _ref.width, height = _ref.height, bounds = _ref.bounds, color = _ref.color;&#x000A;        }&#x000A;        if (bounds) {&#x000A;          x = bounds.x, y = bounds.y, width = bounds.width, height = bounds.height;&#x000A;        }&#x000A;        x || (x = 0);&#x000A;        y || (y = 0);&#x000A;        if (width == null) width = canvas.width;&#x000A;        if (height == null) height = canvas.height;&#x000A;        this.fillColor(color);&#x000A;        context.fillRect(x, y, width, height);&#x000A;        return this;&#x000A;      },</code></pre>
+        </section>
+      </div>
+      <hr />
+      <a name='#drawImage'></a>
+      <!-- TODO make sure method_data isn't nil -->
+      <h1>PixieCanvas#drawImage(, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)</h1>
+      <div class='description'>
+        <section class='summary'><p>A direct map to the Context2d draw image. <code>GameObject</code>s<br />that implement drawable will have this wrapped up nicely,<br />so there is a good chance that you will not have to deal with<br />it directly.</p></section>
+        <section class='usage'>
+          <h3>Usage</h3>
+          
+        </section>
+        <section class='parameters'>
+          <h3>Parameters</h3>
+          <ul>
+            <li>
+              <span class='param_name'></span>
+               -
+              <span class='param_description'></span>
+            </li>
+            <li>
+              <span class='param_name'>sx</span>
+               -
+              <span class='param_description'></span>
+            </li>
+            <li>
+              <span class='param_name'>sy</span>
+               -
+              <span class='param_description'></span>
+            </li>
+            <li>
+              <span class='param_name'>sWidth</span>
+               -
+              <span class='param_description'></span>
+            </li>
+            <li>
+              <span class='param_name'>sHeight</span>
+               -
+              <span class='param_description'></span>
+            </li>
+            <li>
+              <span class='param_name'>dx</span>
+               -
+              <span class='param_description'></span>
+            </li>
+            <li>
+              <span class='param_name'>dy</span>
+               -
+              <span class='param_description'></span>
+            </li>
+            <li>
+              <span class='param_name'>dWidth</span>
+               -
+              <span class='param_description'></span>
+            </li>
+            <li>
+              <span class='param_name'>dHeight</span>
+               -
+              <span class='param_description'></span>
+            </li>
+          </ul>
+        </section>
+        <section class='returns'>
+          <h3>Returns</h3>
+          <p>
+            Type:
+            <a href='PixieCanvas.html'>PixieCanvas</a>
+          </p>
+          <p class='return_description'>this</p>
+        </section>
+        <section class='source'>
+          <h3>Source</h3>
+          <a class='toggle_source'>Toggle</a>
+          <pre><code>drawImage: function(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight) {&#x000A;        context.drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);&#x000A;        return this;&#x000A;      },</code></pre>
+        </section>
+      </div>
+      <hr />
+      <a name='#drawCircle'></a>
+      <!-- TODO make sure method_data isn't nil -->
+      <h1>PixieCanvas#drawCircle(x, y, position, radius, color, circle, stroke)</h1>
+      <div class='description'>
+        <section class='summary'><p>Draws a circle at the specified position with the specified<br />radius and color.</p></section>
+        <section class='usage'>
+          <h3>Usage</h3>
+          <p><code class="run"><pre></p>
+          
+          <h1>Draw a large orange circle</h1>
+          
+          <p>canvas.drawCircle<br />  radius: 30<br />  position: Point(100, 75)<br />  color: "orange"</p>
+          
+          <h1>Draw a blue circle with radius 10 at (25, 50)</h1>
+          
+          <h1>and a red stroke</h1>
+          
+          <p>canvas.drawCircle<br />  x: 25<br />  y: 50<br />  radius: 10<br />  color: "blue"<br />  stroke:<br />    color: "red"<br />    width: 1</p>
+          
+          <h1>Create a circle object to set up the next examples</h1>
+          
+          <p>circle =<br />  radius: 20<br />  x: 50<br />  y: 50</p>
+          
+          <h1>Draw a given circle in yellow</h1>
+          
+          <p>canvas.drawCircle<br />  circle: circle<br />  color: "yellow"</p>
+          
+          <h1>Draw the circle in green at a different position</h1>
+          
+          <p>canvas.drawCircle<br />  circle: circle<br />  position: Point(25, 75)<br />  color: "green"</p>
+          
+          <h1>Draw an outline circle in purple.</h1>
+          
+          <p>canvas.drawCircle<br />  x: 50<br />  y: 75<br />  radius: 10<br />  stroke:<br />    color: "purple"<br />    width: 2<br /></pre></code></p>
+        </section>
+        <section class='parameters'>
+          <h3>Parameters</h3>
+          <ul>
+            <li>
+              <span class='param_name'>x</span>
+               -
+              <span class='param_description'>location on the x axis to start drawing</span>
+            </li>
+            <li>
+              <span class='param_name'>y</span>
+               -
+              <span class='param_description'>location on the y axis to start drawing</span>
+            </li>
+            <li>
+              <span class='param_name'>position</span>
+               -
+              <span class='param_description'>position object of location to start drawing. This will override x and y values passed</span>
+            </li>
+            <li>
+              <span class='param_name'>radius</span>
+               -
+              <span class='param_description'>length of the radius of the circle</span>
+            </li>
+            <li>
+              <span class='param_name'>color</span>
+               -
+              <span class='param_description'>color of the circle</span>
+            </li>
+            <li>
+              <span class='param_name'>circle</span>
+               -
+              <span class='param_description'>circle object that contains position and radius. Overrides x, y, and radius if passed</span>
+            </li>
+            <li>
+              <span class='param_name'>stroke</span>
+               -
+              <span class='param_description'>stroke object that specifies stroke color and stroke width</span>
+            </li>
+          </ul>
+        </section>
+        <section class='returns'>
+          <h3>Returns</h3>
+          <p>
+            Type:
+            <a href='PixieCanvas.html'>PixieCanvas</a>
+          </p>
+          <p class='return_description'>this</p>
+        </section>
+        <section class='source'>
+          <h3>Source</h3>
+          <a class='toggle_source'>Toggle</a>
+          <pre><code>drawCircle: function(_arg) {&#x000A;        var circle, color, position, radius, stroke, x, y;&#x000A;        x = _arg.x, y = _arg.y, radius = _arg.radius, position = _arg.position, color = _arg.color, stroke = _arg.stroke, circle = _arg.circle;&#x000A;        if (circle) x = circle.x, y = circle.y, radius = circle.radius;&#x000A;        if (position) x = position.x, y = position.y;&#x000A;        context.beginPath();&#x000A;        context.arc(x, y, radius, 0, Math.TAU, true);&#x000A;        context.closePath();&#x000A;        if (color) {&#x000A;          this.fillColor(color);&#x000A;          context.fill();&#x000A;        }&#x000A;        if (stroke) {&#x000A;          this.strokeColor(stroke.color);&#x000A;          this.lineWidth(stroke.width);&#x000A;          context.stroke();&#x000A;        }&#x000A;        return this;&#x000A;      },</code></pre>
+        </section>
+      </div>
+      <hr />
+      <a name='#drawRect'></a>
+      <!-- TODO make sure method_data isn't nil -->
+      <h1>PixieCanvas#drawRect(x, y, width, height, position, color, bounds, stroke)</h1>
+      <div class='description'>
+        <section class='summary'><p>Draws a rectangle at the specified position with given <br />width and height. Optionally takes a position, bounds<br />and color argument.</p></section>
+        <section class='usage'>
+          <h3>Usage</h3>
+          <p><code class="run"><pre></p>
+          
+          <h1>Draw a red rectangle using x, y, width and height</h1>
+          
+          <p>canvas.drawRect<br />  x: 50<br />  y: 50<br />  width: 50<br />  height: 50<br />  color: "#F00"</p>
+          
+          <h1>Draw a blue rectangle using position, width and height</h1>
+          
+          <h1>and throw in a stroke for good measure</h1>
+          
+          <p>canvas.drawRect<br />  position: Point(0, 0)<br />  width: 50<br />  height: 50<br />  color: "blue"<br />  stroke:<br />    color: "orange"<br />    width: 3</p>
+          
+          <h1>Set up a bounds object for the next examples</h1>
+          
+          <p>bounds =<br />  x: 100<br />  y: 0<br />  width: 100<br />  height: 100</p>
+          
+          <h1>Draw a purple rectangle using bounds</h1>
+          
+          <p>canvas.drawRect<br />  bounds: bounds<br />  color: "green"</p>
+          
+          <h1>Draw the outline of the same bounds, but at a different position</h1>
+          
+          <p>canvas.drawRect<br />  bounds: bounds<br />  position: Point(0, 50)<br />  stroke:<br />    color: "purple"<br />    width: 2<br /></pre></code></p>
+        </section>
+        <section class='parameters'>
+          <h3>Parameters</h3>
+          <ul>
+            <li>
+              <span class='param_name'>x</span>
+               -
+              <span class='param_description'>location on the x axis to start drawing</span>
+            </li>
+            <li>
+              <span class='param_name'>y</span>
+               -
+              <span class='param_description'>location on the y axis to start drawing</span>
+            </li>
+            <li>
+              <span class='param_name'>width</span>
+               -
+              <span class='param_description'>width of rectangle to draw</span>
+            </li>
+            <li>
+              <span class='param_name'>height</span>
+               -
+              <span class='param_description'>height of rectangle to draw</span>
+            </li>
+            <li>
+              <span class='param_name'>position</span>
+               -
+              <span class='param_description'>position to start drawing. Overrides x and y if passed</span>
+            </li>
+            <li>
+              <span class='param_name'>color</span>
+               -
+              <span class='param_description'>color of rectangle</span>
+            </li>
+            <li>
+              <span class='param_name'>bounds</span>
+               -
+              <span class='param_description'>bounds of rectangle. Overrides x, y, width, height if passed</span>
+            </li>
+            <li>
+              <span class='param_name'>stroke</span>
+               -
+              <span class='param_description'>stroke object that specifies stroke color and stroke width</span>
+            </li>
+          </ul>
+        </section>
+        <section class='returns'>
+          <h3>Returns</h3>
+          <p>
+            Type:
+            <a href='PixieCanvas.html'>PixieCanvas</a>
+          </p>
+          <p class='return_description'>this</p>
+        </section>
+        <section class='source'>
+          <h3>Source</h3>
+          <a class='toggle_source'>Toggle</a>
+          <pre><code>drawRect: function(_arg) {&#x000A;        var bounds, color, height, position, stroke, width, x, y;&#x000A;        x = _arg.x, y = _arg.y, width = _arg.width, height = _arg.height, position = _arg.position, bounds = _arg.bounds, color = _arg.color, stroke = _arg.stroke;&#x000A;        if (bounds) {&#x000A;          x = bounds.x, y = bounds.y, width = bounds.width, height = bounds.height;&#x000A;        }&#x000A;        if (position) x = position.x, y = position.y;&#x000A;        if (color) {&#x000A;          this.fillColor(color);&#x000A;          context.fillRect(x, y, width, height);&#x000A;        }&#x000A;        if (stroke) {&#x000A;          this.strokeColor(stroke.color);&#x000A;          this.lineWidth(stroke.width);&#x000A;          context.strokeRect(x, y, width, height);&#x000A;        }&#x000A;        return this;&#x000A;      },</code></pre>
+        </section>
+      </div>
+      <hr />
+      <a name='#drawLine'></a>
+      <!-- TODO make sure method_data isn't nil -->
+      <h1>PixieCanvas#drawLine(start, end, width, color)</h1>
+      <div class='description'>
+        <section class='summary'><p>Draw a line from <code>start</code> to <code>end</code>.</p></section>
+        <section class='usage'>
+          <h3>Usage</h3>
+          <p><code class="run"><pre></p>
+          
+          <h1>Draw a sweet diagonal</h1>
+          
+          <p>canvas.drawLine<br />  start: Point(0, 0)<br />  end: Point(200, 200)<br />  color: "purple"</p>
+          
+          <h1>Draw another sweet diagonal</h1>
+          
+          <p>canvas.drawLine<br />  start: Point(200, 0)<br />  end: Point(0, 200)<br />  color: "red"<br />  width: 6</p>
+          
+          <h1>Now draw a sweet horizontal with a direction and a length</h1>
+          
+          <p>canvas.drawLine<br />  start: Point(0, 100)<br />  length: 200<br />  direction: Point(1, 0)<br />  color: "orange"</p>
+          
+          <p></pre></code></p>
+        </section>
+        <section class='parameters'>
+          <h3>Parameters</h3>
+          <ul>
+            <li>
+              <span class='param_name'>start</span>
+               -
+              <span class='param_description'>position to start drawing from</span>
+            </li>
+            <li>
+              <span class='param_name'>end</span>
+               -
+              <span class='param_description'>position to stop drawing</span>
+            </li>
+            <li>
+              <span class='param_name'>width</span>
+               -
+              <span class='param_description'>width of the line</span>
+            </li>
+            <li>
+              <span class='param_name'>color</span>
+               -
+              <span class='param_description'>color of the line</span>
+            </li>
+          </ul>
+        </section>
+        <section class='returns'>
+          <h3>Returns</h3>
+          <p>
+            Type:
+            <a href='PixieCanvas.html'>PixieCanvas</a>
+          </p>
+          <p class='return_description'>this</p>
+        </section>
+        <section class='source'>
+          <h3>Source</h3>
+          <a class='toggle_source'>Toggle</a>
+          <pre><code>drawLine: function(_arg) {&#x000A;        var color, direction, end, length, start, width;&#x000A;        start = _arg.start, end = _arg.end, width = _arg.width, color = _arg.color, direction = _arg.direction, length = _arg.length;&#x000A;        width || (width = 3);&#x000A;        if (direction) end = direction.norm(length).add(start);&#x000A;        this.lineWidth(width);&#x000A;        this.strokeColor(color);&#x000A;        context.beginPath();&#x000A;        context.moveTo(start.x, start.y);&#x000A;        context.lineTo(end.x, end.y);&#x000A;        context.closePath();&#x000A;        context.stroke();&#x000A;        return this;&#x000A;      },</code></pre>
+        </section>
+      </div>
+      <hr />
+      <a name='#drawPoly'></a>
+      <!-- TODO make sure method_data isn't nil -->
+      <h1>PixieCanvas#drawPoly(points, color, stroke)</h1>
+      <div class='description'>
+        <section class='summary'><p>Draw a polygon.</p></section>
+        <section class='usage'>
+          <h3>Usage</h3>
+          <p><code class="run"><pre></p>
+          
+          <h1>Draw a sweet rhombus</h1>
+          
+          <p>canvas.drawPoly<br />  points: [<br />    Point(50, 25)<br />    Point(75, 50)<br />    Point(50, 75)<br />    Point(25, 50)<br />  ]<br />  color: "purple"<br />  stroke:<br />    color: "red"<br />    width: 2<br /></pre></code></p>
+        </section>
+        <section class='parameters'>
+          <h3>Parameters</h3>
+          <ul>
+            <li>
+              <span class='param_name'>points</span>
+               -
+              <span class='param_description'>collection of points that define the vertices of the polygon</span>
+            </li>
+            <li>
+              <span class='param_name'>color</span>
+               -
+              <span class='param_description'>color of the polygon</span>
+            </li>
+            <li>
+              <span class='param_name'>stroke</span>
+               -
+              <span class='param_description'>stroke object that specifies stroke color and stroke width</span>
+            </li>
+          </ul>
+        </section>
+        <section class='returns'>
+          <h3>Returns</h3>
+          <p>
+            Type:
+            <a href='PixieCanvas.html'>PixieCanvas</a>
+          </p>
+          <p class='return_description'>this</p>
+        </section>
+        <section class='source'>
+          <h3>Source</h3>
+          <a class='toggle_source'>Toggle</a>
+          <pre><code>drawPoly: function(_arg) {&#x000A;        var color, points, stroke;&#x000A;        points = _arg.points, color = _arg.color, stroke = _arg.stroke;&#x000A;        context.beginPath();&#x000A;        points.each(function(point, i) {&#x000A;          if (i === 0) {&#x000A;            return context.moveTo(point.x, point.y);&#x000A;          } else {&#x000A;            return context.lineTo(point.x, point.y);&#x000A;          }&#x000A;        });&#x000A;        context.lineTo(points[0].x, points[0].y);&#x000A;        if (color) {&#x000A;          this.fillColor(color);&#x000A;          context.fill();&#x000A;        }&#x000A;        if (stroke) {&#x000A;          this.strokeColor(stroke.color);&#x000A;          this.lineWidth(stroke.width);&#x000A;          context.stroke();&#x000A;        }&#x000A;        return this;&#x000A;      },</code></pre>
+        </section>
+      </div>
+      <hr />
+      <a name='#drawRoundRect'></a>
+      <!-- TODO make sure method_data isn't nil -->
+      <h1>PixieCanvas#drawRoundRect(x, y, width, height, radius=5, position, color, bounds, stroke)</h1>
+      <div class='description'>
+        <section class='summary'><p>Draw a rounded rectangle.</p></section>
+        <section class='usage'>
+          <h3>Usage</h3>
+          <p>Adapted from <a href='http://js-bits.blogspot.com/2010/07/canvas-rounded-corner-rectangles.html'>http://js-bits.blogspot.com/2010/07/canvas-rounded-corner-rectangles.html</a></p>
+          
+          <p><code class="run"><pre></p>
+          
+          <h1>Draw a purple rounded rectangle with a red outline</h1>
+          
+          <p>canvas.drawRoundRect<br />  position: Point(25, 25)<br />  radius: 10<br />  width: 150<br />  height: 100<br />  color: "purple"<br />  stroke:<br />    color: "red"<br />    width: 2<br /></pre></code></p>
+        </section>
+        <section class='parameters'>
+          <h3>Parameters</h3>
+          <ul>
+            <li>
+              <span class='param_name'>x</span>
+               -
+              <span class='param_description'>location on the x axis to start drawing</span>
+            </li>
+            <li>
+              <span class='param_name'>y</span>
+               -
+              <span class='param_description'>location on the y axis to start drawing</span>
+            </li>
+            <li>
+              <span class='param_name'>width</span>
+               -
+              <span class='param_description'>width of the rounded rectangle</span>
+            </li>
+            <li>
+              <span class='param_name'>height</span>
+               -
+              <span class='param_description'>height of the rounded rectangle</span>
+            </li>
+            <li>
+              <span class='param_name'>radius=5</span>
+               -
+              <span class='param_description'>radius to round the rectangle corners</span>
+            </li>
+            <li>
+              <span class='param_name'>position</span>
+               -
+              <span class='param_description'>position to start drawing. Overrides x and y if passed</span>
+            </li>
+            <li>
+              <span class='param_name'>color</span>
+               -
+              <span class='param_description'>color of the rounded rectangle</span>
+            </li>
+            <li>
+              <span class='param_name'>bounds</span>
+               -
+              <span class='param_description'>bounds of the rounded rectangle. Overrides x, y, width, and height if passed</span>
+            </li>
+            <li>
+              <span class='param_name'>stroke</span>
+               -
+              <span class='param_description'>stroke object that specifies stroke color and stroke width</span>
+            </li>
+          </ul>
+        </section>
+        <section class='returns'>
+          <h3>Returns</h3>
+          <p>
+            Type:
+            <a href='PixieCanvas.html'>PixieCanvas</a>
+          </p>
+          <p class='return_description'>this</p>
+        </section>
+        <section class='source'>
+          <h3>Source</h3>
+          <a class='toggle_source'>Toggle</a>
+          <pre><code>drawRoundRect: function(_arg) {&#x000A;        var bounds, color, height, position, radius, stroke, width, x, y;&#x000A;        x = _arg.x, y = _arg.y, width = _arg.width, height = _arg.height, radius = _arg.radius, position = _arg.position, bounds = _arg.bounds, color = _arg.color, stroke = _arg.stroke;&#x000A;        if (radius == null) radius = 5;&#x000A;        if (bounds) {&#x000A;          x = bounds.x, y = bounds.y, width = bounds.width, height = bounds.height;&#x000A;        }&#x000A;        if (position) x = position.x, y = position.y;&#x000A;        context.beginPath();&#x000A;        context.moveTo(x + radius, y);&#x000A;        context.lineTo(x + width - radius, y);&#x000A;        context.quadraticCurveTo(x + width, y, x + width, y + radius);&#x000A;        context.lineTo(x + width, y + height - radius);&#x000A;        context.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);&#x000A;        context.lineTo(x + radius, y + height);&#x000A;        context.quadraticCurveTo(x, y + height, x, y + height - radius);&#x000A;        context.lineTo(x, y + radius);&#x000A;        context.quadraticCurveTo(x, y, x + radius, y);&#x000A;        context.closePath();&#x000A;        if (color) {&#x000A;          this.fillColor(color);&#x000A;          context.fill();&#x000A;        }&#x000A;        if (stroke) {&#x000A;          this.lineWidth(stroke.width);&#x000A;          this.strokeColor(stroke.color);&#x000A;          context.stroke();&#x000A;        }&#x000A;        return this;&#x000A;      },</code></pre>
+        </section>
+      </div>
+      <hr />
+      <a name='#drawText'></a>
+      <!-- TODO make sure method_data isn't nil -->
+      <h1>PixieCanvas#drawText(x, y, text, position, color)</h1>
+      <div class='description'>
+        <section class='summary'><p>Draws text on the canvas at the given position, in the given color.<br />If no color is given then the previous fill color is used.</p></section>
+        <section class='usage'>
+          <h3>Usage</h3>
+          <p><code class="run"><pre></p>
+          
+          <h1>Fill canvas to indicate bounds</h1>
+          
+          <p>canvas.fill<br />  color: '#eee'</p>
+          
+          <h1>A line to indicate the baseline</h1>
+          
+          <p>canvas.drawLine<br />  start: Point(25, 50)<br />  end: Point(125, 50)<br />  color: "#333"<br />  width: 1</p>
+          
+          <h1>Draw some text, note the position of the baseline</h1>
+          
+          <p>canvas.drawText<br />  position: Point(25, 50)<br />  color: "red"<br />  text: "It's dangerous to go alone"</p>
+          
+          <p></pre></code></p>
+        </section>
+        <section class='parameters'>
+          <h3>Parameters</h3>
+          <ul>
+            <li>
+              <span class='param_name'>x</span>
+               -
+              <span class='param_description'>location on x axis to start printing</span>
+            </li>
+            <li>
+              <span class='param_name'>y</span>
+               -
+              <span class='param_description'>location on y axis to start printing</span>
+            </li>
+            <li>
+              <span class='param_name'>text</span>
+               -
+              <span class='param_description'>text to print</span>
+            </li>
+            <li>
+              <span class='param_name'>position</span>
+               -
+              <span class='param_description'>position to start printing. Overrides x and y if passed</span>
+            </li>
+            <li>
+              <span class='param_name'>color</span>
+               -
+              <span class='param_description'>color of text to start printing</span>
+            </li>
+          </ul>
+        </section>
+        <section class='returns'>
+          <h3>Returns</h3>
+          <p>
+            Type:
+            <a href='PixieCanvas.html'>PixieCanvas</a>
+          </p>
+          <p class='return_description'>this</p>
+        </section>
+        <section class='source'>
+          <h3>Source</h3>
+          <a class='toggle_source'>Toggle</a>
+          <pre><code>drawText: function(_arg) {&#x000A;        var color, position, text, x, y;&#x000A;        x = _arg.x, y = _arg.y, text = _arg.text, position = _arg.position, color = _arg.color;&#x000A;        if (position) x = position.x, y = position.y;&#x000A;        this.fillColor(color);&#x000A;        context.fillText(text, x, y);&#x000A;        return this;&#x000A;      },</code></pre>
+        </section>
+      </div>
+      <hr />
+      <a name='#centerText'></a>
+      <!-- TODO make sure method_data isn't nil -->
+      <h1>PixieCanvas#centerText(text, y, x, position, color)</h1>
+      <div class='description'>
+        <section class='summary'><p>Centers the given text on the canvas at the given y position. An x position<br />or point position can also be given in which case the text is centered at the<br />x, y or position value specified.</p></section>
+        <section class='usage'>
+          <h3>Usage</h3>
+          <p><code class="run"><pre></p>
+          
+          <h1>Fill canvas to indicate bounds</h1>
+          
+          <p>canvas.fill<br />  color: "#eee"</p>
+          
+          <h1>A line to indicate the baseline</h1>
+          
+          <p>canvas.drawLine<br />  start: Point(25, 25)<br />  end: Point(125, 25)<br />  color: "#333"<br />  width: 1</p>
+          
+          <h1>Center text on the screen at y value 25</h1>
+          
+          <p>canvas.centerText<br />  y: 25<br />  color: "red"<br />  text: "It's dangerous to go alone"</p>
+          
+          <h1>Center text at point (75, 75)</h1>
+          
+          <p>canvas.centerText<br />  position: Point(75, 75)<br />  color: "green"<br />  text: "take this"</p>
+          
+          <p></pre></code></p>
+        </section>
+        <section class='parameters'>
+          <h3>Parameters</h3>
+          <ul>
+            <li>
+              <span class='param_name'>text</span>
+               -
+              <span class='param_description'>Text to print</span>
+            </li>
+            <li>
+              <span class='param_name'>y</span>
+               -
+              <span class='param_description'>location on the y axis to start printing</span>
+            </li>
+            <li>
+              <span class='param_name'>x</span>
+               -
+              <span class='param_description'>location on the x axis to start printing. Overrides the default centering behavior if passed</span>
+            </li>
+            <li>
+              <span class='param_name'>position</span>
+               -
+              <span class='param_description'>position to start printing. Overrides x and y if passed</span>
+            </li>
+            <li>
+              <span class='param_name'>color</span>
+               -
+              <span class='param_description'>color of text to print</span>
+            </li>
+          </ul>
+        </section>
+        <section class='returns'>
+          <h3>Returns</h3>
+          <p>
+            Type:
+            <a href='PixieCanvas.html'>PixieCanvas</a>
+          </p>
+          <p class='return_description'>this</p>
+        </section>
+        <section class='source'>
+          <h3>Source</h3>
+          <a class='toggle_source'>Toggle</a>
+          <pre><code>centerText: function(_arg) {&#x000A;        var color, position, text, textWidth, x, y;&#x000A;        text = _arg.text, x = _arg.x, y = _arg.y, position = _arg.position, color = _arg.color;&#x000A;        if (position) x = position.x, y = position.y;&#x000A;        if (x == null) x = canvas.width / 2;&#x000A;        textWidth = this.measureText(text);&#x000A;        return this.drawText({&#x000A;          text: text,&#x000A;          color: color,&#x000A;          x: x - textWidth / 2,&#x000A;          y: y&#x000A;        });&#x000A;      },</code></pre>
+        </section>
+      </div>
+      <hr />
+      <a name='#fillColor'></a>
+      <!-- TODO make sure method_data isn't nil -->
+      <h1>PixieCanvas#fillColor(color)</h1>
+      <div class='description'>
+        <section class='summary'><p>A getter / setter method to set the canvas fillColor.</p></section>
+        <section class='usage'>
+          <h3>Usage</h3>
+          <p><code><pre></p>
+          
+          <h1>Set the fill color</h1>
+          
+          <p>canvas.fillColor('#FF0000')</p>
+          
+          <h1>Passing no arguments returns the fillColor</h1>
+          
+          <p>canvas.fillColor()</p>
+          
+          <h1>=> '#FF0000'</h1>
+          
+          <h1>You can also pass a Color object</h1>
+          
+          <p>canvas.fillColor(Color('sky blue'))<br /></pre></code>      </p>
+        </section>
+        <section class='parameters'>
+          <h3>Parameters</h3>
+          <ul>
+            <li>
+              <span class='param_name'>color</span>
+               -
+              <span class='param_description'>color to make the canvas fillColor</span>
+            </li>
+          </ul>
+        </section>
+        <section class='returns'>
+          <h3>Returns</h3>
+          <p>
+            Type:
+            <a href='PixieCanvas.html'>PixieCanvas</a>
+          </p>
+          <p class='return_description'>this</p>
+        </section>
+        <section class='source'>
+          <h3>Source</h3>
+          <a class='toggle_source'>Toggle</a>
+          <pre><code>fillColor: function(color) {&#x000A;        if (color) {&#x000A;          if (color.channels) {&#x000A;            context.fillStyle = color.toString();&#x000A;          } else {&#x000A;            context.fillStyle = color;&#x000A;          }&#x000A;          return this;&#x000A;        } else {&#x000A;          return context.fillStyle;&#x000A;        }&#x000A;      },</code></pre>
+        </section>
+      </div>
+      <hr />
+      <a name='#strokeColor'></a>
+      <!-- TODO make sure method_data isn't nil -->
+      <h1>PixieCanvas#strokeColor(color)</h1>
+      <div class='description'>
+        <section class='summary'><p>A getter / setter method to set the canvas strokeColor.</p></section>
+        <section class='usage'>
+          <h3>Usage</h3>
+          <p><code><pre></p>
+          
+          <h1>Set the stroke color</h1>
+          
+          <p>canvas.strokeColor('#FF0000')</p>
+          
+          <h1>Passing no arguments returns the strokeColor</h1>
+          
+          <p>canvas.strokeColor()</p>
+          
+          <h1>=> '#FF0000'</h1>
+          
+          <h1>You can also pass a Color object</h1>
+          
+          <p>canvas.strokeColor(Color('sky blue'))<br /></pre></code>      </p>
+        </section>
+        <section class='parameters'>
+          <h3>Parameters</h3>
+          <ul>
+            <li>
+              <span class='param_name'>color</span>
+               -
+              <span class='param_description'>color to make the canvas strokeColor</span>
+            </li>
+          </ul>
+        </section>
+        <section class='returns'>
+          <h3>Returns</h3>
+          <p>
+            Type:
+            <a href='PixieCanvas.html'>PixieCanvas</a>
+          </p>
+          <p class='return_description'>this</p>
+        </section>
+        <section class='source'>
+          <h3>Source</h3>
+          <a class='toggle_source'>Toggle</a>
+          <pre><code>strokeColor: function(color) {&#x000A;        if (color) {&#x000A;          if (color.channels) {&#x000A;            context.strokeStyle = color.toString();&#x000A;          } else {&#x000A;            context.strokeStyle = color;&#x000A;          }&#x000A;          return this;&#x000A;        } else {&#x000A;          return context.strokeStyle;&#x000A;        }&#x000A;      },</code></pre>
+        </section>
+      </div>
+      <hr />
+      <a name='#measureText'></a>
+      <!-- TODO make sure method_data isn't nil -->
+      <h1>PixieCanvas#measureText(text)</h1>
+      <div class='description'>
+        <section class='summary'><p>Determine how wide some text is.</p></section>
+        <section class='usage'>
+          <h3>Usage</h3>
+          <p><code><pre><br />canvas.measureText('Hello World!')</p>
+          
+          <h1>=> 55</h1>
+          
+          <p></pre></code>      </p>
+        </section>
+        <section class='parameters'>
+          <h3>Parameters</h3>
+          <ul>
+            <li>
+              <span class='param_name'>text</span>
+               -
+              <span class='param_description'>the text to measure</span>
+            </li>
+          </ul>
+        </section>
+        <section class='returns'>
+          <h3>Returns</h3>
+          <p>
+            Type:
+            <a href='PixieCanvas.html'>PixieCanvas</a>
+          </p>
+          <p class='return_description'>this</p>
+        </section>
+        <section class='source'>
+          <h3>Source</h3>
+          <a class='toggle_source'>Toggle</a>
+          <pre><code>measureText: function(text) {&#x000A;        return context.measureText(text).width;&#x000A;      },&#x000A;      putImageData: function(imageData, x, y) {&#x000A;        context.putImageData(imageData, x, y);&#x000A;        return this;&#x000A;      },&#x000A;      context: function() {&#x000A;        return context;&#x000A;      },&#x000A;      element: function() {&#x000A;        return canvas;&#x000A;      },&#x000A;      createPattern: function(image, repitition) {&#x000A;        return context.createPattern(image, repitition);&#x000A;      },&#x000A;      clip: function(x, y, width, height) {&#x000A;        context.beginPath();&#x000A;        context.rect(x, y, width, height);&#x000A;        context.clip();&#x000A;        return this;&#x000A;      }&#x000A;    });&#x000A;    contextAttrAccessor = function() {&#x000A;      var attrs;&#x000A;      attrs = 1 <= arguments.length ? __slice.call(arguments, 0) : [];&#x000A;      return attrs.each(function(attr) {&#x000A;        return $canvas[attr] = function(newVal) {&#x000A;          if (newVal != null) {&#x000A;            context[attr] = newVal;&#x000A;            return this;&#x000A;          } else {&#x000A;            return context[attr];&#x000A;          }&#x000A;        };&#x000A;      });&#x000A;    };&#x000A;    canvasAttrAccessor = function() {&#x000A;      var attrs;&#x000A;      attrs = 1 <= arguments.length ? __slice.call(arguments, 0) : [];&#x000A;      return attrs.each(function(attr) {&#x000A;        return $canvas[attr] = function(newVal) {&#x000A;          if (newVal != null) {&#x000A;            canvas[attr] = newVal;&#x000A;            return this;&#x000A;          } else {&#x000A;            return canvas[attr];&#x000A;          }&#x000A;        };&#x000A;      });&#x000A;    };&#x000A;    contextAttrAccessor("font", "globalAlpha", "globalCompositeOperation", "lineWidth", "textAlign");&#x000A;    canvasAttrAccessor("height", "width");&#x000A;    if (canvas != null ? canvas.getContext : void 0) {&#x000A;      context = canvas.getContext('2d');&#x000A;      if (options.init) options.init($canvas);&#x000A;      return $canvas;&#x000A;    }&#x000A;  };&#x000A;})(jQuery);&#x000A;;&#x000A;var __slice = Array.prototype.slice;&#x000A;&#x000A;(function($) {&#x000A;  return $.fn.powerCanvas = function(options) {&#x000A;    var $canvas, canvas, context;&#x000A;    options || (options = {});&#x000A;    canvas = this.get(0);&#x000A;    context = void 0;</code></pre>
+        </section>
+      </div>
+      <hr />
+    </div>
+  </body>
+</html>
