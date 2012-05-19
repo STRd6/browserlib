@@ -1,1 +1,15 @@
-{"author":"STRd6","main":null,"name":"browserlib","library":true,"directories":{"lib":"lib","source":"src","test":"test","test_lib":"test_lib"},"test_libs":{"gamelib.js":"https://raw.github.com/STRd6/gamelib/pixie/game.js"}}
+{
+  "author": "STRd6",
+  "main": null,
+  "name": "browserlib",
+  "library": true,
+  "directories": {
+    "lib": "lib",
+    "source": "src",
+    "test": "test",
+    "test_lib": "test_lib"
+  },
+  "test_libs": {
+    "gamelib.js": "https://raw.github.com/STRd6/PixieDust/pixie/game.js"
+  }
+}
