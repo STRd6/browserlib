@@ -10,6 +10,6 @@
     "test_lib": "test_lib"
   },
   "test_libs": {
-    "gamelib.js": "https://raw.github.com/STRd6/PixieDust/pixie/game.js"
+    "gamelib.js": "https://raw.github.com/PixieEngine/PixieDust/pixie/game.js"
   }
 }
