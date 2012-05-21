@@ -1,7 +1,6 @@
-module "PowerCanvas"
+module "PixieCanvas"
 
 test "exists", ->
-  ok $.fn.powerCanvas
+  ok $.fn.pixieCanvas
 
 module()
-
