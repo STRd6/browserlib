@@ -11,5 +11,8 @@
   },
   "test_libs": {
     "gamelib.js": "https://raw.github.com/PixieEngine/PixieDust/pixie/game.js"
+  },
+  "libs": {
+    "xstats.js": "https://raw.github.com/bestiejs/xstats.js/master/xstats.js"
   }
 }
