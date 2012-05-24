@@ -814,28 +814,39 @@ Bindable module.
 var Bindable,
   __slice = Array.prototype.slice;
 
-Bindable = function() {
+Bindable = function(I, self) {
   var eventCallbacks;
+  if (I == null) I = {};
   eventCallbacks = {};
   return {
+    bind: function() {
+      var args;
+      args = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
+      return self.on.apply(self, args);
+    },
+    unbind: function() {
+      var args;
+      args = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
+      return self.off.apply(self, args);
+    },
     /**
     Adds a function as an event listener.
     
         # this will call coolEventHandler after
         # yourObject.trigger "someCustomEvent" is called.
-        yourObject.bind "someCustomEvent", coolEventHandler
+        yourObject.on "someCustomEvent", coolEventHandler
       
         #or
-        yourObject.bind "anotherCustomEvent", ->
+        yourObject.on "anotherCustomEvent", ->
           doSomething()
     
-    @name bind
+    @name on
     @methodOf Bindable#
     @param {String} event The event to listen to.
     @param {Function} callback The function to be called when the specified event
     is triggered.
     */
-    bind: function(namespacedEvent, callback) {
+    on: function(namespacedEvent, callback) {
       var event, namespace, _ref;
       _ref = namespacedEvent.split("."), event = _ref[0], namespace = _ref[1];
       if (namespace) {
@@ -852,17 +863,17 @@ Bindable = function() {
     
         #  removes the handler coolEventHandler from the event
         # "someCustomEvent" while leaving the other events intact.
-        yourObject.unbind "someCustomEvent", coolEventHandler
+        yourObject.off "someCustomEvent", coolEventHandler
       
         # removes all handlers attached to "anotherCustomEvent" 
-        yourObject.unbind "anotherCustomEvent"
+        yourObject.off "anotherCustomEvent"
     
-    @name unbind
+    @name off
     @methodOf Bindable#
     @param {String} event The event to remove the listener from.
     @param {Function} [callback] The listener to remove.
     */
-    unbind: function(namespacedEvent, callback) {
+    off: function(namespacedEvent, callback) {
       var callbacks, event, key, namespace, _ref;
       _ref = namespacedEvent.split("."), event = _ref[0], namespace = _ref[1];
       if (event) {
@@ -902,7 +913,7 @@ Bindable = function() {
     @param {Array} [parameters] Additional parameters to pass to the event listener.
     */
     trigger: function() {
-      var callbacks, event, parameters, self;
+      var callbacks, event, parameters;
       event = arguments[0], parameters = 2 <= arguments.length ? __slice.call(arguments, 1) : [];
       callbacks = eventCallbacks[event];
       if (callbacks && callbacks.length) {
@@ -966,167 +977,195 @@ methods.
 
 @param {Object} I Instance variables
 */
-var Core,
-  __slice = Array.prototype.slice;
+var __slice = Array.prototype.slice;
 
-Core = function(I) {
-  var self;
-  if (I == null) I = {};
-  return self = {
-    /**
-    External access to instance variables. Use of this property should be avoided
-    in general, but can come in handy from time to time.
-    
-        I =
-          r: 255
-          g: 0
-          b: 100
-    
-        myObject = Core(I)
-    
-        # a bad idea most of the time, but it's 
-        # pretty convenient to have available.
-        myObject.I.r
-        # => 255
-    
-        myObject.I.g
-        # => 0
-    
-        myObject.I.b
-        # => 100
-    
-    @name I
-    @fieldOf Core#
-    */
-    I: I,
-    /**
-    Generates a public jQuery style getter / setter method for each 
-    String argument.
-    
-        myObject = Core
-          r: 255
-          g: 0
-          b: 100
-    
-        myObject.attrAccessor "r", "g", "b"
-    
-        myObject.r(254)
-        myObject.r()
-    
-        => 254
-    
-    @name attrAccessor
-    @methodOf Core#
-    */
-    attrAccessor: function() {
-      var attrNames;
-      attrNames = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
-      return attrNames.each(function(attrName) {
-        return self[attrName] = function(newValue) {
-          if (newValue != null) {
-            I[attrName] = newValue;
-            return self;
-          } else {
+(function() {
+  var root;
+  root = typeof exports !== "undefined" && exports !== null ? exports : this;
+  return root.Core = function(I) {
+    var Module, moduleName, self, _i, _len, _ref;
+    if (I == null) I = {};
+    Object.reverseMerge(I, {
+      includedModules: []
+    });
+    self = {
+      /**
+      External access to instance variables. Use of this property should be avoided
+      in general, but can come in handy from time to time.
+        
+          I =
+            r: 255
+            g: 0
+            b: 100
+      
+          myObject = Core(I)
+      
+          # a bad idea most of the time, but it's 
+          # pretty convenient to have available.
+          myObject.I.r
+          # => 255
+      
+          myObject.I.g
+          # => 0
+      
+          myObject.I.b
+          # => 100
+        
+      @name I
+      @fieldOf Core#
+      */
+      I: I,
+      /**
+      Generates a public jQuery style getter / setter method for each 
+      String argument.
+        
+          myObject = Core
+            r: 255
+            g: 0
+            b: 100
+      
+          myObject.attrAccessor "r", "g", "b"
+      
+          myObject.r(254)
+          myObject.r()
+      
+          => 254
+        
+      @name attrAccessor
+      @methodOf Core#
+      */
+      attrAccessor: function() {
+        var attrNames;
+        attrNames = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
+        return attrNames.each(function(attrName) {
+          return self[attrName] = function(newValue) {
+            if (newValue != null) {
+              I[attrName] = newValue;
+              return self;
+            } else {
+              return I[attrName];
+            }
+          };
+        });
+      },
+      /**
+      Generates a public jQuery style getter method for each String argument.
+        
+          myObject = Core
+            r: 255
+            g: 0
+            b: 100
+      
+          myObject.attrReader "r", "g", "b"
+      
+          myObject.r()
+          => 255
+      
+          myObject.g()
+          => 0
+      
+          myObject.b()
+          => 100
+        
+      @name attrReader
+      @methodOf Core#
+      */
+      attrReader: function() {
+        var attrNames;
+        attrNames = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
+        return attrNames.each(function(attrName) {
+          return self[attrName] = function() {
             return I[attrName];
+          };
+        });
+      },
+      /**
+      Extends this object with methods from the passed in object. A shortcut for Object.extend(self, methods)
+        
+          I =
+            x: 30
+            y: 40
+            maxSpeed: 5
+      
+          # we are using extend to give player
+          # additional methods that Core doesn't have
+          player = Core(I).extend
+            increaseSpeed: ->
+              I.maxSpeed += 1
+      
+          player.I.maxSpeed
+          => 5
+      
+          player.increaseSpeed()
+      
+          player.I.maxSpeed
+          => 6
+        
+      @name extend
+      @methodOf Core#
+      @see Object.extend
+      @returns self
+      */
+      extend: function(options) {
+        Object.extend(self, options);
+        return self;
+      },
+      /**
+      Includes a module in this object.
+        
+          myObject = Core()
+          myObject.include(Bindable)
+      
+          # now you can bind handlers to functions
+          myObject.bind "someEvent", ->
+            alert("wow. that was easy.")
+        
+      @name include
+      @methodOf Core#
+      @param {String} Module the module to include. A module is a constructor that takes two parameters, I and self, and returns an object containing the public methods to extend the including object with.
+      */
+      include: function() {
+        var Module, key, moduleName, modules, value, _i, _len;
+        modules = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
+        for (_i = 0, _len = modules.length; _i < _len; _i++) {
+          Module = modules[_i];
+          if (typeof Module.isString === "function" ? Module.isString() : void 0) {
+            moduleName = Module;
+            Module = Module.constantize();
+          } else if (moduleName = Module._name) {} else {
+            for (key in root) {
+              value = root[key];
+              if (value === Module) Module._name = moduleName = key;
+            }
           }
-        };
-      });
-    },
-    /**
-    Generates a public jQuery style getter method for each String argument.
-    
-        myObject = Core
-          r: 255
-          g: 0
-          b: 100
-    
-        myObject.attrReader "r", "g", "b"
-    
-        myObject.r()
-        => 255
-    
-        myObject.g()
-        => 0
-    
-        myObject.b()
-        => 100
-    
-    @name attrReader
-    @methodOf Core#
-    */
-    attrReader: function() {
-      var attrNames;
-      attrNames = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
-      return attrNames.each(function(attrName) {
-        return self[attrName] = function() {
-          return I[attrName];
-        };
-      });
-    },
-    /**
-    Extends this object with methods from the passed in object. A shortcut for Object.extend(self, methods)
-    
-        I =
-          x: 30
-          y: 40
-          maxSpeed: 5
-    
-        # we are using extend to give player
-        # additional methods that Core doesn't have
-        player = Core(I).extend
-          increaseSpeed: ->
-            I.maxSpeed += 1
-    
-        player.I.maxSpeed
-        => 5
-    
-        player.increaseSpeed()
-    
-        player.I.maxSpeed
-        => 6
-    
-    @name extend
-    @methodOf Core#
-    @see Object.extend
-    @returns self
-    */
-    extend: function(options) {
-      Object.extend(self, options);
-      return self;
-    },
-    /**
-    Includes a module in this object.
-    
-        myObject = Core()
-        myObject.include(Bindable)
-    
-        # now you can bind handlers to functions
-        myObject.bind "someEvent", ->
-          alert("wow. that was easy.")
-    
-    @name include
-    @methodOf Core#
-    @param {Module} Module the module to include. A module is a constructor that takes two parameters, I and self, and returns an object containing the public methods to extend the including object with.
-    */
-    include: function() {
-      var Module, modules, _i, _len;
-      modules = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
-      for (_i = 0, _len = modules.length; _i < _len; _i++) {
-        Module = modules[_i];
-        if (typeof Module.isString === "function" ? Module.isString() : void 0) {
-          Module = Module.constantize();
+          if (moduleName) {
+            if (!I.includedModules.include(moduleName)) {
+              I.includedModules.push(moduleName);
+              self.extend(Module(I, self));
+            }
+          } else {
+            warn("Unable to discover name for module: ", Module, "\nSerialization issues may occur.");
+            self.extend(Module(I, self));
+          }
         }
-        self.extend(Module(I, self));
+        return self;
+      },
+      send: function() {
+        var args, name;
+        name = arguments[0], args = 2 <= arguments.length ? __slice.call(arguments, 1) : [];
+        return self[name].apply(self, args);
       }
-      return self;
-    },
-    send: function() {
-      var args, name;
-      name = arguments[0], args = 2 <= arguments.length ? __slice.call(arguments, 1) : [];
-      return self[name].apply(self, args);
+    };
+    self.include("Bindable");
+    _ref = I.includedModules;
+    for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+      moduleName = _ref[_i];
+      Module = moduleName.constantize();
+      self.extend(Module(I, self));
     }
+    return self;
   };
-};
+})();
 ;
 var __slice = Array.prototype.slice;
 
@@ -1139,26 +1178,6 @@ Function.prototype.once = function() {
     if (ran) return memo;
     ran = true;
     return memo = func.apply(this, arguments);
-  };
-};
-
-Function.prototype.withBefore = function(interception) {
-  var method;
-  method = this;
-  return function() {
-    interception.apply(this, arguments);
-    return method.apply(this, arguments);
-  };
-};
-
-Function.prototype.withAfter = function(interception) {
-  var method;
-  method = this;
-  return function() {
-    var result;
-    result = method.apply(this, arguments);
-    interception.apply(this, arguments);
-    return result;
   };
 };
 
@@ -1230,10 +1249,14 @@ Gives you some convenience methods for outputting data while developing.
       warn "Be careful, this might be a problem"
       error "Kaboom!"
 */
+var __slice = Array.prototype.slice;
+
 ["log", "info", "warn", "error"].each(function(name) {
   if (typeof console !== "undefined") {
-    return (typeof exports !== "undefined" && exports !== null ? exports : this)[name] = function(message) {
-      if (console[name]) return console[name](message);
+    return (typeof exports !== "undefined" && exports !== null ? exports : this)[name] = function() {
+      var args;
+      args = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
+      if (console[name]) return console[name].apply(console, args);
     };
   } else {
     return (typeof exports !== "undefined" && exports !== null ? exports : this)[name] = function() {};
@@ -4278,7 +4301,6 @@ the dimensions of your game. Useful for bullet type objects.
     # => bullet2 will be removed unless 30 <= I.x <= 130
          and 20 <= I.y <= 120
 
-ActiveBounds module
 @name ActiveBounds
 @module
 @constructor
@@ -4317,7 +4339,6 @@ The Ageable module handles keeping track of an object's age.
     
     #=> player.I.age == 1   
 
-Ageable module
 @name Ageable
 @module
 @constructor
@@ -4631,7 +4652,7 @@ Bounded = function(I, self) {
 var Camera;
 
 Camera = function(I) {
-  var currentObject, currentType, focusOn, followTypes, objectFilters, self, transformFilters;
+  var currentObject, currentType, focusOn, followTypes, moduleName, objectFilters, self, transformFilters, _i, _len, _ref;
   if (I == null) I = {};
   Object.reverseMerge(I, {
     cameraBounds: Rectangle({
@@ -4713,7 +4734,6 @@ Camera = function(I) {
       return transformFilters.push(fn);
     }
   });
-  self.include(Bindable);
   self.attrAccessor("transform");
   self.bind("afterUpdate", function() {
     if (currentObject) followTypes[currentType](currentObject);
@@ -4743,15 +4763,16 @@ Camera = function(I) {
       return objects.invoke("trigger", "overlay", canvas);
     });
   });
-  self.include(Bounded);
-  self.include(Camera.ZSort);
-  self.include(Camera.Zoom);
-  self.include(Camera.Rotate);
-  self.include(Camera.Shake);
-  self.include(Camera.Flash);
-  self.include(Camera.Fade);
+  self.include("Bounded");
+  _ref = Camera.defaultModules;
+  for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+    moduleName = _ref[_i];
+    self.include("Camera." + moduleName);
+  }
   return self;
 };
+
+Camera.defaultModules = ["ZSort", "Zoom", "Rotate", "Shake", "Flash", "Fade"];
 ;
 /**
 The <code>Fade</code> module provides convenience methods for accessing common Engine.Flash presets.
@@ -4998,7 +5019,13 @@ Camera.ZSort = function(I, self) {
 };
 ;
 /**
-The <code>Clampable</code> module provides helper methods to clamp object properties. 
+The `Clampable` module provides helper methods to clamp object properties. This module is included by default in `GameObject`
+
+    player = GameObject
+      x: 40
+      y: 30
+
+    player.include Clampable
 
 @name Clampable
 @module
@@ -5075,13 +5102,6 @@ Clampable = function(I, self) {
 ;
 
 (function() {
-  /**
-  Use this to handle generic rectangular collisions among game object a-la Flixel.
-  
-  @name Collidable
-  @module
-  @constructor
-  */
   var ANY, CEILING, Collidable, DOWN, FLOOR, LEFT, NONE, RIGHT, UP, WALL, _ref, _ref2;
   Collidable = function(I, self) {
     Object.reverseMerge(I, {
@@ -5108,8 +5128,6 @@ Clampable = function(I, self) {
     };
   };
   (typeof exports !== "undefined" && exports !== null ? exports : this)["Collidable"] = Collidable;
-  /**
-  */
   _ref = Object.extend(Collidable, {
     NONE: 0x0000,
     LEFT: 0x0001,
@@ -6797,7 +6815,6 @@ attribute filters so that you can exclude irrelevant data.
     player.debug
       filter: 'all'
 
-Debuggable module
 @name Debuggable
 @module
 @constructor
@@ -7302,7 +7319,7 @@ Emitter = function(I) {
   var self;
   if (I == null) I = {};
   self = GameObject(I);
-  self.include(Emitterable);
+  self.include("Emitterable");
   return self;
 };
 ;
@@ -7327,7 +7344,6 @@ Emitterable = function(I, self) {
       age: 0,
       color: "blue",
       duration: 1.5,
-      includedModules: ["Movable"],
       height: 2,
       maxSpeed: 120,
       offset: Point(0, 0),
@@ -7386,8 +7402,6 @@ Emitterable = function(I, self) {
   defaults = {
     FPS: 30,
     age: 0,
-    excludedModules: [],
-    includedModules: [],
     paused: false,
     showFPS: false,
     zSort: false
@@ -7487,7 +7501,7 @@ Emitterable = function(I, self) {
   @params {PixieCanvas} canvas A reference to the canvas to draw on.
   */
   Engine = function(I) {
-    var animLoop, draw, frameAdvance, lastStepTime, modules, running, self, startTime, step, update;
+    var animLoop, draw, frameAdvance, lastStepTime, running, self, startTime, step, update;
     if (I == null) I = {};
     Object.reverseMerge(I, defaults);
     frameAdvance = false;
@@ -7629,14 +7643,13 @@ Emitterable = function(I, self) {
       update: update,
       draw: draw
     });
-    self.include(Bindable);
-    modules = Engine.defaultModules.concat(I.includedModules);
-    modules = modules.without([].concat(I.excludedModules));
-    modules.each(function(moduleName) {
+    Engine.defaultModules.each(function(moduleName) {
+      var fullModuleName;
+      fullModuleName = "Engine." + moduleName;
       if (!Engine[moduleName]) {
-        throw "#Engine." + moduleName + " is not a valid engine module";
+        throw "#" + fullModuleName + " is not a valid engine module";
       }
-      return self.include(Engine[moduleName]);
+      return self.include(fullModuleName);
     });
     self.trigger("init");
     return self;
@@ -7795,10 +7808,10 @@ The <code>Delay</code> module provides methods to trigger events after a number 
 Engine.Delay = function(I, self) {
   var delayedEvents;
   delayedEvents = [];
-  self.bind('afterUpdate', function() {
+  self.bind('afterUpdate', function(elapsedTime) {
     var firingEvents, _ref;
     _ref = delayedEvents.partition(function(event) {
-      return (event.delay -= 1) >= 0;
+      return (event.delay -= elapsedTime) >= 0;
     }), delayedEvents = _ref[0], firingEvents = _ref[1];
     firingEvents.each(function(event) {
       return event.callback();
@@ -7806,7 +7819,7 @@ Engine.Delay = function(I, self) {
   });
   return {
     /**
-    Execute a callback after a number of steps have passed.
+    Execute a callback after a number of seconds have passed.
     
         engine.delay 5, ->
           engine.add
@@ -7814,14 +7827,14 @@ Engine.Delay = function(I, self) {
     
     @name delay
     @methodOf Engine#
-    @param {Number} steps The number of steps to wait before executing the callback
+    @param {Number} seconds The number of steps to wait before executing the callback
     @param {Function} callback The callback to be executed.
     
     @returns {Engine} self
     */
-    delay: function(steps, callback) {
+    delay: function(seconds, callback) {
       delayedEvents.push({
-        delay: steps,
+        delay: seconds,
         callback: callback
       });
       return self;
@@ -7894,8 +7907,14 @@ Engine.GameState = function(I, self) {
     return I.currentState.trigger("overlay", canvas);
   });
   return {
-    add: function(entityData) {
+    add: function(classNameOrEntityData, entityData) {
       var object;
+      if (entityData == null) entityData = {};
+      if (typeof classNameOrEntityData.isString === "function" ? classNameOrEntityData.isString() : void 0) {
+        entityData["class"] = classNameOrEntityData;
+      } else {
+        entityData = classNameOrEntityData;
+      }
       self.trigger("beforeAdd", entityData);
       object = I.currentState.add(entityData);
       self.trigger("afterAdd", object);
@@ -8722,7 +8741,7 @@ the engine. Use the remove event to handle any clean up.
 var GameObject;
 
 GameObject = function(I) {
-  var modules, self;
+  var self;
   I || (I = {});
   /**
   @name {Object} I Instance variables 
@@ -8731,9 +8750,7 @@ GameObject = function(I) {
   Object.reverseMerge(I, {
     active: true,
     created: false,
-    destroyed: false,
-    includedModules: [],
-    excludedModules: []
+    destroyed: false
   });
   self = Core(I).extend({
     /**
@@ -8768,15 +8785,13 @@ GameObject = function(I) {
       return I.active = false;
     }
   });
-  modules = GameObject.defaultModules.concat(I.includedModules);
-  modules = modules.without(I.excludedModules);
-  modules.each(function(Module) {
-    return self.include(Module);
+  GameObject.defaultModules.each(function(moduleName) {
+    return self.include(moduleName);
   });
   return self;
 };
 
-GameObject.defaultModules = ["Bindable", "Ageable", "Bounded", "Clampable", "Cooldown", "Drawable", "Expirable", "Follow", "Metered", "Movable", "Rotatable", "TimedEvents", "Tween"];
+GameObject.defaultModules = ["Ageable", "Bounded", "Clampable", "Cooldown", "Drawable", "Expirable", "Follow", "Metered", "Movable", "Rotatable", "TimedEvents", "Tween"];
 
 /**
 Construct an object instance from the given entity data.
@@ -8884,7 +8899,6 @@ GameState = function(I) {
       return I.objects.copy();
     }
   });
-  self.include(Bindable);
   self.bind("update", function(elapsedTime) {
     var toKeep, toRemove, _ref;
     I.updating = true;
@@ -8898,8 +8912,8 @@ GameState = function(I) {
     queuedObjects = [];
     return I.updating = false;
   });
-  self.include(GameState.Cameras);
-  self.include(GameState.SaveState);
+  self.include("GameState.Cameras");
+  self.include("GameState.SaveState");
   return self;
 };
 ;
@@ -9825,26 +9839,26 @@ var TimedEvents,
 TimedEvents = function(I, self) {
   if (I == null) I = {};
   Object.reverseMerge(I, {
-    everyEvents: []
+    everyEvents: [],
+    delayEvents: []
   });
   self.bind("update", function(elapsedTime) {
-    var event, fn, period, _i, _len, _ref, _results;
+    var event, firingEvents, fn, period, _i, _len, _ref, _ref2;
     _ref = I.everyEvents;
-    _results = [];
     for (_i = 0, _len = _ref.length; _i < _len; _i++) {
       event = _ref[_i];
       fn = event.fn, period = event.period;
-      _results.push((function() {
-        var _results2;
-        _results2 = [];
-        while (event.lastFired < I.age + elapsedTime) {
-          self.sendOrApply(fn);
-          _results2.push(event.lastFired += period);
-        }
-        return _results2;
-      })());
+      while (event.lastFired < I.age + elapsedTime) {
+        self.sendOrApply(fn);
+        event.lastFired += period;
+      }
     }
-    return _results;
+    _ref2 = I.delayEvents.partition(function(event) {
+      return (event.delay -= elapsedTime) >= 0;
+    }), I.delayEvents = _ref2[0], firingEvents = _ref2[1];
+    return firingEvents.each(function(event) {
+      return self.sendOrApply(event.fn);
+    });
   });
   return {
     /**
@@ -9870,6 +9884,27 @@ TimedEvents = function(I, self) {
         period: period,
         lastFired: I.age
       });
+      /**
+        Execute a callback after a number of seconds have passed.
+      
+        self.delay 5, ->
+          engine.add
+            class: "Ghost"
+      
+        @name delay
+        @methodOf TimedEvents#
+        @param {Number} steps The number of steps to wait before executing the callback
+        @param {Function} callback The callback to be executed.
+      
+        @returns {Engine} self
+      */
+    },
+    delay: function(seconds, fn) {
+      I.delayEvents.push({
+        delay: seconds,
+        fn: fn
+      });
+      return self;
     },
     sendOrApply: function() {
       var args, fn;
