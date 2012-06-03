@@ -521,13 +521,15 @@
       @param {String} text text to print
       @param {Point} [position] position to start printing. Overrides x and y if passed
       @param {String|Color} [color] color of text to start printing
+      @param {String} [font] font of text to print
 
       @returns {PixieCanvas} this
       ###
-      drawText: ({x, y, text, position, color}) ->
+      drawText: ({x, y, text, position, color, font}) ->
         {x, y} = position if position
 
         @fillColor(color)
+        @font(font) if font
         context.fillText(text, x, y)
 
         return @
@@ -571,10 +573,11 @@
       @param {Number} [x] location on the x axis to start printing. Overrides the default centering behavior if passed
       @param {Point} [position] position to start printing. Overrides x and y if passed
       @param {String|Color} [color] color of text to print
+      @param {String} [font] font of text to print
 
       @returns {PixieCanvas} this
       ###
-      centerText: ({text, x, y, position, color}) ->
+      centerText: ({text, x, y, position, color, font}) ->
         {x, y} = position if position
 
         x = canvas.width / 2 unless x?
@@ -584,6 +587,7 @@
         @drawText {
           text
           color
+          font
           x: x - (textWidth) / 2
           y
         }
