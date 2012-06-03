@@ -1,4 +1,4 @@
-;
+
 /*!
  * xStats.js v1.0.0-pre
  * Copyright 2011-2012 John-David Dalton <http://allyoucanleet.com/>
@@ -766,7 +766,7 @@
     '.xstats{cursor:pointer;-webkit-user-select:none;-khtml-user-select:none;-moz-user-select:none;-o-user-select:none;user-select:none}');
 
 }(this, this.document));
-;
+
 
 document.oncontextmenu = function() {
   return false;
@@ -775,7 +775,7 @@ document.oncontextmenu = function() {
 $(document).bind("keydown", function(event) {
   if (!$(event.target).is("input")) return event.preventDefault();
 });
-;
+
 
 Engine.Stats = function(I, self) {
   var stats;
@@ -788,7 +788,7 @@ Engine.Stats = function(I, self) {
   }).appendTo("body");
   return {};
 };
-;
+
 /**
 This error handler captures any runtime errors and reports them to the IDE
 if present.
@@ -799,7 +799,7 @@ window.onerror = function(message, url, lineNumber) {
   errorContext[4] = "<b style='font-weight: bold; text-decoration: underline;'>" + errorContext[4] + "</b>";
   return typeof displayRuntimeError === "function" ? displayRuntimeError("<code>" + message + "</code> <br /><br />(Sometimes this context may be wrong.)<br /><code><pre>" + (errorContext.join('\n')) + "</pre></code>") : void 0;
 };
-;
+
 var root;
 
 (function() {}, root = typeof exports !== "undefined" && exports !== null ? exports : this, root.gameKeys = function(keyMap) {
@@ -808,7 +808,7 @@ var root;
     data: keyMap
   }, 'http://pixieengine.com');
 })();
-;
+
 var Joysticks,
   __slice = Array.prototype.slice;
 
@@ -1040,7 +1040,7 @@ Joysticks = (function() {
     }
   };
 })();
-;
+
 /**
 jQuery Hotkeys Plugin
 Copyright 2010, John Resig
@@ -1189,7 +1189,7 @@ Binny V A, http://www.openjs.com/scripts/events/keyboard_shortcuts/
     };
   });
 })(jQuery);
-;
+
 /**
 Merges properties from objects into target without overiding.
 First come, first served.
@@ -1217,7 +1217,7 @@ jQuery.extend({
     return target;
   }
 });
-;
+
 
 $(function() {
   /**
@@ -1299,7 +1299,7 @@ $(function() {
     return _results;
   };
 });
-;
+
 
 $(function() {
   /**
@@ -1371,7 +1371,7 @@ $(function() {
     return _results;
   };
 });
-;
+
 /**
 The Music object provides an easy API to play
 songs from your sounds project directory. By
@@ -1449,7 +1449,7 @@ Music = (function() {
     }
   };
 })();
-;
+
 var __slice = Array.prototype.slice;
 
 (function($) {
@@ -1971,14 +1971,16 @@ var __slice = Array.prototype.slice;
       @param {String} text text to print
       @param {Point} [position] position to start printing. Overrides x and y if passed
       @param {String|Color} [color] color of text to start printing
+      @param {String} [font] font of text to print
       
       @returns {PixieCanvas} this
       */
       drawText: function(_arg) {
-        var color, position, text, x, y;
-        x = _arg.x, y = _arg.y, text = _arg.text, position = _arg.position, color = _arg.color;
+        var color, font, position, text, x, y;
+        x = _arg.x, y = _arg.y, text = _arg.text, position = _arg.position, color = _arg.color, font = _arg.font;
         if (position) x = position.x, y = position.y;
         this.fillColor(color);
+        if (font) this.font(font);
         context.fillText(text, x, y);
         return this;
       },
@@ -2021,18 +2023,20 @@ var __slice = Array.prototype.slice;
       @param {Number} [x] location on the x axis to start printing. Overrides the default centering behavior if passed
       @param {Point} [position] position to start printing. Overrides x and y if passed
       @param {String|Color} [color] color of text to print
+      @param {String} [font] font of text to print
       
       @returns {PixieCanvas} this
       */
       centerText: function(_arg) {
-        var color, position, text, textWidth, x, y;
-        text = _arg.text, x = _arg.x, y = _arg.y, position = _arg.position, color = _arg.color;
+        var color, font, position, text, textWidth, x, y;
+        text = _arg.text, x = _arg.x, y = _arg.y, position = _arg.position, color = _arg.color, font = _arg.font;
         if (position) x = position.x, y = position.y;
         if (x == null) x = canvas.width / 2;
         textWidth = this.measureText(text);
         return this.drawText({
           text: text,
           color: color,
+          font: font,
           x: x - textWidth / 2,
           y: y
         });
@@ -2180,7 +2184,7 @@ var __slice = Array.prototype.slice;
     }
   };
 })(jQuery);
-;
+
 /**
 A browser polyfill so you can consistently 
 call requestAnimationFrame. Using 
@@ -2197,7 +2201,7 @@ window.requestAnimationFrame || (window.requestAnimationFrame = window.webkitReq
     return callback(+new Date());
   }, 1000 / 60);
 });
-;
+
 
 (function($) {
   /**
@@ -2329,7 +2333,7 @@ window.requestAnimationFrame || (window.requestAnimationFrame = window.webkitReq
     }
   }, (typeof exports !== "undefined" && exports !== null ? exports : this)["Sound"] = Sound);
 })(jQuery);
-;
+
 
 (function() {
   /**
@@ -2420,5 +2424,5 @@ window.requestAnimationFrame || (window.requestAnimationFrame = window.webkitReq
     }
   };
 })();
-;
-;
+
+
