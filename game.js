@@ -776,6 +776,56 @@ $(document).bind("keydown", function(event) {
   if (!$(event.target).is("input")) return event.preventDefault();
 });
 
+/**
+The <code>Gamepads</code> module gives the engine access to gamepads.
+
+    # First you need to add the `Gamepads` module to the engine
+    Engine.defaultModules.push "Gamepads"
+    
+    window.engine = Engine
+      ...
+    
+    # Then you need to get a controller reference
+    # id = 0 for player 1, etc.
+    controller = engine.controller(id)
+    
+    # Point indicating direction primary axis is held
+    direction = controller.position()
+    
+    # Check if buttons are held
+    controller.actionDown("A")
+    controller.actionDown("B")
+    controller.actionDown("X")
+    controller.actionDown("Y")
+
+@name Gamepads
+@fieldOf Engine
+@module
+
+@param {Object} I Instance variables
+@param {Object} self Reference to the engine
+*/
+Engine.Gamepads = function(I, self) {
+  var gamepads;
+  gamepads = Gamepads();
+  self.bind("beforeUpdate", function() {
+    return gamepads.update();
+  });
+  return {
+    /**
+    Get a controller for a given id.
+    
+    @name controller
+    @methodOf Engine.Gamepads#
+    
+    @param {Number} index The index to get a controller for.
+    */
+    controller: function(index) {
+      return gamepads.controller(index);
+    }
+  };
+};
+
 
 Engine.Stats = function(I, self) {
   var stats;
@@ -808,6 +858,181 @@ var root;
     data: keyMap
   }, 'http://pixieengine.com');
 })();
+
+var Gamepads;
+
+Gamepads = function(I) {
+  var controllers, snapshot, state;
+  if (I == null) I = {};
+  state = {};
+  controllers = [];
+  snapshot = function() {
+    return Array.prototype.map.call(navigator.webkitGamepads || navigator.webkitGetGamepads(), function(x) {
+      return {
+        axes: x.axes,
+        buttons: x.buttons
+      };
+    });
+  };
+  return {
+    controller: function(index) {
+      if (index == null) index = 0;
+      return controllers[index] || (controllers[index] = Gamepads.Controller({
+        index: index,
+        state: state
+      }));
+    },
+    update: function() {
+      state.previous = state.current;
+      state.current = snapshot();
+      return controllers.each(function(controller) {
+        return controller != null ? controller.update() : void 0;
+      });
+    }
+  };
+};
+
+var __slice = Array.prototype.slice;
+
+Gamepads.Controller = function(I) {
+  var AXIS_MAX, BUTTON_THRESHOLD, DEAD_ZONE, MAX_BUFFER, TRIP_HIGH, TRIP_LOW, axisTrips, buttonMapping, currentState, previousState, processTaps, self, tap;
+  if (I == null) I = {};
+  Object.reverseMerge(I, {
+    debugColor: "#000"
+  });
+  MAX_BUFFER = 0.03;
+  AXIS_MAX = 1 - MAX_BUFFER;
+  DEAD_ZONE = AXIS_MAX * 0.2;
+  TRIP_HIGH = AXIS_MAX * 0.75;
+  TRIP_LOW = AXIS_MAX * 0.5;
+  BUTTON_THRESHOLD = 0.5;
+  buttonMapping = {
+    "A": 0,
+    "B": 1,
+    "C": 2,
+    "D": 3,
+    "X": 2,
+    "Y": 3,
+    "L": 4,
+    "LB": 4,
+    "L1": 4,
+    "R": 5,
+    "RB": 5,
+    "R1": 5,
+    "SELECT": 6,
+    "BACK": 6,
+    "START": 7,
+    "HOME": 8,
+    "GUIDE": 8,
+    "TL": 9,
+    "TR": 10
+  };
+  currentState = function() {
+    var _ref;
+    return (_ref = I.state.current) != null ? _ref[I.index] : void 0;
+  };
+  previousState = function() {
+    var _ref;
+    return (_ref = I.state.previous) != null ? _ref[I.index] : void 0;
+  };
+  axisTrips = [];
+  tap = Point(0, 0);
+  processTaps = function() {
+    var x, y, _ref;
+    _ref = [0, 1].map(function(n) {
+      if (!axisTrips[n] && self.axis(n).abs() > TRIP_HIGH) {
+        axisTrips[n] = true;
+        return self.axis(n).sign();
+      }
+      if (axisTrips[n] && self.axis(n).abs() < TRIP_LOW) axisTrips[n] = false;
+      return 0;
+    }), x = _ref[0], y = _ref[1];
+    return tap = Point(x, y);
+  };
+  return self = Core().include(Bindable).extend({
+    actionDown: function() {
+      var buttons, state;
+      buttons = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
+      if (state = currentState()) {
+        return buttons.inject(false, function(down, button) {
+          return down || (button === "ANY" ? state.buttons.inject(false, function(down, button) {
+            return down || (button > BUTTON_THRESHOLD);
+          }) : state.buttons[buttonMapping[button]] > BUTTON_THRESHOLD);
+        });
+      } else {
+        return false;
+      }
+    },
+    buttonPressed: function(button) {
+      var buttonId, _ref;
+      buttonId = buttonMapping[button];
+      return (self.buttons()[buttonId] > BUTTON_THRESHOLD) && !(((_ref = previousState()) != null ? _ref.buttons[buttonId] : void 0) > BUTTON_THRESHOLD);
+    },
+    position: function(stick) {
+      var magnitude, p, ratio, state;
+      if (stick == null) stick = 0;
+      if (state = currentState()) {
+        p = Point(self.axis(2 * stick), self.axis(2 * stick + 1));
+        magnitude = p.magnitude();
+        if (magnitude > AXIS_MAX) {
+          return p.norm();
+        } else if (magnitude < DEAD_ZONE) {
+          return Point(0, 0);
+        } else {
+          ratio = magnitude / AXIS_MAX;
+          return p.scale(ratio / AXIS_MAX);
+        }
+      } else {
+        return Point(0, 0);
+      }
+    },
+    axis: function(n) {
+      return self.axes()[n] || 0;
+    },
+    axes: function() {
+      var state;
+      if (state = currentState()) {
+        return state.axes;
+      } else {
+        return [];
+      }
+    },
+    buttons: function() {
+      var state;
+      if (state = currentState()) {
+        return state.buttons;
+      } else {
+        return [];
+      }
+    },
+    tap: function() {
+      return tap;
+    },
+    update: function() {
+      return processTaps();
+    },
+    drawDebug: function(canvas) {
+      var lineHeight;
+      lineHeight = 18;
+      self.axes().each(function(axis, i) {
+        return canvas.drawText({
+          color: I.debugColor,
+          text: axis,
+          x: 0,
+          y: i * lineHeight
+        });
+      });
+      return self.buttons().each(function(button, i) {
+        return canvas.drawText({
+          color: I.debugColor,
+          text: button,
+          x: 250,
+          y: i * lineHeight
+        });
+      });
+    }
+  });
+};
 
 var Joysticks,
   __slice = Array.prototype.slice;

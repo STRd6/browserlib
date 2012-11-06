@@ -10,6 +10,7 @@
   <body>
     <pre></pre>
     <nav>
+      <a href='Engine.Gamepads.html'>Engine.Gamepads</a>
       <a href='Local.html'>Local</a>
       <a class='active' href='Music.html'>Music</a>
       <a href='PixieCanvas.html'>PixieCanvas</a>
@@ -47,9 +48,7 @@
         <section class='summary'><p>Set the global volume modifier for all music.</p></section>
         <section class='usage'>
           <h3>Usage</h3>
-          <p>Any value set is clamped between 0 and 1. This is multiplied<br />into each individual track that plays.</p>
-          
-          <p>If no argument is given return the current global music volume.</p>
+          <p>Any value set is clamped between 0 and 1. This is multiplied<br />into each individual track that plays.</p>&#x000A;&#x000A;<p>If no argument is given return the current global music volume.</p>
         </section>
         <section class='parameters'>
           <h3>Parameters</h3>
@@ -140,7 +139,7 @@
         <section class='source'>
           <h3>Source</h3>
           <a class='toggle_source'>Toggle</a>
-          <pre><code>volume: function(newVolume) {&#x000A;      if (newVolume != null) {&#x000A;        trackVolume = newVolume.clamp(0, 1);&#x000A;        updateTrackVolume();&#x000A;        return this;&#x000A;      } else {&#x000A;        return trackVolume;&#x000A;      }&#x000A;    }&#x000A;  };&#x000A;})();&#x000A;;&#x000A;var __slice = Array.prototype.slice;&#x000A;&#x000A;(function($) {&#x000A;  return $.fn.pixieCanvas = function(options) {&#x000A;    var $canvas, canvas, canvasAttrAccessor, context, contextAttrAccessor;&#x000A;    if (options == null) options = {};&#x000A;    canvas = this.get(0);&#x000A;    context = void 0;</code></pre>
+          <pre><code>volume: function(newVolume) {&#x000A;      if (newVolume != null) {&#x000A;        trackVolume = newVolume.clamp(0, 1);&#x000A;        updateTrackVolume();&#x000A;        return this;&#x000A;      } else {&#x000A;        return trackVolume;&#x000A;      }&#x000A;    }&#x000A;  };&#x000A;})();&#x000A;&#x000A;var __slice = Array.prototype.slice;&#x000A;&#x000A;(function($) {&#x000A;  return $.fn.pixieCanvas = function(options) {&#x000A;    var $canvas, canvas, canvasAttrAccessor, context, contextAttrAccessor;&#x000A;    if (options == null) options = {};&#x000A;    canvas = this.get(0);&#x000A;    context = void 0;</code></pre>
         </section>
       </div>
       <hr />
