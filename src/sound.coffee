@@ -29,24 +29,24 @@
   Object.extend Sound,
     ###*
     Set the global volume modifier for all sound effects.
-  
+
     Any value set is clamped between 0 and 1. This is multiplied
     into each individual effect that plays.
-  
+
     If no argument is given return the current global sound effect volume.
-  
-    @name globalVolume
+
+    @name volume
     @methodOf Sound
     @param {Number} [newVolume] The volume to set
     ###
-    globalVolume: (newVolume) ->
+    volume: (newVolume) ->
       if newVolume?
         globalVolume = newVolume.clamp(0, 1)
 
       return globalVolume
 
     ###*
-    Play a sound from your sounds 
+    Play a sound from your sounds
     directory with the name of `id`.
 
     <code><pre>
@@ -59,7 +59,7 @@
 
     @param {String} id id or name of the sound file to play
     @param {String} maxChannels max number of sounds able to be played simultaneously
-    ###  
+    ###
     play: (id, maxChannels) ->
       # TODO: Too many channels crash Chrome!!!1
       maxChannels ||= 4
@@ -100,7 +100,7 @@
     @param {String} url location of sound file to play
 
     @returns {Sound} this sound object
-    ### 
+    ###
     playFromUrl: (url) ->
       sound = $('<audio />').get(0)
       sound.src = url
@@ -114,8 +114,8 @@
     Stop a sound while it is playing.
 
     <code><pre>
-    # stops the sound 'explode' from 
-    # playing if it is currently playing 
+    # stops the sound 'explode' from
+    # playing if it is currently playing
     Sound.stop('explode')
     </pre></code>
 
@@ -123,9 +123,24 @@
     @methodOf Sound
 
     @param {String} id id or name of sound to stop playing.
-    ### 
+    ###
     stop: (id) ->
       sounds[id]?.stop()
 
-    (exports ? this)["Sound"] = Sound
+  ###*
+  Set the global volume modifier for all sound effects.
+
+  Any value set is clamped between 0 and 1. This is multiplied
+  into each individual effect that plays.
+
+  If no argument is given return the current global sound effect volume.
+
+  @name globalVolume
+  @deprecated
+  @methodOf Sound
+  @param {Number} [newVolume] The volume to set
+  ###
+  Sound.globalVolume = Sound.volume
+
+  (exports ? this)["Sound"] = Sound
 )(jQuery)
