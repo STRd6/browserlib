@@ -80,6 +80,11 @@ Gamepads.Controller = (I={}) ->
 
       return (self.buttons()[buttonId] > BUTTON_THRESHOLD) && !(previousState()?.buttons[buttonId] > BUTTON_THRESHOLD)
 
+    buttonReleased: (button) ->
+      buttonId = buttonMapping[button]
+
+      return !(self.buttons()[buttonId] > BUTTON_THRESHOLD) && (previousState()?.buttons[buttonId] > BUTTON_THRESHOLD)
+
     position: (stick=0) ->
       if state = currentState()
         p = Point(self.axis(2*stick), self.axis(2*stick+1))
