@@ -4,14 +4,27 @@ Gamepads = (I={}) ->
 
   # Capture the current gamepad state
   snapshot = ->
-    Array::map.call navigator.webkitGamepads || navigator.webkitGetGamepads(), (x) -> 
+    Array::map.call navigator.webkitGamepads || navigator.webkitGetGamepads?() || [], (x) ->
       axes: x.axes
       buttons: x.buttons
 
   controller: (index=0) ->
-    controllers[index] ||= Gamepads.Controller
-      index: index
-      state: state
+    if controller = controllers[index]
+      return controller
+
+    gamepadIndex = index # (index + 1) % 4 # Offsetting gamepads
+
+    gamepad =
+      Gamepads.Controller
+        index: gamepadIndex
+        state: state
+
+    if index is 0 # TODO Second keyboard controls
+      keyboardController = Gamepads.KeyboardController()
+
+      controllers[index] ||= Gamepads.CombinedController(gamepad, keyboardController)
+    else
+      controllers[index] ||= gamepad
 
   update: ->
     state.previous = state.current
@@ -19,3 +32,6 @@ Gamepads = (I={}) ->
 
     controllers.each (controller) ->
       controller?.update()
+
+# window.addEventListener "MozGamepadConnected", (event) ->
+#   console.log event

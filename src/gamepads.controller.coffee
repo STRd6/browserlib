@@ -4,7 +4,7 @@ Gamepads.Controller = (I={}) ->
 
   MAX_BUFFER = 0.03
   AXIS_MAX = 1 - MAX_BUFFER
-  DEAD_ZONE = AXIS_MAX * 0.2
+  DEAD_ZONE = AXIS_MAX * 0.25
   TRIP_HIGH = AXIS_MAX * 0.75
   TRIP_LOW = AXIS_MAX * 0.5
 
@@ -14,30 +14,24 @@ Gamepads.Controller = (I={}) ->
     "A": 0
     "B": 1
 
-    # X/C, Y/D are interchangeable
-    "C": 2
-    "D": 3
     "X": 2
     "Y": 3
 
-    "L": 4
     "LB": 4
-    "L1": 4
-
-    "R": 5
     "RB": 5
-    "R1": 5
 
-    "SELECT": 6
-    "BACK": 6
+    "LT": 6
+    "RT": 7
 
-    "START": 7
+    "SELECT": 8
+    "BACK": 8
 
-    "HOME": 8
-    "GUIDE": 8
+    "START": 9
 
-    "TL": 9
-    "TR": 10
+    "TL": 10
+    "TR": 11
+
+    "HOME": 16
 
   currentState = ->
     I.state.current?[I.index]
@@ -132,12 +126,17 @@ Gamepads.Controller = (I={}) ->
           color: I.debugColor
           text: axis
           x: 0
-          y: i * lineHeight
+          y: (i + 1) * lineHeight
 
       self.buttons().each (button, i) ->
         canvas.drawText
           color: I.debugColor
+          text: "#{i}:"
+          x: 230
+          y: (i + 1) * lineHeight
+
+        canvas.drawText
+          color: I.debugColor
           text: button
           x: 250
-          y: i * lineHeight
-
+          y: (i + 1) * lineHeight
