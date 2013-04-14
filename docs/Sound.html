@@ -15,7 +15,6 @@
       <a href='Music.html'>Music</a>
       <a href='PixieCanvas.html'>PixieCanvas</a>
       <a class='active' href='Sound.html'>Sound</a>
-      <a href='jQuery.html'>jQuery</a>
       <a href='justPressed.html'>justPressed</a>
       <a href='keydown.html'>keydown</a>
       <a href='mouseDown.html'>mouseDown</a>
@@ -29,6 +28,7 @@
         <a href='Sound.html#.play'>.play</a>
         <a href='Sound.html#.playFromUrl'>.playFromUrl</a>
         <a href='Sound.html#.stop'>.stop</a>
+        <a href='Sound.html#.volume'>.volume</a>
       </div>
     </section>
     <div class='documentation'>
@@ -46,16 +46,10 @@
       <!-- TODO make sure method_data isn't nil -->
       <h1>Sound.globalVolume(newVolume)</h1>
       <div class='description'>
-        <section class='summary'>
-              <p>Set the global volume modifier for all sound effects.</p>
-              
-              <p>Any value set is clamped between 0 and 1. This is multiplied<br />into each individual effect that plays.</p>
-              
-              <p>If no argument is given return the current global sound effect volume.</p>
-            </section>
+        <section class='summary'><p>Set the global volume modifier for all sound effects.</p></section>
         <section class='usage'>
           <h3>Usage</h3>
-          
+          <p>Any value set is clamped between 0 and 1. This is multiplied<br />into each individual effect that plays.</p>&#x000A;&#x000A;<p>If no argument is given return the current global sound effect volume.</p>
         </section>
         <section class='parameters'>
           <h3>Parameters</h3>
@@ -78,7 +72,7 @@
         <section class='source'>
           <h3>Source</h3>
           <a class='toggle_source'>Toggle</a>
-          <pre><code>globalVolume: function(newVolume) {&#x000A;      if (newVolume != null) globalVolume = newVolume.clamp(0, 1);&#x000A;      return globalVolume;&#x000A;    },</code></pre>
+          <pre><code>Sound.globalVolume = Sound.volume;&#x000A;  return (typeof exports !== "undefined" && exports !== null ? exports : this)["Sound"] = Sound;&#x000A;})(jQuery);&#x000A;&#x000A;&#x000A;(function() {</code></pre>
         </section>
       </div>
       <hr />
@@ -86,7 +80,7 @@
       <!-- TODO make sure method_data isn't nil -->
       <h1>Sound.play(id, maxChannels)</h1>
       <div class='description'>
-        <section class='summary'><p>Play a sound from your sounds <br />directory with the name of <code>id</code>.</p></section>
+        <section class='summary'><p>Play a sound from your sounds<br />directory with the name of <code>id</code>.</p></section>
         <section class='usage'>
           <h3>Usage</h3>
           <p><code><pre></p>&#x000A;&#x000A;<h1>plays a sound called explode from your sounds directory</h1>&#x000A;&#x000A;<p>Sound.play('explode')<br /></pre></code></p>
@@ -185,7 +179,41 @@
         <section class='source'>
           <h3>Source</h3>
           <a class='toggle_source'>Toggle</a>
-          <pre><code>stop: function(id) {&#x000A;      var _ref2;&#x000A;      return (_ref2 = sounds[id]) != null ? _ref2.stop() : void 0;&#x000A;    }&#x000A;  }, (typeof exports !== "undefined" && exports !== null ? exports : this)["Sound"] = Sound);&#x000A;})(jQuery);&#x000A;&#x000A;&#x000A;(function() {</code></pre>
+          <pre><code>stop: function(id) {&#x000A;      var _ref2;&#x000A;      return (_ref2 = sounds[id]) != null ? _ref2.stop() : void 0;&#x000A;    }&#x000A;  });</code></pre>
+        </section>
+      </div>
+      <hr />
+      <a name='.volume'></a>
+      <!-- TODO make sure method_data isn't nil -->
+      <h1>Sound.volume(newVolume)</h1>
+      <div class='description'>
+        <section class='summary'><p>Set the global volume modifier for all sound effects.</p></section>
+        <section class='usage'>
+          <h3>Usage</h3>
+          <p>Any value set is clamped between 0 and 1. This is multiplied<br />into each individual effect that plays.</p>&#x000A;&#x000A;<p>If no argument is given return the current global sound effect volume.</p>
+        </section>
+        <section class='parameters'>
+          <h3>Parameters</h3>
+          <ul>
+            <li>
+              <span class='param_name'>newVolume</span>
+               -
+              <span class='param_description'>The volume to set</span>
+            </li>
+          </ul>
+        </section>
+        <section class='returns'>
+          <h3>Returns</h3>
+          <p>
+            Type:
+            <a href='.html'></a>
+          </p>
+          <p class='return_description'></p>
+        </section>
+        <section class='source'>
+          <h3>Source</h3>
+          <a class='toggle_source'>Toggle</a>
+          <pre><code>volume: function(newVolume) {&#x000A;      if (newVolume != null) globalVolume = newVolume.clamp(0, 1);&#x000A;      return globalVolume;&#x000A;    },</code></pre>
         </section>
       </div>
       <hr />

@@ -867,7 +867,7 @@ Gamepads = function(I) {
   state = {};
   controllers = [];
   snapshot = function() {
-    return Array.prototype.map.call(navigator.webkitGamepads || navigator.webkitGetGamepads(), function(x) {
+    return Array.prototype.map.call(navigator.webkitGamepads || (typeof navigator.webkitGetGamepads === "function" ? navigator.webkitGetGamepads() : void 0) || [], function(x) {
       return {
         axes: x.axes,
         buttons: x.buttons
@@ -876,11 +876,20 @@ Gamepads = function(I) {
   };
   return {
     controller: function(index) {
+      var controller, gamepad, gamepadIndex, keyboardController;
       if (index == null) index = 0;
-      return controllers[index] || (controllers[index] = Gamepads.Controller({
-        index: index,
+      if (controller = controllers[index]) return controller;
+      gamepadIndex = index;
+      gamepad = Gamepads.Controller({
+        index: gamepadIndex,
         state: state
-      }));
+      });
+      if (index === 0) {
+        keyboardController = Gamepads.KeyboardController();
+        return controllers[index] || (controllers[index] = Gamepads.CombinedController(gamepad, keyboardController));
+      } else {
+        return controllers[index] || (controllers[index] = gamepad);
+      }
     },
     update: function() {
       state.previous = state.current;
@@ -894,6 +903,48 @@ Gamepads = function(I) {
 
 var __slice = Array.prototype.slice;
 
+Gamepads.CombinedController = function() {
+  var self, sources;
+  sources = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
+  return self = Core().extend({
+    buttonDown: function() {
+      var buttons;
+      buttons = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
+      return sources.inject(false, function(memo, source) {
+        return memo || source.buttonDown.apply(source, buttons);
+      });
+    },
+    buttonPressed: function(button) {
+      return sources.inject(false, function(memo, source) {
+        return memo || source.buttonPressed(button);
+      });
+    },
+    position: function(stick) {
+      var raw;
+      if (stick == null) stick = 0;
+      raw = sources.inject(Point(0, 0), function(point, source) {
+        return point.add(source.position(stick));
+      });
+      return raw.norm();
+    },
+    tap: function() {
+      var raw;
+      raw = sources.inject(Point(0, 0), function(point, source) {
+        return point.add(source.tap());
+      });
+      return Point(raw.x.sign(), raw.y.sign());
+    },
+    update: function() {
+      return sources.invoke("update");
+    },
+    drawDebug: function(canvas) {
+      return sources.invoke("drawDebug", canvas);
+    }
+  });
+};
+
+var __slice = Array.prototype.slice;
+
 Gamepads.Controller = function(I) {
   var AXIS_MAX, BUTTON_THRESHOLD, DEAD_ZONE, MAX_BUFFER, TRIP_HIGH, TRIP_LOW, axisTrips, buttonMapping, currentState, previousState, processTaps, self, tap;
   if (I == null) I = {};
@@ -902,30 +953,25 @@ Gamepads.Controller = function(I) {
   });
   MAX_BUFFER = 0.03;
   AXIS_MAX = 1 - MAX_BUFFER;
-  DEAD_ZONE = AXIS_MAX * 0.2;
+  DEAD_ZONE = AXIS_MAX * 0.25;
   TRIP_HIGH = AXIS_MAX * 0.75;
   TRIP_LOW = AXIS_MAX * 0.5;
   BUTTON_THRESHOLD = 0.5;
   buttonMapping = {
     "A": 0,
     "B": 1,
-    "C": 2,
-    "D": 3,
     "X": 2,
     "Y": 3,
-    "L": 4,
     "LB": 4,
-    "L1": 4,
-    "R": 5,
     "RB": 5,
-    "R1": 5,
-    "SELECT": 6,
-    "BACK": 6,
-    "START": 7,
-    "HOME": 8,
-    "GUIDE": 8,
-    "TL": 9,
-    "TR": 10
+    "LT": 6,
+    "RT": 7,
+    "SELECT": 8,
+    "BACK": 8,
+    "START": 9,
+    "TL": 10,
+    "TR": 11,
+    "HOME": 16
   };
   currentState = function() {
     var _ref;
@@ -950,7 +996,7 @@ Gamepads.Controller = function(I) {
     return tap = Point(x, y);
   };
   return self = Core().include(Bindable).extend({
-    actionDown: function() {
+    buttonDown: function() {
       var buttons, state;
       buttons = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
       if (state = currentState()) {
@@ -967,6 +1013,11 @@ Gamepads.Controller = function(I) {
       var buttonId, _ref;
       buttonId = buttonMapping[button];
       return (self.buttons()[buttonId] > BUTTON_THRESHOLD) && !(((_ref = previousState()) != null ? _ref.buttons[buttonId] : void 0) > BUTTON_THRESHOLD);
+    },
+    buttonReleased: function(button) {
+      var buttonId, _ref;
+      buttonId = buttonMapping[button];
+      return !(self.buttons()[buttonId] > BUTTON_THRESHOLD) && (((_ref = previousState()) != null ? _ref.buttons[buttonId] : void 0) > BUTTON_THRESHOLD);
     },
     position: function(stick) {
       var magnitude, p, ratio, state;
@@ -1019,13 +1070,115 @@ Gamepads.Controller = function(I) {
           color: I.debugColor,
           text: axis,
           x: 0,
-          y: i * lineHeight
+          y: (i + 1) * lineHeight
         });
       });
       return self.buttons().each(function(button, i) {
+        canvas.drawText({
+          color: I.debugColor,
+          text: "" + i + ":",
+          x: 230,
+          y: (i + 1) * lineHeight
+        });
         return canvas.drawText({
           color: I.debugColor,
           text: button,
+          x: 250,
+          y: (i + 1) * lineHeight
+        });
+      });
+    }
+  });
+};
+
+var __slice = Array.prototype.slice;
+
+Gamepads.KeyboardController = function(I) {
+  var buttonKeys, buttonValues, processTaps, self, tap;
+  if (I == null) I = {};
+  Object.reverseMerge(I, {
+    axisMapping: [["left", "right"], ["up", "down"]],
+    buttonMapping: {
+      "A": 'z',
+      "B": 'x',
+      "C": 'c',
+      "D": 'v',
+      "X": 'c',
+      "Y": 'v',
+      "SELECT": "shift",
+      "START": "return"
+    },
+    debugColor: "#000"
+  });
+  tap = Point(0, 0);
+  buttonKeys = Object.keys(I.buttonMapping);
+  buttonValues = buttonKeys.map(function(key) {
+    return I.buttonMapping[key];
+  });
+  I.axisMapping.each(function(axis) {
+    return axis.each(function(key) {
+      return keydown[key] = false;
+    });
+  });
+  buttonKeys.each(function(key) {
+    return keydown[key] = false;
+  });
+  processTaps = function() {
+    var x, y, _ref;
+    _ref = I.axisMapping.map(function(_arg) {
+      var negative, positive;
+      negative = _arg[0], positive = _arg[1];
+      return justPressed[positive] - justPressed[negative];
+    }), x = _ref[0], y = _ref[1];
+    return tap = Point(x, y);
+  };
+  return self = Core().include(Bindable).extend({
+    buttonDown: function() {
+      var buttons;
+      buttons = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
+      return buttons.inject(false, function(down, button) {
+        return down || (button === "ANY" ? buttonValues.inject(false, function(down, button) {
+          return down || keydown[button];
+        }) : keydown[I.buttonMapping[button]]);
+      });
+    },
+    buttonPressed: function(button) {
+      var keyname;
+      keyname = I.buttonMapping[button];
+      return justPressed[keyname];
+    },
+    position: function(stick) {
+      var x, y, _ref;
+      if (stick == null) stick = 0;
+      _ref = I.axisMapping.map(function(_arg) {
+        var negative, positive;
+        negative = _arg[0], positive = _arg[1];
+        return keydown[positive] - keydown[negative];
+      }), x = _ref[0], y = _ref[1];
+      return tap = Point(x, y);
+    },
+    tap: function() {
+      return tap;
+    },
+    update: function() {
+      return processTaps();
+    },
+    drawDebug: function(canvas) {
+      var lineHeight, p;
+      lineHeight = 18;
+      p = self.position();
+      ["x", "y"].each(function(key, i) {
+        return canvas.drawText({
+          color: I.debugColor,
+          text: p[key],
+          x: 0,
+          y: i * lineHeight
+        });
+      });
+      return buttonKeys.each(function(button, i) {
+        return canvas.drawText({
+          color: I.debugColor,
+          text: self.buttonDown(button),
           x: 250,
           y: i * lineHeight
         });
@@ -1415,34 +1568,6 @@ Binny V A, http://www.openjs.com/scripts/events/keyboard_shortcuts/
   });
 })(jQuery);
 
-/**
-Merges properties from objects into target without overiding.
-First come, first served.
-
-@name reverseMerge
-@methodOf jQuery#
-
-@param {Object} target the object to merge the given properties onto
-@param {Object} objects... one or more objects whose properties are merged onto target
-
-@return {Object} target
-*/
-var __slice = Array.prototype.slice;
-
-jQuery.extend({
-  reverseMerge: function() {
-    var name, object, objects, target, _i, _len;
-    target = arguments[0], objects = 2 <= arguments.length ? __slice.call(arguments, 1) : [];
-    for (_i = 0, _len = objects.length; _i < _len; _i++) {
-      object = objects[_i];
-      for (name in object) {
-        if (!target.hasOwnProperty(name)) target[name] = object[name];
-      }
-    }
-    return target;
-  }
-});
-
 
 $(function() {
   /**
@@ -1560,6 +1685,7 @@ $(function() {
   var buttonName, buttonNames, prevButtonsDown;
   window.mouseDown = {};
   window.mousePressed = {};
+  window.mouseReleased = {};
   window.mousePosition = Point(0, 0);
   prevButtonsDown = {};
   buttonNames = {
@@ -1571,8 +1697,10 @@ $(function() {
     return buttonNames[event.which];
   };
   $(document).bind("mousemove", function(event) {
-    mousePosition.x = event.pageX;
-    return mousePosition.y = event.pageY;
+    var offset;
+    offset = $("canvas").offset();
+    mousePosition.x = event.pageX - offset.left;
+    return mousePosition.y = event.pageY - offset.top;
   });
   $(document).bind("mousedown", function(event) {
     return mouseDown[buttonName(event)] = true;
@@ -1583,9 +1711,14 @@ $(function() {
   return window.updateMouse = function() {
     var button, value, _results;
     window.mousePressed = {};
+    window.mouseReleased = {};
     for (button in mouseDown) {
       value = mouseDown[button];
       if (!prevButtonsDown[button]) mousePressed[button] = value;
+    }
+    for (button in mouseDown) {
+      value = mouseDown[button];
+      if (prevButtonsDown[button]) mouseReleased[button] = !value;
     }
     prevButtonsDown = {};
     _results = [];
@@ -2459,25 +2592,25 @@ window.requestAnimationFrame || (window.requestAnimationFrame = window.webkitReq
       }
     };
   };
-  return Object.extend(Sound, {
+  Object.extend(Sound, {
     /**
     Set the global volume modifier for all sound effects.
-      
+    
     Any value set is clamped between 0 and 1. This is multiplied
     into each individual effect that plays.
-      
+    
     If no argument is given return the current global sound effect volume.
-      
-    @name globalVolume
+    
+    @name volume
     @methodOf Sound
     @param {Number} [newVolume] The volume to set
     */
-    globalVolume: function(newVolume) {
+    volume: function(newVolume) {
       if (newVolume != null) globalVolume = newVolume.clamp(0, 1);
       return globalVolume;
     },
     /**
-    Play a sound from your sounds 
+    Play a sound from your sounds
     directory with the name of `id`.
     
     <code><pre>
@@ -2542,8 +2675,8 @@ window.requestAnimationFrame || (window.requestAnimationFrame = window.webkitReq
     Stop a sound while it is playing.
     
     <code><pre>
-    # stops the sound 'explode' from 
-    # playing if it is currently playing 
+    # stops the sound 'explode' from
+    # playing if it is currently playing
     Sound.stop('explode')
     </pre></code>
     
@@ -2556,7 +2689,22 @@ window.requestAnimationFrame || (window.requestAnimationFrame = window.webkitReq
       var _ref2;
       return (_ref2 = sounds[id]) != null ? _ref2.stop() : void 0;
     }
-  }, (typeof exports !== "undefined" && exports !== null ? exports : this)["Sound"] = Sound);
+  });
+  /**
+  Set the global volume modifier for all sound effects.
+  
+  Any value set is clamped between 0 and 1. This is multiplied
+  into each individual effect that plays.
+  
+  If no argument is given return the current global sound effect volume.
+  
+  @name globalVolume
+  @deprecated
+  @methodOf Sound
+  @param {Number} [newVolume] The volume to set
+  */
+  Sound.globalVolume = Sound.volume;
+  return (typeof exports !== "undefined" && exports !== null ? exports : this)["Sound"] = Sound;
 })(jQuery);
 
 
