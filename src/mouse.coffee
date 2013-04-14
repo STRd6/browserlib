@@ -32,6 +32,7 @@ $ ->
   ###
   window.mouseDown = {}
   window.mousePressed = {}
+  window.mouseReleased = {}
   window.mousePosition = Point(0, 0)
 
   prevButtonsDown = {}
@@ -45,9 +46,11 @@ $ ->
     buttonNames[event.which]
 
   $(document).bind "mousemove", (event) ->
-    #TODO Position relative to canvas element
-    mousePosition.x = event.pageX
-    mousePosition.y = event.pageY
+    # Position relative to canvas element
+    offset = $("canvas").offset()
+
+    mousePosition.x = event.pageX - offset.left
+    mousePosition.y = event.pageY - offset.top
 
   $(document).bind "mousedown", (event) ->
     mouseDown[buttonName(event)] = true
@@ -57,9 +60,13 @@ $ ->
 
   window.updateMouse = ->
     window.mousePressed = {}
+    window.mouseReleased = {}
 
     for button, value of mouseDown
       mousePressed[button] = value unless prevButtonsDown[button]
+
+    for button, value of mouseDown
+      mouseReleased[button] = !value if prevButtonsDown[button]
 
     prevButtonsDown = {}
     for button, value of mouseDown
