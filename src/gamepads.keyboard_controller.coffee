@@ -53,6 +53,11 @@ Gamepads.KeyboardController = (I={}) ->
 
       return justPressed[keyname]
 
+    buttonReleased: (button) ->
+      keyname = I.buttonMapping[button]
+
+      return justReleased[keyname]
+
     position: (stick=0) ->
       [x, y] = I.axisMapping.map ([negative, positive]) ->
         keydown[positive] - keydown[negative]

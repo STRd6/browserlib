@@ -10,11 +10,20 @@ Gamepads.CombinedController = (sources...) ->
       sources.inject false, (memo, source) ->
         memo or source.buttonPressed(button)
 
+    # true if button was just released
+    buttonReleased: (button) ->
+      sources.inject false, (memo, source) ->
+        memo or source.buttonPressed(button)
+
     position: (stick=0) ->
       raw = sources.inject Point(0, 0), (point, source) ->
         point.add(source.position(stick))
 
-      raw.norm()
+      # TODO: This could be a point method
+      if raw.length() > 1
+        raw.norm()
+      else
+        raw
 
     tap: ->
       raw = sources.inject Point(0, 0), (point, source) ->

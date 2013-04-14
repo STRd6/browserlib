@@ -21,7 +21,7 @@ $ ->
   ###
 
   ###*
-  The global justPressed property lets your query the status of keys. However, 
+  The global justPressed property lets your query the status of keys. However,
   unlike keydown it will only trigger once for each time the key is pressed.
 
   <code><pre>
@@ -43,6 +43,7 @@ $ ->
   ###
   window.keydown = {}
   window.justPressed = {}
+  window.justReleased = {}
 
   prevKeysDown = {}
 
@@ -60,10 +61,12 @@ $ ->
 
   window.updateKeys = () ->
     window.justPressed = {}
+    window.justReleased = {}
     keydown.any = false
 
     for key, value of keydown
-      justPressed[key] = value unless prevKeysDown[key]
+      justPressed[key] = value and !prevKeysDown[key]
+      justReleased[key] = !value and prevKeysDown[key]
 
       justPressed.any = true if (justPressed[key] || mousePressed.left || mousePressed.right)
       keydown.any = true if (value || mouseDown.left || mouseDown.right)
